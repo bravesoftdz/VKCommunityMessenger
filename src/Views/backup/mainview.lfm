@@ -1,0 +1,8 @@
+object fMainView: TfMainView
+  Left = 273
+  Height = 733
+  Top = 160
+  Width = 1314
+  Caption = 'VKCommunitySender'
+  LCLVersion = '1.6.2.0'
+end
