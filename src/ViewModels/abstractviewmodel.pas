@@ -1,4 +1,4 @@
-unit Model;
+unit AbstractViewModel;
 
 {$mode objfpc}{$H+}
 
@@ -8,7 +8,7 @@ uses
   Classes, SysUtils;
 
 type
-  IModel = interface
+  IViewModel = interface
 
   end;
 

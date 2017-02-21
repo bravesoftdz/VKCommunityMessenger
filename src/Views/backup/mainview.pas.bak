@@ -5,14 +5,19 @@ unit MainView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, MainViewModel;
 
 type
+
+  { TfMainView }
+
   TfMainView = class(TForm)
   private
-    { private declarations }
+    FViewModel: IMainViewModel;
+    procedure SetViewModel(AValue: IMainViewModel);
+
   public
-    { public declarations }
+    property ViewModel: IMainViewModel read FViewModel write SetViewModel;
   end;
 
 var
@@ -21,6 +26,14 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TfMainView }
+
+procedure TfMainView.SetViewModel(AValue: IMainViewModel);
+begin
+  if FViewModel=AValue then Exit;
+  FViewModel:=AValue;
+end;
 
 end.
 

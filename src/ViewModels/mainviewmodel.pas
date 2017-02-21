@@ -5,7 +5,12 @@ unit MainViewModel;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, AbstractViewModel;
+
+type
+  IMainViewModel = interface(IViewModel)
+
+  end;
 
 implementation
 

@@ -8,7 +8,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Forms,
   MainView { you can add units after this },
   Controls,
-  Graphics, MainViewModel, Model;
+  Graphics, MainViewModel, Model, AbstractViewModel;
 
 {$R *.res}
 
