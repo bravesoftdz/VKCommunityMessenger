@@ -5,11 +5,11 @@ unit MainViewModel;
 interface
 
 uses
-  Classes, SysUtils, AbstractViewModel;
+  Classes, SysUtils, AbstractViewModel, Controls;
 
 type
   IMainViewModel = interface(IViewModel)
-
+     procedure FillImageCommunitiesList(var List: TImageList);
   end;
 
 implementation

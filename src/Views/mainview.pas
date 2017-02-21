@@ -5,13 +5,18 @@ unit MainView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, MainViewModel;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
+  ActnList, MainViewModel;
 
 type
 
   { TfMainView }
 
   TfMainView = class(TForm)
+    GroupsActionList: TActionList;
+    GroupsImageList: TImageList;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
   private
     FViewModel: IMainViewModel;
     procedure SetViewModel(AValue: IMainViewModel);
