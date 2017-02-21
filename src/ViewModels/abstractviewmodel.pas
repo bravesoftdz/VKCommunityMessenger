@@ -5,11 +5,16 @@ unit AbstractViewModel;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, Model;
 
 type
-  IViewModel = interface
 
+  { IViewModel }
+
+  IViewModel = interface
+    function GetModel: IModel;
+    procedure SetModel(AValue: IModel);
+    property Model: IModel read GetModel write SetModel;
   end;
 
 implementation

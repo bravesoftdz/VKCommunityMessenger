@@ -6,7 +6,7 @@ object fMainView: TfMainView
   Caption = 'VKCommunitySender'
   ClientHeight = 733
   ClientWidth = 1314
-  Color = clSkyBlue
+  Color = 16113353
   Position = poDefault
   LCLVersion = '1.6.2.0'
   WindowState = wsMaximized
@@ -21,20 +21,20 @@ object fMainView: TfMainView
     Caption = 'ToolBar1'
     Color = 15248245
     EdgeInner = esNone
-    Images = GroupsImageList
+    Images = CommunitiesImageList
     ParentColor = False
     TabOrder = 0
     object ToolButton1: TToolButton
       Left = 1
       Top = 1
-      Caption = 'ToolButton1'
+      Caption = 'NewCommunity'
       ImageIndex = 0
     end
   end
-  object GroupsImageList: TImageList
+  object CommunitiesImageList: TImageList
     Height = 120
     Width = 120
-    left = 192
+    left = 216
     top = 16
     Bitmap = {
       4C69010000007800000078000000000000000000000000000000000000000000
@@ -1839,9 +1839,5 @@ object fMainView: TfMainView
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000
     }
-  end
-  object GroupsActionList: TActionList
-    left = 192
-    top = 96
   end
 end

@@ -5,11 +5,19 @@ unit Model;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, entities;
 
 type
-  IModel = interface
 
+  { IModel }
+
+  IModel = interface
+    function GetAccessToken: string;
+    procedure SetAccessToken(AValue: string);
+    property AccessToken: string read GetAccessToken write SetAccessToken;
+    function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
+    procedure SaveCommunityInfoLocally(Communty: TCommunity);
+    function GetCommunities: TCommunityList;
   end;
 
 implementation
