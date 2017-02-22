@@ -15,7 +15,6 @@ type
   TfMainView = class(TForm)
     CommunitiesImageList: TImageList;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
     procedure ChangeWorkspaceExecute(Sender: TObject);
     procedure AddNewCommunity(Sender: TObject);
     procedure PrepareWorkspaceForCommunity(Sender: TObject);
@@ -25,10 +24,11 @@ type
   public
     property ViewModel: IMainViewModel read FViewModel write SetViewModel;
     procedure InitializeForm;
+    procedure AddNewCommunityButton;
   end;
 
 var
-  fMainView: TfMainView;
+  LMainView: TfMainView;
 
 implementation
 
@@ -64,13 +64,18 @@ var
   NewButton: TToolButton;
 begin
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
-  for i := 1 to CommunitiesImageList.Count - 1 do
+  for i := 0 to CommunitiesImageList.Count - 1 do
   begin
     NewButton := TToolButton.Create(ToolBar1);
     NewButton.ImageIndex := i;
     NewButton.Parent := ToolBar1;
   end;
-  ToolButton1.OnClick := @AddNewCommunity;
+  AddNewCommunityButton;
+end;
+
+procedure TfMainView.AddNewCommunityButton;
+begin
+
 end;
 
 end.

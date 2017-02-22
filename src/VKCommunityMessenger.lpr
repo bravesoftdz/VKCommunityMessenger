@@ -11,7 +11,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Graphics,
   MainViewModel,
   Model,
-  AbstractViewModel, entities;
+  AbstractViewModel,
+  entities;
 
 {$R *.res}
 
@@ -19,16 +20,18 @@ begin
   RequireDerivedFormResource := True;
 
   {Create models and viewmodels}
-  LMainViewModel:=TMainViewModel.Create;
+  LMainViewModel := TMainViewModel.Create;
+  LModel := TModel.Create;
 
   Application.Initialize;
 
   {Create views}
-  Application.CreateForm(TfMainView, fMainView);
+  Application.CreateForm(TfMainView, LMainView);
 
   {Bind mvvm}
-  fMainView.ViewModel:=LMainViewModel;
-  fMainView.InitializeForm;
+  LMainViewModel.Model := LModel;
+  LMainView.ViewModel := LMainViewModel;
 
+  LMainView.InitializeForm;
   Application.Run;
 end.

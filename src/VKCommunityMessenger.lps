@@ -4,13 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="8">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="4"/>
-        <CursorPos X="39" Y="30"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="10"/>
+        <CursorPos Y="35"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,9 +22,9 @@
         <UnitName Value="MainView"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="46"/>
-        <CursorPos X="28" Y="64"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="54"/>
+        <CursorPos X="3" Y="78"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -33,9 +33,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainViewModel"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="10"/>
-        <CursorPos X="38" Y="27"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="39"/>
+        <CursorPos X="7" Y="62"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -43,8 +43,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Model"/>
         <EditorIndex Value="4"/>
-        <CursorPos X="47" Y="20"/>
-        <UsageCount Value="26"/>
+        <TopLine Value="47"/>
+        <CursorPos X="25" Y="67"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -53,138 +54,151 @@
         <UnitName Value="AbstractViewModel"/>
         <EditorIndex Value="3"/>
         <CursorPos X="26" Y="17"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="Models\entities.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="9" Y="36"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="22"/>
+        <UsageCount Value="24"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="374"/>
+        <CursorPos Y="388"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="384"/>
+        <CursorPos Y="401"/>
+        <UsageCount Value="10"/>
+      </Unit7>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="24" Column="89" TopLine="13"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="42" TopLine="35"/>
       </Position1>
       <Position2>
-        <Filename Value="Models\model.pas"/>
-        <Caret Line="17" Column="76"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="55" TopLine="35"/>
       </Position2>
       <Position3>
-        <Filename Value="Models\model.pas"/>
-        <Caret Line="18" Column="66"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="57" TopLine="35"/>
       </Position3>
       <Position4>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="12" Column="63"/>
+        <Caret Line="58" TopLine="35"/>
       </Position4>
       <Position5>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="15" Column="28"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="61" TopLine="38"/>
       </Position5>
       <Position6>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="38" Column="58" TopLine="18"/>
+        <Filename Value="Models\model.pas"/>
+        <Caret Line="58" Column="23" TopLine="44"/>
       </Position6>
       <Position7>
         <Filename Value="Views\mainview.pas"/>
-        <Caret Line="39" Column="53" TopLine="19"/>
+        <Caret Line="65" TopLine="47"/>
       </Position7>
       <Position8>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="40" Column="53" TopLine="20"/>
+        <Filename Value="VKCommunityMessenger.lpr"/>
+        <Caret Line="35" TopLine="10"/>
       </Position8>
       <Position9>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="41" Column="53" TopLine="21"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="49" TopLine="38"/>
       </Position9>
       <Position10>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="40" Column="53" TopLine="20"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="54" TopLine="38"/>
       </Position10>
       <Position11>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="39" Column="53" TopLine="19"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="40" TopLine="35"/>
       </Position11>
       <Position12>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="40" Column="53" TopLine="20"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="41" TopLine="35"/>
       </Position12>
       <Position13>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="42" Column="53" TopLine="21"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="42" TopLine="35"/>
       </Position13>
       <Position14>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="53" Column="3" TopLine="28"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="55" TopLine="35"/>
       </Position14>
       <Position15>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="48" Column="3" TopLine="33"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="57" TopLine="35"/>
       </Position15>
       <Position16>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="47" Column="3" TopLine="32"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="58" TopLine="35"/>
       </Position16>
       <Position17>
         <Filename Value="Views\mainview.pas"/>
-        <Caret Line="46" Column="3" TopLine="31"/>
+        <Caret Line="64" Column="55" TopLine="47"/>
       </Position17>
       <Position18>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="45" Column="3" TopLine="30"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="49" Column="26" TopLine="38"/>
       </Position18>
       <Position19>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="46" Column="3" TopLine="31"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="54" TopLine="38"/>
       </Position19>
       <Position20>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="23" Column="61" TopLine="7"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="40" TopLine="35"/>
       </Position20>
       <Position21>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="47" Column="22" TopLine="36"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="41" TopLine="35"/>
       </Position21>
       <Position22>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="17" Column="5"/>
+        <Caret Line="42" TopLine="35"/>
       </Position22>
       <Position23>
-        <Filename Value="ViewModels\abstractviewmodel.pas"/>
-        <Caret Line="17" Column="57"/>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="55" TopLine="35"/>
       </Position23>
       <Position24>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="23" Column="55"/>
+        <Caret Line="57" TopLine="35"/>
       </Position24>
       <Position25>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="24" Column="41" TopLine="12"/>
+        <Caret Line="58" TopLine="35"/>
       </Position25>
       <Position26>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="44" Column="3" TopLine="18"/>
+        <Caret Line="61" TopLine="38"/>
       </Position26>
       <Position27>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="8" Column="56" TopLine="3"/>
+        <Caret Line="58" Column="25" TopLine="38"/>
       </Position27>
       <Position28>
-        <Filename Value="Models\model.pas"/>
-        <Caret Line="20" Column="47"/>
-      </Position28>
-      <Position29>
-        <Filename Value="VKCommunityMessenger.lpr"/>
-        <Caret Line="19" Column="40" TopLine="3"/>
-      </Position29>
-      <Position30>
         <Filename Value="Views\mainview.pas"/>
-        <Caret Line="26" Column="30" TopLine="6"/>
-      </Position30>
+        <Caret Line="27" Column="37" TopLine="14"/>
+      </Position28>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="CommunitiesImageList"/>
+      </Item1>
+    </Watches>
+  </Debugging>
 </CONFIG>

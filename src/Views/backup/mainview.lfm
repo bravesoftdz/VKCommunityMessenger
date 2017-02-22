@@ -24,12 +24,6 @@ object fMainView: TfMainView
     Images = CommunitiesImageList
     ParentColor = False
     TabOrder = 0
-    object ToolButton1: TToolButton
-      Left = 1
-      Top = 1
-      Caption = 'NewCommunity'
-      ImageIndex = 0
-    end
   end
   object CommunitiesImageList: TImageList
     Height = 120
