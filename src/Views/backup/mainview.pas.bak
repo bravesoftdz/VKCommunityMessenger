@@ -16,7 +16,6 @@ type
     CommunitiesImageList: TImageList;
     ToolBar1: TToolBar;
     procedure ChangeWorkspaceExecute(Sender: TObject);
-    procedure AddNewCommunity(Sender: TObject);
     procedure PrepareWorkspaceForCommunity(Sender: TObject);
   private
     FViewModel: IMainViewModel;
@@ -35,11 +34,6 @@ implementation
 {$R *.lfm}
 
 { TfMainView }
-
-procedure TfMainView.AddNewCommunity(Sender: TObject);
-begin
-
-end;
 
 procedure TfMainView.PrepareWorkspaceForCommunity(Sender: TObject);
 begin
@@ -64,13 +58,23 @@ var
   NewButton: TToolButton;
 begin
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
-  for i := 0 to CommunitiesImageList.Count - 1 do
+  {1, becuase index 0 stands for new community icon}
+  for i := 1 to CommunitiesImageList.Count - 1 do
   begin
     NewButton := TToolButton.Create(ToolBar1);
     NewButton.ImageIndex := i;
     NewButton.Parent := ToolBar1;
   end;
   AddNewCommunityButton;
+end;
+
+procedure TfMainView.AddNewCommunityButton;
+var
+  NewButton: TToolButton;
+begin
+  NewButton := TToolButton.Create(Toolbar1);
+  NewButton.ImageIndex:=0;
+  NewButton.Parent;
 end;
 
 end.

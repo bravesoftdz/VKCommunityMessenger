@@ -44,11 +44,16 @@ end;
 procedure TMainViewModel.FillImageCommunitiesList(var ImageList: TImageList);
 var CommunitiesList: TCommunityList;
     i: integer;
-    Picture, NoPhoto: TPicture;
+    Picture, NoPhoto, NewCommunity: TPicture;
 begin
   ImageList.Clear;
 
   {Prepare preload avatars}
+  NoPhoto := Model.GetNoPhotoAvatar;
+
+  {First image - new community button}
+  NewCommunity := Model.GetAddNewCommunityPhoto;
+  ImageList.Add(NewCommunity.Bitmap,nil);
 
   {Get pictures from local storage}
   CommunitiesList:=Model.GetCommunitiesLocal;
