@@ -11,13 +11,21 @@ type
 
   { IModel }
 
+  {Interface for models with long comments}
   IModel = interface
+    {Returns full information about community}
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
-    procedure SaveCommunityInfoLocally(Communty: TCommunity);
-    function GetCommunitiesLocal: TCommunityList;
-    function GetCommunityLocal(Name: string): TCommunity;
+    {Saves community information in local databse}
+    procedure SaveCommunityInfo(Communty: TCommunity);
+    {Reads access keys from local database and loads community information from internet
+     or (in case when there is no internet) from local storage}
+    function GetCommunities: TCommunityList;
+    {Returns photo that is used as avatar for communities with no photo}
     function GetNoPhotoAvatar: TPicture;
+    {Returns photo for "Add new community" button}
     function GetAddNewCommunityPhoto: TPicture;
+    {Loads frame image for toolbar}
+    function LoadFrameImage: TPicture;
   end;
 
   { TModel }
@@ -25,11 +33,11 @@ type
   TModel = class(TInterfacedObject, IModel)
   public
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
-    procedure SaveCommunityInfoLocally(Communty: TCommunity);
-    function GetCommunitiesLocal: TCommunityList;
-    function GetCommunityLocal(Name: string): TCommunity;
+    procedure SaveCommunityInfo(Communty: TCommunity);
+    function GetCommunities: TCommunityList;
     function GetNoPhotoAvatar: TPicture;
     function GetAddNewCommunityPhoto: TPicture;
+    function LoadFrameImage: TPicture;
   end;
 
 var
@@ -45,12 +53,12 @@ begin
 
 end;
 
-procedure TModel.SaveCommunityInfoLocally(Communty: TCommunity);
+procedure TModel.SaveCommunityInfo(Communty: TCommunity);
 begin
 
 end;
 
-function TModel.GetCommunitiesLocal: TCommunityList;
+function TModel.GetCommunities: TCommunityList;
 var
   Community: TCommunity;
   Photo: TPicture;
@@ -72,6 +80,18 @@ begin
   Result.Add(Community);
 
   Community := TCommunity.Create;
+  Community.HasPhoto := True;
+  Community.Photo := TPicture.Create;
+  Community.Photo.LoadFromFile('testdata\itc.jpg');
+  Community.AccessKey := 'thgo453zht';
+  Community.CommunityType := ctEvent;
+  Community.Deactivated := False;
+  Community.Id := '6666676769';
+  Community.IsClosed := False;
+  Community.Name := 'ITc';
+  Community.ScreenName := 'its';
+  Result.Add(Community);
+
   Community := TCommunity.Create;
   Community.HasPhoto := False;
   Community.AccessKey := 'gjkls4784nkl';
@@ -84,10 +104,6 @@ begin
   Result.Add(Community);
 end;
 
-function TModel.GetCommunityLocal(Name: string): TCommunity;
-begin
-
-end;
 
 function TModel.GetNoPhotoAvatar: TPicture;
 begin
@@ -99,6 +115,12 @@ function TModel.GetAddNewCommunityPhoto: TPicture;
 begin
   Result := TPicture.Create;
   Result.LoadFromFile('img/newuser.bmp');
+end;
+
+function TModel.LoadFrameImage: TPicture;
+begin
+  Result := TPicture.Create;
+  Result.LoadFromFile('img/frame.bmp');
 end;
 
 end.
