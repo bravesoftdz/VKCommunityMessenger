@@ -8,6 +8,7 @@
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="38" Y="20"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
@@ -20,7 +21,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainView"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="37"/>
         <CursorPos X="29" Y="77"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
@@ -30,10 +30,8 @@
         <Filename Value="ViewModels\mainviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainViewModel"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="56"/>
-        <CursorPos X="37" Y="83"/>
+        <CursorPos X="49" Y="88"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -41,16 +39,16 @@
         <Filename Value="Models\model.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Model"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="13"/>
-        <CursorPos X="14" Y="28"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="25" Y="63"/>
         <UsageCount Value="32"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="ViewModels\abstractviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="AbstractViewModel"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="26" Y="17"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
@@ -195,7 +193,7 @@
       </Position25>
       <Position26>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="60" Column="12" TopLine="65"/>
+        <Caret Line="88" Column="49" TopLine="13"/>
       </Position26>
     </JumpHistory>
   </ProjectSession>

@@ -61,7 +61,6 @@ end;
 function TModel.GetCommunities: TCommunityList;
 var
   Community: TCommunity;
-  Photo: TPicture;
 begin
   Result := TCommunityList.Create;
 
