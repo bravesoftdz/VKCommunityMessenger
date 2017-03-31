@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel;
+  ActnList, MainViewModel, welcomepageview;
 
 type
 
@@ -14,6 +14,7 @@ type
 
   TfMainView = class(TForm)
     CommunitiesImageList: TImageList;
+    Frame1_1: TFrame1;
     ToolBar1: TToolBar;
     procedure ChangeWorkspaceExecute(Sender: TObject);
     procedure PrepareWorkspaceForCommunity(Sender: TObject);

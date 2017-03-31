@@ -5,7 +5,8 @@ unit MainViewModel;
 interface
 
 uses
-  Classes, SysUtils, AbstractViewModel, Controls, Model, entities, Graphics;
+  Classes, SysUtils, AbstractViewModel, Controls, AbstractModel,
+  MainModel, entities, Graphics;
 
 type
   IMainViewModel = interface(IViewModel)
@@ -32,6 +33,15 @@ implementation
 
 { TMainViewModel }
 
+procedure TMainViewModel.ResizeBitmap(Bitmap: TBitmap;
+  const NewWidth, NewHeight: integer);
+begin
+  Bitmap.Canvas.StretchDraw(
+    Rect(0, 0, NewWidth, NewHeight),
+    Bitmap);
+  Bitmap.SetSize(NewWidth, NewHeight);
+end;
+
 procedure TMainViewModel.SetModel(AValue: IModel);
 begin
   if FModel = AValue then
@@ -44,15 +54,6 @@ begin
   Result := FModel;
 end;
 
-procedure TMainViewModel.ResizeBitmap(Bitmap: TBitmap;
-  const NewWidth, NewHeight: integer);
-begin
-  Bitmap.Canvas.StretchDraw(
-    Rect(0, 0, NewWidth, NewHeight),
-    Bitmap);
-  Bitmap.SetSize(NewWidth, NewHeight);
-end;
-
 procedure TMainViewModel.FillImageCommunitiesList(var ImageList: TImageList);
 var
   CommunitiesList: TCommunityList;
@@ -63,17 +64,17 @@ begin
   ImageList.Clear;
 
   {Prepare preload avatars}
-  NoPhoto := Model.GetNoPhotoAvatar;
+  NoPhoto := (Model as TMainModel).GetNoPhotoAvatar;
 
   {First image - new community button}
-  NewCommunity := Model.GetAddNewCommunityPhoto;
+  NewCommunity := (Model as TMainModel).GetAddNewCommunityPhoto;
   ImageList.Add(NewCommunity.Bitmap, nil);
 
   {Load frame for avatars}
-  Frame := Model.LoadFrameImage;
+  Frame := (Model as TMainModel).LoadFrameImage;
 
   {Get pictures from local storage}
-  CommunitiesList := Model.GetCommunities;
+  CommunitiesList := (Model as TMainModel).GetCommunities;
   for i := 0 to CommunitiesList.Count - 1 do
   begin
     {Load photo or set default photo}

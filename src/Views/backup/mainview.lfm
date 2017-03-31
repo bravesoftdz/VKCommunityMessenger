@@ -1,14 +1,14 @@
 object fMainView: TfMainView
-  Left = 273
+  Left = 291
   Height = 733
-  Top = 160
+  Top = 276
   Width = 1314
   Caption = 'VKCommunitySender'
   ClientHeight = 733
   ClientWidth = 1314
   Color = 16113353
   Position = poDefault
-  LCLVersion = '1.6.2.0'
+  LCLVersion = '1.6.4.0'
   WindowState = wsMaximized
   object ToolBar1: TToolBar
     Left = 0
@@ -28,8 +28,8 @@ object fMainView: TfMainView
   object CommunitiesImageList: TImageList
     Height = 120
     Width = 120
-    left = 216
-    top = 16
+    left = 40
+    top = 24
     Bitmap = {
       4C69010000007800000078000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

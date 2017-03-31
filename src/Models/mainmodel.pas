@@ -1,18 +1,18 @@
-unit Model;
+unit MainModel;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, entities, Graphics;
+  Classes, SysUtils, entities, Graphics, AbstractModel;
 
 type
 
-  { IModel }
+  { IMainModel }
 
-  {Interface for models with long comments}
-  IModel = interface
+  {Interface for mainview's model with long comments}
+  IMainModel = interface(IModel)
     {Returns full information about community}
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
     {Saves community information in local databse}
@@ -28,9 +28,9 @@ type
     function LoadFrameImage: TPicture;
   end;
 
-  { TModel }
+  { TMainModel }
 
-  TModel = class(TInterfacedObject, IModel)
+  TMainModel = class(TInterfacedObject, IMainModel)
   public
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
     procedure SaveCommunityInfo(Communty: TCommunity);
@@ -41,24 +41,24 @@ type
   end;
 
 var
-  LModel: TModel;
+  LModel: TMainModel;
 
 implementation
 
-{ TModel }
+{ TMainModel }
 
-function TModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
+function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
 TCommunity;
 begin
 
 end;
 
-procedure TModel.SaveCommunityInfo(Communty: TCommunity);
+procedure TMainModel.SaveCommunityInfo(Communty: TCommunity);
 begin
 
 end;
 
-function TModel.GetCommunities: TCommunityList;
+function TMainModel.GetCommunities: TCommunityList;
 var
   Community: TCommunity;
 begin
@@ -104,19 +104,19 @@ begin
 end;
 
 
-function TModel.GetNoPhotoAvatar: TPicture;
+function TMainModel.GetNoPhotoAvatar: TPicture;
 begin
   Result := TPicture.Create;
   Result.LoadFromFile('img/noavatar.bmp');
 end;
 
-function TModel.GetAddNewCommunityPhoto: TPicture;
+function TMainModel.GetAddNewCommunityPhoto: TPicture;
 begin
   Result := TPicture.Create;
   Result.LoadFromFile('img/newuser.bmp');
 end;
 
-function TModel.LoadFrameImage: TPicture;
+function TMainModel.LoadFrameImage: TPicture;
 begin
   Result := TPicture.Create;
   Result.LoadFromFile('img/frame.bmp');

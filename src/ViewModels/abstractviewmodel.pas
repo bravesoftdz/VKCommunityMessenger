@@ -5,7 +5,7 @@ unit AbstractViewModel;
 interface
 
 uses
-  Classes, SysUtils, Model;
+  Classes, SysUtils, AbstractModel;
 
 type
 

@@ -74,7 +74,7 @@ var
 begin
   NewButton := TToolButton.Create(Toolbar1);
   NewButton.ImageIndex:=0;
-  NewButton.Parent;
+  NewButton.Parent:=ToolBar1;
 end;
 
 end.

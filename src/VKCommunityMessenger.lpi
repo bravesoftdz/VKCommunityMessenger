@@ -36,7 +36,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="8">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -55,9 +55,9 @@
         <UnitName Value="MainViewModel"/>
       </Unit2>
       <Unit3>
-        <Filename Value="Models\model.pas"/>
+        <Filename Value="Models\mainmodel.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Model"/>
+        <UnitName Value="MainModel"/>
       </Unit3>
       <Unit4>
         <Filename Value="ViewModels\abstractviewmodel.pas"/>
@@ -68,6 +68,17 @@
         <Filename Value="Models\entities.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="Views\welcomepageview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Frame1"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="Models\abstractmodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="AbstractModel"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

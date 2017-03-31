@@ -10,9 +10,11 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Controls,
   Graphics,
   MainViewModel,
-  Model,
+  MainModel,
   AbstractViewModel,
-  entities;
+  entities,
+  welcomepageview,
+  AbstractModel;
 
 {$R *.res}
 
@@ -21,7 +23,7 @@ begin
 
   {Create models and viewmodels}
   LMainViewModel := TMainViewModel.Create;
-  LModel := TModel.Create;
+  LModel := TMainModel.Create;
 
   Application.Initialize;
 
