@@ -3,6 +3,7 @@ object Frame1: TFrame1
   Height = 507
   Top = 0
   Width = 796
+  Align = alClient
   ClientHeight = 507
   ClientWidth = 796
   TabOrder = 0
@@ -14,7 +15,7 @@ object Frame1: TFrame1
     Top = 40
     Width = 740
     Anchors = [akTop, akLeft, akRight]
-    Caption = 'Добро пожаловать в VKCommunityMessenger!'
+    Caption = 'Caption'
     Font.CharSet = ANSI_CHARSET
     Font.Height = -28
     Font.Name = 'Arial'
@@ -32,7 +33,7 @@ object Frame1: TFrame1
     Width = 740
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = False
-    Caption = 'Нажмите на +, чтобы добавить новое сообщество. Для добавления сообщества необходим ключ доступа к сообществу, который вы можете создать в настройках сообщества в разделе "Работа с API"'
+    Caption = 'Text'
     Font.CharSet = RUSSIAN_CHARSET
     Font.Height = -24
     Font.Name = 'Segoe UI'
@@ -41,6 +42,5 @@ object Frame1: TFrame1
     ParentColor = False
     ParentFont = False
     WordWrap = True
-    OnResize = IntroductionTextResize
   end
 end

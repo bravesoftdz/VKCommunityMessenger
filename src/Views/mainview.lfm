@@ -25,13 +25,6 @@ object fMainView: TfMainView
     ParentColor = False
     TabOrder = 0
   end
-  inline Frame1_1: TFrame1
-    Left = 120
-    Height = 733
-    Width = 1194
-    Align = alClient
-    TabOrder = 1
-  end
   object CommunitiesImageList: TImageList
     Height = 120
     Width = 120

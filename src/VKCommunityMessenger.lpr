@@ -14,7 +14,9 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   AbstractViewModel,
   entities,
   welcomepageview,
-  AbstractModel;
+  AbstractModel,
+  welcomepageviewmodel,
+  welcomepagemodel;
 
 {$R *.res}
 
@@ -23,17 +25,24 @@ begin
 
   {Create models and viewmodels}
   LMainViewModel := TMainViewModel.Create;
-  LModel := TMainModel.Create;
+  LMainModel := TMainModel.Create;
+  LWelcomePageModel := TWelcomePageModel.Create;
+  LWelcomePageViewModel := TWelcomePageViewModel.Create;
 
   Application.Initialize;
 
   {Create views}
   Application.CreateForm(TfMainView, LMainView);
+  LWelcomePageView := TFrame1.Create(LMainView);
+  LWelcomePageView.Parent := LMainView;
 
   {Bind mvvm}
-  LMainViewModel.Model := LModel;
+  LMainViewModel.Model := LMainModel;
   LMainView.ViewModel := LMainViewModel;
+  LWelcomePageView.ViewModel := LWelcomePageViewModel;
+  LWelcomePageViewModel.Model := LWelcomePageModel;
 
+  LWelcomePageView.InitializeFrame;
   LMainView.InitializeForm;
   Application.Run;
 end.

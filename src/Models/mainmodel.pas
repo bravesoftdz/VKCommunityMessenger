@@ -41,7 +41,7 @@ type
   end;
 
 var
-  LModel: TMainModel;
+  LMainModel: TMainModel;
 
 implementation
 

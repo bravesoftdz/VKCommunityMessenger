@@ -5,7 +5,8 @@ unit welcomepageview;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
+  welcomepageviewmodel;
 
 type
 
@@ -14,12 +15,16 @@ type
   TFrame1 = class(TFrame)
     WelcomeLabel: TLabel;
     IntroductionText: TLabel;
-    procedure IntroductionTextResize(Sender: TObject);
   private
+    FViewModel: IWelcomePageViewModel;
+    procedure SetViewModel(AValue: IWelcomePageViewModel);
     { private declarations }
   public
     procedure InitializeFrame;
+    property ViewModel: IWelcomePageViewModel read FViewModel write SetViewModel;
   end;
+
+var LWelcomePageView: TFrame1;
 
 implementation
 
@@ -27,14 +32,16 @@ implementation
 
 { TFrame1 }
 
-procedure TFrame1.IntroductionTextResize(Sender: TObject);
+procedure TFrame1.SetViewModel(AValue: IWelcomePageViewModel);
 begin
-
+  if FViewModel=AValue then Exit;
+  FViewModel:=AValue;
 end;
 
 procedure TFrame1.InitializeFrame;
 begin
-
+  WelcomeLabel.Caption:=ViewModel.GetWelcomeCaption;
+  IntroductionText.Caption:=ViewModel.GetWelcomeText;
 end;
 
 end.
