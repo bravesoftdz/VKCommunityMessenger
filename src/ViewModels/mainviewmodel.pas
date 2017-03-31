@@ -15,7 +15,7 @@ type
 
   { TMainViewModel }
 
-  TMainViewModel = class(TInterfacedObject, IMainViewModel)
+  TMainViewModel = class(TInterfacedObject, IMainViewModel, IViewModel)
   private
     FModel: IModel;
     procedure SetModel(AValue: IModel);

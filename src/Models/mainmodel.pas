@@ -30,7 +30,7 @@ type
 
   { TMainModel }
 
-  TMainModel = class(TInterfacedObject, IMainModel)
+  TMainModel = class(TInterfacedObject, IMainModel, IModel)
   public
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
     procedure SaveCommunityInfo(Communty: TCommunity);
