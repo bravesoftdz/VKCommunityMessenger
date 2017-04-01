@@ -8,8 +8,7 @@
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="20"/>
+        <TopLine Value="18"/>
         <CursorPos X="40" Y="37"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
@@ -69,7 +68,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="3" Y="15"/>
+        <TopLine Value="18"/>
+        <CursorPos X="39" Y="46"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -83,51 +83,52 @@
         <UsageCount Value="24"/>
       </Unit7>
       <Unit8>
+        <Filename Value="ViewModels\welcomepageviewmodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="38"/>
+        <CursorPos X="49" Y="65"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="Models\welcomepagemodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="24"/>
+        <CursorPos X="32" Y="52"/>
+        <UsageCount Value="22"/>
+        <Loaded Value="True"/>
+      </Unit9>
+      <Unit10>
         <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="374"/>
         <CursorPos Y="388"/>
         <UsageCount Value="10"/>
-      </Unit8>
-      <Unit9>
+      </Unit10>
+      <Unit11>
         <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="384"/>
         <CursorPos Y="401"/>
         <UsageCount Value="10"/>
-      </Unit9>
-      <Unit10>
+      </Unit11>
+      <Unit12>
         <Filename Value="C:\lazarus\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="917"/>
         <CursorPos X="3" Y="939"/>
         <UsageCount Value="10"/>
-      </Unit10>
-      <Unit11>
+      </Unit12>
+      <Unit13>
         <Filename Value="C:\lazarus\fpc\3.0.2\source\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="406"/>
         <CursorPos X="3" Y="428"/>
         <UsageCount Value="10"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="ViewModels\welcomepageviewmodel.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="33"/>
-        <CursorPos X="24" Y="30"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="Models\welcomepagemodel.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="19"/>
-        <CursorPos Y="44"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
@@ -137,7 +138,7 @@
         <UsageCount Value="10"/>
       </Unit14>
     </Units>
-    <JumpHistory Count="20" HistoryIndex="19">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="Views\welcomepageview.pas"/>
         <Caret Line="50" TopLine="26"/>
@@ -218,6 +219,18 @@
         <Filename Value="Views\mainview.pas"/>
         <Caret Line="16" Column="38" TopLine="3"/>
       </Position20>
+      <Position21>
+        <Filename Value="Views\welcomepageview.pas"/>
+        <Caret Line="15" Column="3"/>
+      </Position21>
+      <Position22>
+        <Filename Value="Models\welcomepagemodel.pas"/>
+        <Caret Line="25" Column="30" TopLine="7"/>
+      </Position22>
+      <Position23>
+        <Filename Value="ViewModels\welcomepageviewmodel.pas"/>
+        <Caret Line="30" Column="30" TopLine="15"/>
+      </Position23>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

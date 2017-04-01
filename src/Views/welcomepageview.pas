@@ -13,6 +13,7 @@ type
   { TFrame1 }
 
   TFrame1 = class(TFrame)
+    NewsLabel: TLabel;
     WelcomeLabel: TLabel;
     IntroductionText: TLabel;
   private
@@ -42,6 +43,7 @@ procedure TFrame1.InitializeFrame;
 begin
   WelcomeLabel.Caption:=ViewModel.GetWelcomeCaption;
   IntroductionText.Caption:=ViewModel.GetWelcomeText;
+  NewsLabel.Caption:=ViewModel.GetNews;
 end;
 
 end.

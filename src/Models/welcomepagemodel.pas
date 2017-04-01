@@ -14,6 +14,8 @@ type
     function GetWelcomeTitle: string;
     {Returns a text of welcome page}
     function GetWelcomeText: string;
+    {Returns text with news}
+    function GetNews: string;
   end;
 
   { TWelcomePageModel }
@@ -21,6 +23,7 @@ type
   TWelcomePageModel = class(TInterfacedObject, IWelcomePageModel, IModel)
     function GetWelcomeTitle: string;
     function GetWelcomeText: string;
+    function GetNews: string;
   end;
 
 var
@@ -41,6 +44,12 @@ begin
     'Нажмите на +, чтобы добавить новое сообщество.' +
     'Для добавления сообщества необходим ключ доступа к сообществу,' +
     'который вы можете создать в настройках сообщества в разделе "Работа с API"';
+end;
+
+function TWelcomePageModel.GetNews: string;
+begin
+  Result := 'На данный момент продукт находится в разработке. ' +
+            'Процесс разработки можно отслеживать в нашем Github репозитории.';
 end;
 
 end.

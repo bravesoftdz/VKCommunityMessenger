@@ -1,11 +1,11 @@
 object Frame1: TFrame1
   Left = 0
-  Height = 507
+  Height = 629
   Top = 0
-  Width = 796
+  Width = 1143
   Align = alClient
-  ClientHeight = 507
-  ClientWidth = 796
+  ClientHeight = 629
+  ClientWidth = 1143
   TabOrder = 0
   DesignLeft = 308
   DesignTop = 165
@@ -13,7 +13,7 @@ object Frame1: TFrame1
     Left = 30
     Height = 33
     Top = 40
-    Width = 740
+    Width = 1087
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Caption'
     Font.CharSet = ANSI_CHARSET
@@ -27,10 +27,11 @@ object Frame1: TFrame1
     WordWrap = True
   end
   object IntroductionText: TLabel
+    AnchorSideBottom.Control = NewsLabel
     Left = 30
-    Height = 353
+    Height = 176
     Top = 128
-    Width = 740
+    Width = 1087
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = False
     Caption = 'Text'
@@ -41,6 +42,17 @@ object Frame1: TFrame1
     Font.Quality = fqDraft
     ParentColor = False
     ParentFont = False
+    WordWrap = True
+  end
+  object NewsLabel: TLabel
+    Left = 30
+    Height = 301
+    Top = 304
+    Width = 1088
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = False
+    Caption = 'News'
+    ParentColor = False
     WordWrap = True
   end
 end

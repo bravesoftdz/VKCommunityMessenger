@@ -13,6 +13,8 @@ type
     function GetWelcomeCaption: string;
     {Returns content of welcome paged}
     function GetWelcomeText: string;
+    {Returns text with all news}
+    function GetNews: string;
   end;
 
   { TWelcomePageViewModel }
@@ -25,6 +27,7 @@ type
   public
     function GetWelcomeCaption: string;
     function GetWelcomeText: string;
+    function GetNews: string;
     property Model: IModel read GetModel write SetModel;
   end;
 
@@ -55,6 +58,11 @@ end;
 function TWelcomePageViewModel.GetWelcomeText: string;
 begin
   Result := (Model as TWelcomePageModel).GetWelcomeText;
+end;
+
+function TWelcomePageViewModel.GetNews: string;
+begin
+  Result := (Model as TWelcomePageModel).GetNews;
 end;
 
 end.
