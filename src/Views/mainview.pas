@@ -23,7 +23,10 @@ type
   public
     property ViewModel: IMainViewModel read FViewModel write SetViewModel;
     procedure UpdateGUI;
+    {Creates a button for adding communities}
     procedure AddNewCommunityButton;
+    {Event of "Add new community" button}
+    procedure AddNewCommunity(Sender: TObject);
   end;
 
 var
@@ -57,6 +60,8 @@ var
   i: integer;
   NewButton: TToolButton;
 begin
+  CommunitiesImageList.Clear;
+  ToolBar1.ButtonList.Clear;
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
@@ -73,8 +78,18 @@ var
   NewButton: TToolButton;
 begin
   NewButton := TToolButton.Create(Toolbar1);
-  NewButton.ImageIndex:=0;
-  NewButton.Parent:=ToolBar1;
+  NewButton.ImageIndex := 0;
+  NewButton.Parent := ToolBar1;
+  NewButton.OnClick:=@AddNewCommunity;
+end;
+
+procedure TfMainView.AddNewCommunity(Sender: TObject);
+var Id, AccessKey: string;
+begin
+  Id:='';
+  AccessKey:='';
+  ShowMessage('AddCommunityButton clicked');
+  ViewModel.SaveNewCommunity(AccessKey,Id);
 end;
 
 end.

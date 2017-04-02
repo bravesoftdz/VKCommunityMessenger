@@ -22,8 +22,8 @@
         <UnitName Value="MainView"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="50"/>
-        <CursorPos X="63" Y="60"/>
+        <TopLine Value="61"/>
+        <CursorPos X="3" Y="88"/>
         <UsageCount Value="39"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -34,7 +34,7 @@
         <UnitName Value="MainViewModel"/>
         <EditorIndex Value="2"/>
         <TopLine Value="90"/>
-        <CursorPos X="57" Y="117"/>
+        <CursorPos X="27" Y="115"/>
         <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -135,7 +135,7 @@
         <UsageCount Value="10"/>
       </Unit14>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <Caret Line="46" TopLine="21"/>
@@ -188,6 +188,22 @@
         <Filename Value="ViewModels\mainviewmodel.pas"/>
         <Caret Line="33" Column="51" TopLine="13"/>
       </Position13>
+      <Position14>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="117" Column="57" TopLine="90"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ViewModels\mainviewmodel.pas"/>
+        <Caret Line="33" Column="56" TopLine="15"/>
+      </Position15>
+      <Position16>
+        <Filename Value="Views\mainview.pas"/>
+        <Caret Line="83" Column="40" TopLine="56"/>
+      </Position16>
+      <Position17>
+        <Filename Value="Views\mainview.pas"/>
+        <Caret Line="29" Column="15" TopLine="14"/>
+      </Position17>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

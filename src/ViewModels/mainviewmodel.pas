@@ -30,7 +30,7 @@ type
   public
     procedure FillImageCommunitiesList(var ImageList: TImageList);
     property Model: IModel read GetModel write SetModel;
-    procedure SaveNewCommunity(AccessKey: string);
+    procedure SaveNewCommunity(AccessKey, Id: string);
   end;
 
 var
@@ -112,7 +112,7 @@ begin
   try
     NewCommunity := (Model as TMainModel).GetExtendedCommunityInformation(Id, AccessKey);
   except
-    ShowMessage('Неправильно введен ключ и/или id сообщества');
+    raise Exception.Create('Неправильно введен ключ и/или id сообщества');
   end;
   (Model as TMainModel).SaveCommunityInfo(NewCommunity);
 end;
