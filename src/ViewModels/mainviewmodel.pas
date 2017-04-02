@@ -9,8 +9,14 @@ uses
   MainModel, entities, Graphics;
 
 type
+
+  { IMainViewModel }
+
   IMainViewModel = interface(IViewModel)
+    {Fills imagelist of buttons with communities}
     procedure FillImageCommunitiesList(var List: TImageList);
+    {Saves acces key of community in local database}
+    procedure SaveNewCommunity(AccessKey, Id: string);
   end;
 
   { TMainViewModel }
@@ -24,6 +30,7 @@ type
   public
     procedure FillImageCommunitiesList(var ImageList: TImageList);
     property Model: IModel read GetModel write SetModel;
+    procedure SaveNewCommunity(AccessKey: string);
   end;
 
 var
@@ -96,6 +103,18 @@ begin
 
     ImageList.Add(Picture.Bitmap, nil);
   end;
+end;
+
+procedure TMainViewModel.SaveNewCommunity(AccessKey, Id: string);
+var
+  NewCommunity: TCommunity;
+begin
+  try
+    NewCommunity := (Model as TMainModel).GetExtendedCommunityInformation(Id, AccessKey);
+  except
+    ShowMessage('Неправильно введен ключ и/или id сообщества');
+  end;
+  (Model as TMainModel).SaveCommunityInfo(NewCommunity);
 end;
 
 end.

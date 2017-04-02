@@ -43,6 +43,6 @@ begin
   LWelcomePageViewModel.Model := LWelcomePageModel;
 
   LWelcomePageView.InitializeFrame;
-  LMainView.InitializeForm;
+  LMainView.UpdateGUI;
   Application.Run;
 end.

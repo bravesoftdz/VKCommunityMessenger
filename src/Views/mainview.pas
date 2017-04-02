@@ -22,7 +22,7 @@ type
     procedure SetViewModel(AValue: IMainViewModel);
   public
     property ViewModel: IMainViewModel read FViewModel write SetViewModel;
-    procedure InitializeForm;
+    procedure UpdateGUI;
     procedure AddNewCommunityButton;
   end;
 
@@ -52,7 +52,7 @@ begin
   FViewModel := AValue;
 end;
 
-procedure TfMainView.InitializeForm;
+procedure TfMainView.UpdateGUI;
 var
   i: integer;
   NewButton: TToolButton;
