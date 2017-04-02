@@ -16,7 +16,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   welcomepageview,
   AbstractModel,
   welcomepageviewmodel,
-  welcomepagemodel;
+  welcomepagemodel, vkgsobserver;
 
 {$R *.res}
 

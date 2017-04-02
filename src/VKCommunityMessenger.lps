@@ -4,13 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="15">
+    <Units Count="16">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="18"/>
         <CursorPos X="40" Y="37"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,9 +22,9 @@
         <UnitName Value="MainView"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="61"/>
-        <CursorPos X="3" Y="88"/>
-        <UsageCount Value="39"/>
+        <TopLine Value="10"/>
+        <CursorPos X="21" Y="12"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -32,20 +32,20 @@
         <Filename Value="ViewModels\mainviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainViewModel"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="90"/>
         <CursorPos X="27" Y="115"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="Models\mainmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainModel"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="38"/>
         <CursorPos X="3" Y="44"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -54,14 +54,14 @@
         <UnitName Value="AbstractViewModel"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="28" Y="13"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="40"/>
       </Unit4>
       <Unit5>
         <Filename Value="Models\entities.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="16"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="36"/>
       </Unit5>
       <Unit6>
         <Filename Value="Views\welcomepageview.pas"/>
@@ -72,7 +72,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="11"/>
         <CursorPos X="36" Y="38"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
       </Unit6>
       <Unit7>
         <Filename Value="Models\abstractmodel.pas"/>
@@ -80,7 +80,7 @@
         <UnitName Value="AbstractModel"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="11"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="27"/>
       </Unit7>
       <Unit8>
         <Filename Value="ViewModels\welcomepageviewmodel.pas"/>
@@ -88,7 +88,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="9"/>
         <CursorPos X="30" Y="17"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
       </Unit8>
       <Unit9>
         <Filename Value="Models\welcomepagemodel.pas"/>
@@ -96,7 +96,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="24"/>
         <CursorPos X="32" Y="52"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
@@ -134,8 +134,17 @@
         <CursorPos Y="4793"/>
         <UsageCount Value="10"/>
       </Unit14>
+      <Unit15>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="24"/>
+        <CursorPos X="25" Y="35"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit15>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <Caret Line="46" TopLine="21"/>
@@ -204,6 +213,30 @@
         <Filename Value="Views\mainview.pas"/>
         <Caret Line="29" Column="15" TopLine="14"/>
       </Position17>
+      <Position18>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Caret Line="24" Column="34"/>
+      </Position18>
+      <Position19>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Caret Line="45" Column="16" TopLine="22"/>
+      </Position19>
+      <Position20>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Caret Line="30" Column="25" TopLine="26"/>
+      </Position20>
+      <Position21>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Caret Line="35" Column="65" TopLine="26"/>
+      </Position21>
+      <Position22>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Caret Line="60" Column="24" TopLine="39"/>
+      </Position22>
+      <Position23>
+        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Caret Line="36" Column="54" TopLine="18"/>
+      </Position23>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
