@@ -16,7 +16,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   welcomepageview,
   AbstractModel,
   welcomepageviewmodel,
-  welcomepagemodel, vkgsobserver;
+  welcomepagemodel, vkgsobserver, IdKeyDialog;
 
 {$R *.res}
 
@@ -33,6 +33,7 @@ begin
 
   {Create views}
   Application.CreateForm(TfMainView, LMainView);
+  Application.CreateForm(TDialog, Dialog);
   LWelcomePageView := TFrame1.Create(LMainView);
   LWelcomePageView.Parent := LMainView;
 

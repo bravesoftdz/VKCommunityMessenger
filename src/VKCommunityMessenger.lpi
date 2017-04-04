@@ -36,7 +36,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -92,6 +92,13 @@
         <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="Views\idkeydialog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Dialog"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="IdKeyDialog"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

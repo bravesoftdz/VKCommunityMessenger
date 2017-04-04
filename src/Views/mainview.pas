@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel;
+  ActnList, MainViewModel, IdKeyDialog;
 
 type
 
@@ -88,7 +88,7 @@ var Id, AccessKey: string;
 begin
   Id:='';
   AccessKey:='';
-  ShowMessage('AddCommunityButton clicked');
+  Dialog.ShowModal;
   ViewModel.SaveNewCommunity(AccessKey,Id);
 end;
 

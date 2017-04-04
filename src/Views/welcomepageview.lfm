@@ -52,7 +52,13 @@ object Frame1: TFrame1
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = False
     Caption = 'News'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -15
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
     ParentColor = False
+    ParentFont = False
     WordWrap = True
   end
 end
