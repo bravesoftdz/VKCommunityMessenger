@@ -5,7 +5,8 @@ unit MainModel;
 interface
 
 uses
-  Classes, SysUtils, entities, Graphics, AbstractModel;
+  Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
+  VKGSConfig, Dialogs, fpjson, jsonparser;
 
 type
 
@@ -31,13 +32,17 @@ type
   { TMainModel }
 
   TMainModel = class(TInterfacedObject, IMainModel, IModel)
+  private
+    HTTPClient: TFPHTTPClient;
   public
+    constructor Create;
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
     procedure SaveCommunityInfo(Communty: TCommunity);
     function GetCommunities: TCommunityList;
     function GetNoPhotoAvatar: TPicture;
     function GetAddNewCommunityPhoto: TPicture;
     function LoadFrameImage: TPicture;
+    destructor Destroy; override;
   end;
 
 var
@@ -47,10 +52,33 @@ implementation
 
 { TMainModel }
 
+constructor TMainModel.Create;
+begin
+  HTTPClient:=TFPHTTPClient.Create(nil);
+end;
+
 function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
 TCommunity;
-begin
+var
+  URL: string;
+  Response: string;
+  JSONDoc: TJSONObject;
+  ResponseArray: TJSONArray;
 
+begin
+  Result := TCommunity.Create;
+  try
+    URL := VK_API_BASE_URL + 'groups.getById?' + '&access_token=' +
+      AccessKey + '&v=' + USED_API_VERSION + '&group_id=' + CommunityId;
+    Response := HTTPClient.Get(URL);
+    JSONDoc:=(GetJSON(Response) as TJSONObject);
+    if Assigned(JSONDoc.Find('error')) then
+       raise Exception.Create('Неправильные Id и/или ключ доступа');
+    ResponseArray:=JSONDoc['response'];
+    {TODO}
+  except
+    raise;
+  end;
 end;
 
 procedure TMainModel.SaveCommunityInfo(Communty: TCommunity);
@@ -63,44 +91,6 @@ var
   Community: TCommunity;
 begin
   Result := TCommunityList.Create;
-
-  {Create some fake communities}
-  Community := TCommunity.Create;
-  Community.Photo := TPicture.Create;
-  Community.Photo.LoadFromFile('testdata\habr.jpg');
-  Community.HasPhoto := True;
-  Community.AccessKey := 'jikernmkgp555wm';
-  Community.CommunityType := ctPage;
-  Community.Deactivated := False;
-  Community.Id := '585934949';
-  Community.IsClosed := False;
-  Community.Name := 'Хабрахабр';
-  Community.ScreenName := 'habr';
-  Result.Add(Community);
-
-  Community := TCommunity.Create;
-  Community.HasPhoto := True;
-  Community.Photo := TPicture.Create;
-  Community.Photo.LoadFromFile('testdata\itc.jpg');
-  Community.AccessKey := 'thgo453zht';
-  Community.CommunityType := ctEvent;
-  Community.Deactivated := False;
-  Community.Id := '6666676769';
-  Community.IsClosed := False;
-  Community.Name := 'ITc';
-  Community.ScreenName := 'its';
-  Result.Add(Community);
-
-  Community := TCommunity.Create;
-  Community.HasPhoto := False;
-  Community.AccessKey := 'gjkls4784nkl';
-  Community.CommunityType := ctPage;
-  Community.Deactivated := False;
-  Community.Id := '68688686';
-  Community.IsClosed := False;
-  Community.Name := 'Тестовая группа';
-  Community.ScreenName := 'test';
-  Result.Add(Community);
 end;
 
 
@@ -120,6 +110,12 @@ function TMainModel.LoadFrameImage: TPicture;
 begin
   Result := TPicture.Create;
   Result.LoadFromFile('img/frame.bmp');
+end;
+
+destructor TMainModel.Destroy;
+begin
+  FreeAndNil(HTTPClient);
+  inherited Destroy;
 end;
 
 end.

@@ -80,16 +80,23 @@ begin
   NewButton := TToolButton.Create(Toolbar1);
   NewButton.ImageIndex := 0;
   NewButton.Parent := ToolBar1;
-  NewButton.OnClick:=@AddNewCommunity;
+  NewButton.OnClick := @AddNewCommunity;
 end;
 
 procedure TfMainView.AddNewCommunity(Sender: TObject);
-var Id, AccessKey: string;
+var
+  Id, AccessKey: string;
 begin
-  Id:='';
-  AccessKey:='';
   Dialog.ShowModal;
-  ViewModel.SaveNewCommunity(AccessKey,Id);
+  if not Dialog.Done then exit;
+  Id := Dialog.Id;
+  AccessKey := Dialog.AccessKey;
+  try
+    ViewModel.SaveNewCommunity(AccessKey, Id);
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
 end;
 
 end.

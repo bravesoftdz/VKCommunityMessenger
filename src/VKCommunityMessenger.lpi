@@ -36,7 +36,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="12">
+    <Units Count="13">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -96,9 +96,15 @@
         <Filename Value="Views\idkeydialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Dialog"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="IdKeyDialog"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="Config\vkgsconfig.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="VKGSConfig"/>
+      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -109,7 +115,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer"/>
+      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

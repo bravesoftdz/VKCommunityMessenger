@@ -112,7 +112,7 @@ begin
   try
     NewCommunity := (Model as TMainModel).GetExtendedCommunityInformation(Id, AccessKey);
   except
-    raise Exception.Create('Неправильно введен ключ и/или id сообщества');
+    raise;
   end;
   (Model as TMainModel).SaveCommunityInfo(NewCommunity);
 end;

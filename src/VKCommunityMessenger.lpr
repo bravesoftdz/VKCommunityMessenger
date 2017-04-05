@@ -16,7 +16,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   welcomepageview,
   AbstractModel,
   welcomepageviewmodel,
-  welcomepagemodel, vkgsobserver, IdKeyDialog;
+  welcomepagemodel, vkgsobserver, IdKeyDialog, VKGSConfig;
 
 {$R *.res}
 
