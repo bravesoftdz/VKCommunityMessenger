@@ -60,8 +60,6 @@ var
   i: integer;
   NewButton: TToolButton;
 begin
-  CommunitiesImageList.Clear;
-  ToolBar1.ButtonList.Clear;
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
@@ -97,6 +95,7 @@ begin
     on E: Exception do
       ShowMessage(E.Message);
   end;
+  UpdateGUI;
 end;
 
 end.

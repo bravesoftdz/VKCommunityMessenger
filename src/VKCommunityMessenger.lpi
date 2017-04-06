@@ -36,7 +36,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -105,6 +105,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="VKGSConfig"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="Infrastructure\DAO\vkdao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="VKDAO"/>
+      </Unit13>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -115,7 +120,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config"/>
+      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

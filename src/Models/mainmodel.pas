@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  VKGSConfig, Dialogs, fpjson, jsonparser;
+  Dialogs, fpjson, jsonparser, VKDAO;
 
 type
 
@@ -54,28 +54,37 @@ implementation
 
 constructor TMainModel.Create;
 begin
-  HTTPClient:=TFPHTTPClient.Create(nil);
+  HTTPClient := TFPHTTPClient.Create(nil);
 end;
 
-function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
-TCommunity;
+function TMainModel.GetExtendedCommunityInformation(CommunityId,
+  AccessKey: string): TCommunity;
 var
-  URL: string;
-  Response: string;
-  JSONDoc: TJSONObject;
+  JSONResponseDocument: TJSONObject;
   ResponseArray: TJSONArray;
-
+  JSONCommunityObject: TJSONObject;
 begin
   Result := TCommunity.Create;
   try
-    URL := VK_API_BASE_URL + 'groups.getById?' + '&access_token=' +
-      AccessKey + '&v=' + USED_API_VERSION + '&group_id=' + CommunityId;
-    Response := HTTPClient.Get(URL);
-    JSONDoc:=(GetJSON(Response) as TJSONObject);
-    if Assigned(JSONDoc.Find('error')) then
-       raise Exception.Create('Неправильные Id и/или ключ доступа');
-    ResponseArray:=JSONDoc['response'];
-    {TODO}
+    JSONResponseDocument := DAO.Groups.GetById(HTTPClient, AccessKey, CommunityId);
+    if Assigned(JSONResponseDocument.Find('error')) then
+      raise Exception.Create('Неправильные Id и/или ключ доступа');
+    ResponseArray := (JSONResponseDocument['response'] as TJSONArray);
+    JSONCommunityObject := (ResponseArray[0] as TJSONObject);
+    {Serialize}
+    Result.AccessKey := AccessKey;
+    Result.CommunityType := StringToCommunityType(JSONCommunityObject['type'].AsString);
+    if Assigned(JSONCommunityObject.Find('deactivated')) then
+      Result.Deactivated := True
+    else
+      Result.Deactivated := False;
+    Result.HasPhoto := JSONCommunityObject['has_photo'].AsBoolean;
+    Result.Id := JSONCommunityObject['id'].AsString;
+    Result.IsClosed := JSONCommunityObject['is_closed'].AsBoolean;
+    Result.Name := JSONCommunityObject['name'].AsString;
+    Result.ScreenName := JSONCommunityObject['screen_name'].AsString;
+    if Result.HasPhoto then
+      Result.Photo := DAO.LoadPhoto(HTTPClient, JSONCommunityObject['photo_50'].AsString);
   except
     raise;
   end;

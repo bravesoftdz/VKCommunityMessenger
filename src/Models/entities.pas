@@ -47,7 +47,20 @@ type
 
   TCommunityList = specialize TFPGList<TCommunity>;
 
+  function StringToCommunityType(Str: string): TCommunityType;
+
 implementation
+
+function StringToCommunityType(Str: string): TCommunityType;
+begin
+  if Uppercase(Str)='PAGE' then
+     Result := ctPage
+  else if Uppercase(Str)='GROUP' then
+     Result := ctGroup
+  else if Uppercase(Str)='EVENT' then
+     Result := ctEvent
+  else raise Exception.Create('StringToCommunityType: неизвестный тип сообщества');
+end;
 
 { TCommunity }
 
