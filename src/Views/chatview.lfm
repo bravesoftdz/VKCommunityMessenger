@@ -1,0 +1,23 @@
+object Frame2: TFrame2
+  Left = 0
+  Height = 718
+  Top = 0
+  Width = 1223
+  ClientHeight = 718
+  ClientWidth = 1223
+  Color = clDefault
+  ParentColor = False
+  TabOrder = 0
+  DesignLeft = 308
+  DesignTop = 165
+  object Panel1: TPanel
+    Left = 0
+    Height = 718
+    Top = 0
+    Width = 1223
+    Align = alClient
+    Color = 16113353
+    ParentColor = False
+    TabOrder = 0
+  end
+end

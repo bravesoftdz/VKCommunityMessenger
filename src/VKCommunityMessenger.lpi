@@ -36,7 +36,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="14">
+    <Units Count="15">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -110,6 +110,13 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="VKDAO"/>
       </Unit13>
+      <Unit14>
+        <Filename Value="Views\chatview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Frame2"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ChatView"/>
+      </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
