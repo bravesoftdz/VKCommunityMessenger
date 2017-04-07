@@ -60,6 +60,12 @@ var
   i: integer;
   NewButton: TToolButton;
 begin
+  {Clean imagelist and toolbar}
+  CommunitiesImageList.Clear;
+  while ToolBar1.ControlCount > 0 do
+    ToolBar1.Controls[0].Free;
+
+  {Fill imagelit and toolbar}
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
@@ -69,6 +75,7 @@ begin
     NewButton.Parent := ToolBar1;
   end;
   AddNewCommunityButton;
+  ShowMessage('UI updated');
 end;
 
 procedure TfMainView.AddNewCommunityButton;
@@ -86,7 +93,8 @@ var
   Id, AccessKey: string;
 begin
   Dialog.ShowModal;
-  if not Dialog.Done then exit;
+  if not Dialog.Done then
+    exit;
   Id := Dialog.Id;
   AccessKey := Dialog.AccessKey;
   try

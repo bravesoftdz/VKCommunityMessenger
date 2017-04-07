@@ -60,11 +60,12 @@ var
   i: integer;
   NewButton: TToolButton;
 begin
+  {Clean imagelist and toolbar}
   CommunitiesImageList.Clear;
-  for i:=0 to ToolBar1.ButtonList.Count do
-      begin
+  while ToolBar1.ControlCount > 0 do
+    ToolBar1.Controls[0].Free;
 
-      end;
+  {Fill imagelit and toolbar}
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
@@ -91,7 +92,8 @@ var
   Id, AccessKey: string;
 begin
   Dialog.ShowModal;
-  if not Dialog.Done then exit;
+  if not Dialog.Done then
+    exit;
   Id := Dialog.Id;
   AccessKey := Dialog.AccessKey;
   try
