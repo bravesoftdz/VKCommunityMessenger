@@ -16,12 +16,15 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   welcomepageview,
   AbstractModel,
   welcomepageviewmodel,
-  welcomepagemodel, vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView;
+  welcomepagemodel, vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView, sqlite3dyn;
 
 {$R *.res}
 
 begin
   RequireDerivedFormResource := True;
+
+  {Setup enivroement variables}
+   SQLiteDefaultLibrary:=SQLITE_LIBRARY_NAME;
 
   {Create models and viewmodels}
   LMainViewModel := TMainViewModel.Create;

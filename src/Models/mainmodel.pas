@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig;
 
 type
 
@@ -38,7 +38,7 @@ type
   public
     constructor Create;
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
-    procedure SaveCommunityInfo(Communty: TCommunity);
+    procedure SaveCommunityInfo(Community: TCommunity);
     function GetCommunities: TCommunityList;
     function GetNoPhotoAvatar: TPicture;
     function GetAddNewCommunityPhoto: TPicture;
@@ -57,6 +57,14 @@ constructor TMainModel.Create;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
   Connection := TSQLite3Connection.Create(nil);
+  Connection.DatabaseName:=DATABASE_NAME;
+  if not FileExists(DATABASE_NAME) then
+    try
+       DAO.Database.ExecuteDatabaseCreationScript(Connection);
+    except
+      raise Exception.Create('Ошибка при создании базы');
+    end;
+  Connection.Open;
 end;
 
 function TMainModel.GetExtendedCommunityInformation(CommunityId,
@@ -92,9 +100,13 @@ begin
   end;
 end;
 
-procedure TMainModel.SaveCommunityInfo(Communty: TCommunity);
+procedure TMainModel.SaveCommunityInfo(Community: TCommunity);
 begin
-
+  try
+  DAO.Database.SaveCommunity(Connection,Community);
+  except
+    raise;
+  end;
 end;
 
 function TMainModel.GetCommunities: TCommunityList;
@@ -125,6 +137,7 @@ end;
 
 destructor TMainModel.Destroy;
 begin
+  Connection.Close();
   FreeAndNil(HTTPClient);
   FreeAndNil(Connection);
   inherited Destroy;

@@ -47,19 +47,30 @@ type
 
   TCommunityList = specialize TFPGList<TCommunity>;
 
-  function StringToCommunityType(Str: string): TCommunityType;
+function StringToCommunityType(Str: string): TCommunityType;
+function CommunintyTypeToString(AType: TCommunityType): string;
 
 implementation
 
 function StringToCommunityType(Str: string): TCommunityType;
 begin
-  if Uppercase(Str)='PAGE' then
-     Result := ctPage
-  else if Uppercase(Str)='GROUP' then
-     Result := ctGroup
-  else if Uppercase(Str)='EVENT' then
-     Result := ctEvent
-  else raise Exception.Create('StringToCommunityType: неизвестный тип сообщества');
+  if Uppercase(Str) = 'PAGE' then
+    Result := ctPage
+  else if Uppercase(Str) = 'GROUP' then
+    Result := ctGroup
+  else if Uppercase(Str) = 'EVENT' then
+    Result := ctEvent
+  else
+    raise Exception.Create('StringToCommunityType: неизвестный тип сообщества');
+end;
+
+function CommunintyTypeToString(AType: TCommunityType): string;
+begin
+  case AType of
+    ctEvent: Result := 'event';
+    ctGroup: Result := 'group';
+    ctPage: Result := 'page';
+  end;
 end;
 
 { TCommunity }
@@ -73,8 +84,9 @@ end;
 
 procedure TCommunity.SetPhoto(AValue: TPicture);
 begin
-  if FPhoto=AValue then Exit;
-  FPhoto:=AValue;
+  if FPhoto = AValue then
+    Exit;
+  FPhoto := AValue;
 end;
 
 procedure TCommunity.SetScreenName(AValue: string);
@@ -100,20 +112,23 @@ end;
 
 procedure TCommunity.SetHasPhoto(AValue: boolean);
 begin
-  if FHasPhoto=AValue then Exit;
-  FHasPhoto:=AValue;
+  if FHasPhoto = AValue then
+    Exit;
+  FHasPhoto := AValue;
 end;
 
 procedure TCommunity.SetCommunityType(AValue: TCommunityType);
 begin
-  if FCommunityType=AValue then Exit;
-  FCommunityType:=AValue;
+  if FCommunityType = AValue then
+    Exit;
+  FCommunityType := AValue;
 end;
 
 procedure TCommunity.SetAccessKey(AValue: string);
 begin
-  if FAccessKey=AValue then Exit;
-  FAccessKey:=AValue;
+  if FAccessKey = AValue then
+    Exit;
+  FAccessKey := AValue;
 end;
 
 procedure TCommunity.SetIsClosed(AValue: boolean);
