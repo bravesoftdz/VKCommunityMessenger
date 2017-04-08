@@ -75,7 +75,6 @@ begin
     NewButton.Parent := ToolBar1;
   end;
   AddNewCommunityButton;
-  ShowMessage('UI updated');
 end;
 
 procedure TfMainView.AddNewCommunityButton;

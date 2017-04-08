@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn;
 
 type
 
@@ -34,6 +34,7 @@ type
   TMainModel = class(TInterfacedObject, IMainModel, IModel)
   private
     HTTPClient: TFPHTTPClient;
+    Connection: TSQLite3Connection;
   public
     constructor Create;
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
@@ -55,6 +56,7 @@ implementation
 constructor TMainModel.Create;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
+  Connection := TSQLite3Connection.Create(nil);
 end;
 
 function TMainModel.GetExtendedCommunityInformation(CommunityId,
@@ -124,6 +126,7 @@ end;
 destructor TMainModel.Destroy;
 begin
   FreeAndNil(HTTPClient);
+  FreeAndNil(Connection);
   inherited Destroy;
 end;
 
