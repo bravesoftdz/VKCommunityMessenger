@@ -96,4 +96,3 @@ lib/
 *.app/
 
 #sqlite databases
-*.db
