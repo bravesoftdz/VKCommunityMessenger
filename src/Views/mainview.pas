@@ -67,6 +67,7 @@ begin
 
   {Fill imagelit and toolbar}
   FViewModel.FillImageCommunitiesList(CommunitiesImageList);
+  AddNewCommunityButton;
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
   begin
@@ -74,7 +75,6 @@ begin
     NewButton.ImageIndex := i;
     NewButton.Parent := ToolBar1;
   end;
-  AddNewCommunityButton;
 end;
 
 procedure TfMainView.AddNewCommunityButton;

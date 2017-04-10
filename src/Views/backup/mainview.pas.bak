@@ -74,7 +74,6 @@ begin
     NewButton.ImageIndex := i;
     NewButton.Parent := ToolBar1;
   end;
-  AddNewCommunityButton;
 end;
 
 procedure TfMainView.AddNewCommunityButton;
