@@ -19,6 +19,7 @@ resourcestring
   SQLITE_LIBRARY_NAME='./libraries/sqlite3_64.dll';
   {$ENDIF}
   SQL_INSERT_COMMUNITY_QUERY = 'queries/insert.sql';
+  SQL_SELECT_WHOLE_DATABASE_SELECT_QUERY = 'SELECT * FROM communitiesview';
 
 
 implementation

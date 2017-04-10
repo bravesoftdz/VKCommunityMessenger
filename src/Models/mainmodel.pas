@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, db, sqldb;
 
 type
 
@@ -112,8 +112,31 @@ end;
 function TMainModel.GetCommunities: TCommunityList;
 var
   Community: TCommunity;
+  CommunitiesDataset: TDataset;
+  QueryTransaction: TSQLTransaction;
+  i: integer;
 begin
   Result := TCommunityList.Create;
+  CommunitiesDataset := DAO.Database.LoadDatabaseDataset(Connection,QueryTransaction);
+  CommunitiesDataset.Open;
+  CommunitiesDataset.First;
+  for i:=0 to CommunitiesDataset.RecordCount-1 do
+  begin
+    Community := TCommunity.Create;
+    Community.HasPhoto:=CommunitiesDataset.FieldByName('HasPhoto').AsBoolean;
+    if Community.HasPhoto then
+    Community.Photo.LoadFromStream(CommunitiesDataset.CreateBlobStream(CommunitiesDataset.FieldByName('Picture'),bmRead));
+    Community.AccessKey:=CommunitiesDataset.FieldByName('AccessKey').AsString;
+    Community.CommunityType:=StringToCommunityType(CommunitiesDataset.FieldByName('CommunityType').AsString);
+    Community.Deactivated:=CommunitiesDataset.FieldByName('Deactivated').AsBoolean;
+    Community.Id:=CommunitiesDataset.FieldByName('Id').AsString;
+    Community.IsClosed:=CommunitiesDataset.FieldByName('IsClosed').AsBoolean;
+    Community.Name:=CommunitiesDataset.FieldByName('Name').AsString;
+    Community.ScreenName:=CommunitiesDataset.FieldByName('ScreenName').AsString;
+    CommunitiesDataset.Next;
+  end;
+  FreeAndNil(CommunitiesDataset);
+  FreeAndNil(QueryTransaction);
 end;
 
 

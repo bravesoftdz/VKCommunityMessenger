@@ -9,7 +9,7 @@ CREATE TABLE communities (
     Deactivated BOOLEAN, 
     HasPhoto BOOLEAN, 
     Photo BLOB, 
-    AccesKey VARCHAR 
+    AccessKey VARCHAR 
 );
 --**
 
@@ -20,7 +20,7 @@ CREATE VIEW communitiesview AS
 CREATE TRIGGER communitiesview_insert INSTEAD OF INSERT ON communitiesview FOR EACH ROW 
 BEGIN  
   INSERT INTO communities
-    VALUES (New.Id, New.Name, New.ScreenName, New.CommunityType, New.IsClosed, New.Deactivated, New.HasPhoto, New.Photo, New.AccesKey);
+    VALUES (New.Id, New.Name, New.ScreenName, New.CommunityType, New.IsClosed, New.Deactivated, New.HasPhoto, New.Photo, New.AccessKey);
 END
 
 --**

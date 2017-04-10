@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, jsonparser, fphttpclient, VKGSConfig,
-  Graphics, sqldb, entities, db;
+  Graphics, sqldb, entities, DB;
 
 type
 
@@ -24,6 +24,8 @@ type
   TDatabaseDAO = class
     class procedure SaveCommunity(Database: TSQLConnection; Community: TCommunity);
     class procedure ExecuteDatabaseCreationScript(Database: TSQLConnection);
+    class function LoadDatabaseDataset(Database: TSQLConnection;
+      out QueryTransaction: TSQLTransaction): TDataSet;
   end;
 
   TDatabaseDAOType = class of TDatabaseDAO;
@@ -65,12 +67,12 @@ begin
   Query.Params.ParamByName('DEACTIVATED').AsBoolean := Community.Deactivated;
   Query.Params.ParamByName('HASPHOTO').AsBoolean := Community.HasPhoto;
   if Community.HasPhoto then
-    begin
+  begin
     MemoryStream := TMemoryStream.Create;
     Community.Photo.SaveToStream(MemoryStream);
-    Query.Params.ParamByName('PHOTO').LoadFromStream(MemoryStream,ftBlob);
+    Query.Params.ParamByName('PHOTO').LoadFromStream(MemoryStream, ftBlob);
     FreeAndNil(MemoryStream);
-    end
+  end
   else
     Query.Params.ParamByName('PHOTO').Clear;
   Query.Params.ParamByName('ACCESSKEY').AsString := Community.AccessKey;
@@ -89,19 +91,37 @@ var
   Script: TSQLScript;
 begin
   Transaction := TSQLTransaction.Create(nil);
-  Script:= TSQLScript.Create(nil);
+  Script := TSQLScript.Create(nil);
   Database.Transaction := Transaction;
-  Script.Transaction:=Transaction;
+  Script.Transaction := Transaction;
 
   Script.Script.LoadFromFile(DATABASE_CREATION_SCRIPT);
 
   Transaction.Active := True;
-  Script.Terminator:='--**';
+  Script.Terminator := '--**';
   Script.Execute;
   Transaction.Commit;
   Transaction.Active := False;
 
   FreeAndNil(Transaction);
+end;
+
+class function TDatabaseDAO.LoadDatabaseDataset(Database: TSQLConnection;
+  out QueryTransaction: TSQLTransaction): TDataSet;
+var
+  Transaction: TSQLTransaction;
+  Query: TSQLQuery;
+begin
+  Transaction := TSQLTransaction.Create(nil);
+  Query := TSQLQuery.Create(nil);
+
+  Database.Transaction := Transaction;
+  Query.Transaction := Transaction;
+
+  Query.SQL.Text := SQL_SELECT_WHOLE_DATABASE_SELECT_QUERY;
+
+  Result := Query;
+  QueryTransaction:=Transaction;
 end;
 
 { DAO }
