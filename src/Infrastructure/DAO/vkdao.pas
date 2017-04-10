@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, jsonparser, fphttpclient, VKGSConfig,
-  Graphics, sqldb, entities;
+  Graphics, sqldb, entities, db;
 
 type
 
@@ -47,6 +47,7 @@ class procedure TDatabaseDAO.SaveCommunity(Database: TSQLConnection;
 var
   Transaction: TSQLTransaction;
   Query: TSQLQuery;
+  MemoryStream: TMemoryStream;
 begin
   Transaction := TSQLTransaction.Create(nil);
   Query := TSQLQuery.Create(nil);
@@ -64,13 +65,19 @@ begin
   Query.Params.ParamByName('DEACTIVATED').AsBoolean := Community.Deactivated;
   Query.Params.ParamByName('HASPHOTO').AsBoolean := Community.HasPhoto;
   if Community.HasPhoto then
-    Query.Params.ParamByName('PHOTO').Assign(Community.Photo)
+    begin
+    MemoryStream := TMemoryStream.Create;
+    Community.Photo.SaveToStream(MemoryStream);
+    Query.Params.ParamByName('PHOTO').LoadFromStream(MemoryStream,ftBlob);
+    FreeAndNil(MemoryStream);
+    end
   else
     Query.Params.ParamByName('PHOTO').Clear;
   Query.Params.ParamByName('ACCESSKEY').AsString := Community.AccessKey;
 
-  Query.Open;
-  Query.Close;
+  Query.ExecSQL;
+  Transaction.Commit;
+
   FreeAndNil(Query);
   FreeAndNil(Transaction);
 end;
