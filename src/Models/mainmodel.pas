@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, db, sqldb;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, DB, sqldb;
 
 type
 
@@ -57,18 +57,18 @@ constructor TMainModel.Create;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
   Connection := TSQLite3Connection.Create(nil);
-  Connection.DatabaseName:=DATABASE_NAME;
+  Connection.DatabaseName := DATABASE_NAME;
   if not FileExists(DATABASE_NAME) then
     try
-       DAO.Database.ExecuteDatabaseCreationScript(Connection);
+      DAO.Database.ExecuteDatabaseCreationScript(Connection);
     except
       raise Exception.Create('Ошибка при создании базы');
     end;
   Connection.Open;
 end;
 
-function TMainModel.GetExtendedCommunityInformation(CommunityId,
-  AccessKey: string): TCommunity;
+function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
+TCommunity;
 var
   JSONResponseDocument: TJSONObject;
   ResponseArray: TJSONArray;
@@ -94,7 +94,8 @@ begin
     Result.Name := JSONCommunityObject['name'].AsString;
     Result.ScreenName := JSONCommunityObject['screen_name'].AsString;
     if Result.HasPhoto then
-      Result.Photo := DAO.LoadPhoto(HTTPClient, JSONCommunityObject['photo_50'].AsString);
+      Result.Photo := DAO.LoadPhoto(HTTPClient,
+        JSONCommunityObject['photo_50'].AsString);
   except
     raise;
   end;
@@ -103,7 +104,7 @@ end;
 procedure TMainModel.SaveCommunityInfo(Community: TCommunity);
 begin
   try
-  DAO.Database.SaveCommunity(Connection,Community);
+    DAO.Database.SaveCommunity(Connection, Community);
   except
     raise;
   end;
@@ -117,22 +118,28 @@ var
   i: integer;
 begin
   Result := TCommunityList.Create;
-  CommunitiesDataset := DAO.Database.LoadDatabaseDataset(Connection,QueryTransaction);
+  CommunitiesDataset := DAO.Database.LoadDatabaseDataset(Connection, QueryTransaction);
   CommunitiesDataset.Open;
   CommunitiesDataset.First;
-  for i:=0 to CommunitiesDataset.RecordCount-1 do
+  for i := 0 to CommunitiesDataset.RecordCount - 1 do
   begin
     Community := TCommunity.Create;
-    Community.HasPhoto:=CommunitiesDataset.FieldByName('HasPhoto').AsBoolean;
+    Community.HasPhoto := CommunitiesDataset.FieldByName('HasPhoto').AsBoolean;
     if Community.HasPhoto then
-    Community.Photo.LoadFromStream(CommunitiesDataset.CreateBlobStream(CommunitiesDataset.FieldByName('Picture'),bmRead));
-    Community.AccessKey:=CommunitiesDataset.FieldByName('AccessKey').AsString;
-    Community.CommunityType:=StringToCommunityType(CommunitiesDataset.FieldByName('CommunityType').AsString);
-    Community.Deactivated:=CommunitiesDataset.FieldByName('Deactivated').AsBoolean;
-    Community.Id:=CommunitiesDataset.FieldByName('Id').AsString;
-    Community.IsClosed:=CommunitiesDataset.FieldByName('IsClosed').AsBoolean;
-    Community.Name:=CommunitiesDataset.FieldByName('Name').AsString;
-    Community.ScreenName:=CommunitiesDataset.FieldByName('ScreenName').AsString;
+    begin
+      Community.Photo := TPicture.Create;
+      Community.Photo.LoadFromStream(CommunitiesDataset.CreateBlobStream(
+        CommunitiesDataset.FieldByName('Photo'), bmRead));
+    end;
+    Community.AccessKey := CommunitiesDataset.FieldByName('AccessKey').AsString;
+    Community.CommunityType := StringToCommunityType(
+      CommunitiesDataset.FieldByName('CommunityType').AsString);
+    Community.Deactivated := CommunitiesDataset.FieldByName('Deactivated').AsBoolean;
+    Community.Id := CommunitiesDataset.FieldByName('Id').AsString;
+    Community.IsClosed := CommunitiesDataset.FieldByName('IsClosed').AsBoolean;
+    Community.Name := CommunitiesDataset.FieldByName('Name').AsString;
+    Community.ScreenName := CommunitiesDataset.FieldByName('ScreenName').AsString;
+    Result.Add(Community);
     CommunitiesDataset.Next;
   end;
   FreeAndNil(CommunitiesDataset);
