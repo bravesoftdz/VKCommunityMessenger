@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel, IdKeyDialog;
+  ActnList, MainViewModel, IdKeyDialog, helpers, entities;
 
 type
 
@@ -40,7 +40,7 @@ implementation
 
 procedure TfMainView.PrepareWorkspaceForCommunity(Sender: TObject);
 begin
-
+  ShowMessage(((Sender as TToolButton).DataObject as TCommunity).ScreenName);
 end;
 
 procedure TfMainView.ChangeWorkspaceExecute(Sender: TObject);
@@ -59,21 +59,34 @@ procedure TfMainView.UpdateGUI;
 var
   i: integer;
   NewButton: TToolButton;
+  Data: TUIData;
 begin
   {Clean imagelist and toolbar}
   CommunitiesImageList.Clear;
   while ToolBar1.ControlCount > 0 do
+  begin
+    ToolBar1.Controls[0].DataObject.Free;
     ToolBar1.Controls[0].Free;
+  end;
 
-  {Fill imagelit and toolbar}
-  FViewModel.FillImageCommunitiesList(CommunitiesImageList);
+  {Fill imagelist}
+  Data:=FViewModel.GetDataForUIUpdate;
+  CommunitiesImageList.Add(Data.NewCommunityPicture,nil);
+  for i:=0 to Data.ButtonPictures.Count-1 do
+      CommunitiesImageList.Add(Data.ButtonPictures[i],nil);
+
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
   begin
     NewButton := TToolButton.Create(ToolBar1);
     NewButton.ImageIndex := i;
-    NewButton.Parent := ToolBar1;
+    NewButton.DataObject := Data.Communities[i-1];
+    NewButton.Parent:=ToolBar1;
+    NewButton.OnClick:=@PrepareWorkspaceForCommunity;
   end;
+  AddNewCommunityButton;
+
+  FreeAndNil(Data);
 end;
 
 procedure TfMainView.AddNewCommunityButton;
@@ -82,7 +95,8 @@ var
 begin
   NewButton := TToolButton.Create(Toolbar1);
   NewButton.ImageIndex := 0;
-  NewButton.Parent := ToolBar1;
+  NewButton.Parent:=ToolBar1;
+  NewButton.Top:=-1;
   NewButton.OnClick := @AddNewCommunity;
 end;
 

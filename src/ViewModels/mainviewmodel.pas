@@ -6,15 +6,35 @@ interface
 
 uses
   Classes, SysUtils, AbstractViewModel, Controls, AbstractModel,
-  MainModel, entities, Graphics;
+  MainModel, entities, Graphics, fgl;
 
 type
+
+  TBitmapList = specialize TFPGList<TBitmap>;
+
+  { TUIData }
+
+  TUIData = class
+  private
+    FButtonPictures: TBitmapList;
+    FCommunities: TCommunityList;
+    FNewCommunityPicture: TBitmap;
+    procedure SetButtonPictures(AValue: TBitmapList);
+    procedure SetCommunities(AValue: TCommunityList);
+    procedure SetNewCommunityPicture(AValue: TBitmap);
+  public
+    constructor Create;
+    property ButtonPictures: TBitmapList read FButtonPictures write SetButtonPictures;
+    property Communities: TCommunityList read FCommunities write SetCommunities;
+    property NewCommunityPicture: TBitmap read FNewCommunityPicture write SetNewCommunityPicture;
+    destructor Destroy; override;
+  end;
 
   { IMainViewModel }
 
   IMainViewModel = interface(IViewModel)
     {Fills imagelist of buttons with communities}
-    procedure FillImageCommunitiesList(var List: TImageList);
+    function GetDataForUIUpdate: TUIData;
     {Saves acces key of community in local database}
     procedure SaveNewCommunity(AccessKey, Id: string);
   end;
@@ -28,7 +48,7 @@ type
     function GetModel: IModel;
     procedure ResizeBitmap(Bitmap: TBitmap; const NewWidth, NewHeight: integer);
   public
-    procedure FillImageCommunitiesList(var ImageList: TImageList);
+    function GetDataForUIUpdate: TUIData;
     property Model: IModel read GetModel write SetModel;
     procedure SaveNewCommunity(AccessKey, Id: string);
   end;
@@ -37,6 +57,41 @@ var
   LMainViewModel: TMainViewModel;
 
 implementation
+
+{ TUIData }
+
+procedure TUIData.SetButtonPictures(AValue: TBitmapList);
+begin
+  if FButtonPictures = AValue then
+    Exit;
+  FButtonPictures := AValue;
+end;
+
+procedure TUIData.SetCommunities(AValue: TCommunityList);
+begin
+  if FCommunities = AValue then
+    Exit;
+  FCommunities := AValue;
+end;
+
+procedure TUIData.SetNewCommunityPicture(AValue: TBitmap);
+begin
+  if FNewCommunityPicture=AValue then Exit;
+  FNewCommunityPicture:=AValue;
+end;
+
+constructor TUIData.Create;
+begin
+  ButtonPictures := TBitmapList.Create;
+end;
+
+destructor TUIData.Destroy;
+begin
+  FreeAndNil(FButtonPictures);
+  if Assigned(FCommunities) then
+    FreeAndNil(FCommunities);
+  inherited Destroy;
+end;
 
 { TMainViewModel }
 
@@ -61,27 +116,29 @@ begin
   Result := FModel;
 end;
 
-procedure TMainViewModel.FillImageCommunitiesList(var ImageList: TImageList);
+function TMainViewModel.GetDataForUIUpdate: TUIData;
 var
   CommunitiesList: TCommunityList;
   i: integer;
   Picture, NoPhoto, NewCommunity, Frame, CommunityPhoto: TPicture;
   x, y: integer;
 begin
-  ImageList.Clear;
+  Result := TUIData.Create;
 
   {Prepare preload avatars}
   NoPhoto := (Model as TMainModel).GetNoPhotoAvatar;
 
   {First image - new community button}
   NewCommunity := (Model as TMainModel).GetAddNewCommunityPhoto;
-  ImageList.Add(NewCommunity.Bitmap, nil);
+  Result.NewCommunityPicture := NewCommunity.Bitmap;
 
   {Load frame for avatars}
   Frame := (Model as TMainModel).LoadFrameImage;
 
   {Get pictures from local storage}
   CommunitiesList := (Model as TMainModel).GetCommunities;
+  Result.Communities := CommunitiesList;
+
   for i := 0 to CommunitiesList.Count - 1 do
   begin
     {Load photo or set default photo}
@@ -101,7 +158,7 @@ begin
     y := Frame.Height div 2 - CommunityPhoto.Height div 2;
     Picture.Bitmap.Canvas.Draw(x, y, CommunityPhoto.Bitmap);
 
-    ImageList.Add(Picture.Bitmap, nil);
+    Result.ButtonPictures.Add(Picture.Bitmap);
   end;
 end;
 

@@ -7,16 +7,9 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Interfaces, // this includes the LCL widgetset
   Forms,
   MainView { you can add units after this },
-  Controls,
-  Graphics,
-  MainViewModel,
-  MainModel,
-  AbstractViewModel,
-  entities,
-  welcomepageview,
-  AbstractModel,
-  welcomepageviewmodel,
-  welcomepagemodel, vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView, sqlite3dyn;
+  Controls, Graphics, MainViewModel, MainModel, AbstractViewModel, entities,
+  welcomepageview, AbstractModel, welcomepageviewmodel, welcomepagemodel,
+  vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView, sqlite3dyn, helpers;
 
 {$R *.res}
 
