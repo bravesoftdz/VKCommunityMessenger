@@ -96,6 +96,7 @@ begin
   NewButton := TToolButton.Create(Toolbar1);
   NewButton.ImageIndex := 0;
   NewButton.Parent:=ToolBar1;
+  {Hack: NewButton will be always first}
   NewButton.Top:=-1;
   NewButton.OnClick := @AddNewCommunity;
 end;

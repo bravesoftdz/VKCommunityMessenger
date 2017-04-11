@@ -4,14 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="34">
+    <Units Count="35">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="11"/>
         <CursorPos X="47" Y="20"/>
         <UsageCount Value="70"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="Views\mainview.pas"/>
@@ -20,23 +20,18 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainView"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="34"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="48"/>
         <UsageCount Value="70"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainViewModel"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="146"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="145"/>
         <CursorPos X="29" Y="133"/>
         <UsageCount Value="70"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="Models\mainmodel.pas"/>
@@ -143,95 +138,95 @@
         <UsageCount Value="43"/>
       </Unit14>
       <Unit15>
-        <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="374"/>
-        <CursorPos Y="388"/>
-        <UsageCount Value="8"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="756"/>
-        <CursorPos Y="770"/>
-        <UsageCount Value="11"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="C:\lazarus\lcl\graphics.pp"/>
-        <UnitName Value="Graphics"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="917"/>
-        <CursorPos X="3" Y="939"/>
-        <UsageCount Value="8"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="3" Y="1770"/>
-        <UsageCount Value="10"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="4778"/>
-        <CursorPos Y="4793"/>
-        <UsageCount Value="8"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\sqldb\sqlite\sqlite3conn.pp"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="9"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="434"/>
-        <CursorPos X="3" Y="448"/>
-        <UsageCount Value="10"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-web\src\base\fphttpclient.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1034"/>
-        <CursorPos X="24" Y="420"/>
-        <UsageCount Value="9"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="C:\lazarus\lcl\include\pnm.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="24"/>
-        <CursorPos Y="39"/>
-        <UsageCount Value="9"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\base\db.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1870"/>
-        <CursorPos X="3" Y="1884"/>
-        <UsageCount Value="11"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\base\database.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="325"/>
-        <CursorPos X="35" Y="285"/>
-        <UsageCount Value="9"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\base\bufdataset.pas"/>
-        <UnitName Value="BufDataset"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="431"/>
-        <CursorPos X="3" Y="445"/>
-        <UsageCount Value="10"/>
-      </Unit26>
-      <Unit27>
         <Filename Value="Infrastructure\Helpers\helpers.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos X="22" Y="28"/>
         <UsageCount Value="22"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="374"/>
+        <CursorPos Y="388"/>
+        <UsageCount Value="8"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\lazarus\lcl\include\picture.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="756"/>
+        <CursorPos Y="770"/>
+        <UsageCount Value="11"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\lazarus\lcl\graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="917"/>
+        <CursorPos X="3" Y="939"/>
+        <UsageCount Value="8"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="1770"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4778"/>
+        <CursorPos Y="4793"/>
+        <UsageCount Value="8"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\sqldb\sqlite\sqlite3conn.pp"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="9"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="434"/>
+        <CursorPos X="3" Y="448"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-web\src\base\fphttpclient.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1034"/>
+        <CursorPos X="24" Y="420"/>
+        <UsageCount Value="9"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="C:\lazarus\lcl\include\pnm.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="24"/>
+        <CursorPos Y="39"/>
+        <UsageCount Value="9"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\base\db.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1870"/>
+        <CursorPos X="3" Y="1884"/>
+        <UsageCount Value="11"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\base\database.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="325"/>
+        <CursorPos X="35" Y="285"/>
+        <UsageCount Value="9"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\base\bufdataset.pas"/>
+        <UnitName Value="BufDataset"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="431"/>
+        <CursorPos X="3" Y="445"/>
+        <UsageCount Value="10"/>
       </Unit27>
       <Unit28>
         <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
@@ -278,77 +273,16 @@
         <CursorPos X="15" Y="171"/>
         <UsageCount Value="10"/>
       </Unit33>
+      <Unit34>
+        <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
+        <UnitName Value="VKGSChat"/>
+        <TopLine Value="5"/>
+        <CursorPos X="33" Y="19"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit34>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
-      <Position1>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="70" Column="26" TopLine="49"/>
-      </Position1>
-      <Position2>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="70" Column="26" TopLine="49"/>
-      </Position2>
-      <Position3>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="35" Column="42" TopLine="20"/>
-      </Position3>
-      <Position4>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="68" Column="40" TopLine="56"/>
-      </Position4>
-      <Position5>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="25" Column="81" TopLine="4"/>
-      </Position5>
-      <Position6>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="27" Column="34" TopLine="10"/>
-      </Position6>
-      <Position7>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="80" Column="25" TopLine="18"/>
-      </Position7>
-      <Position8>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="62" Column="17" TopLine="52"/>
-      </Position8>
-      <Position9>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="17" Column="3" TopLine="3"/>
-      </Position9>
-      <Position10>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="27" Column="34" TopLine="19"/>
-      </Position10>
-      <Position11>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="69" Column="38" TopLine="55"/>
-      </Position11>
-      <Position12>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="17" Column="3" TopLine="27"/>
-      </Position12>
-      <Position13>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="152" Column="45" TopLine="132"/>
-      </Position13>
-      <Position14>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="81" Column="28" TopLine="68"/>
-      </Position14>
-      <Position15>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="83" Column="17" TopLine="67"/>
-      </Position15>
-      <Position16>
-        <Filename Value="ViewModels\mainviewmodel.pas"/>
-        <Caret Line="29" Column="100" TopLine="10"/>
-      </Position16>
-      <Position17>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="99" Column="21" TopLine="78"/>
-      </Position17>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <Watches Count="1">
