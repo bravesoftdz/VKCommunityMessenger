@@ -36,6 +36,13 @@ begin
   Chat := TVKGSChat.Create(Self);
   Chat.Parent := Self;
   Chat.Align := alClient;
+  Chat.PaddingLeft:=30;
+  Chat.PaddingRight:=30;
+  Chat.PaddingBottom:=10;
+  Chat.DistanceBetweenMessages:=10;
+  Chat.Font.Color:=clWhite;
+  Chat.BoxColor:=clBlue;
+  Chat.FrameColor:=clWhite;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
