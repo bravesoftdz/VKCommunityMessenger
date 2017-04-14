@@ -4,8 +4,67 @@ object Form1: TForm1
   Top = 146
   Width = 869
   Caption = 'Form1'
-  OnCreate = FormCreate
+  ClientHeight = 514
+  ClientWidth = 869
   OnShow = FormShow
   Position = poDesktopCenter
   LCLVersion = '1.6.4.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 158
+    Top = 0
+    Width = 869
+    Align = alTop
+    ClientHeight = 158
+    ClientWidth = 869
+    TabOrder = 0
+    object Memo1: TMemo
+      Left = 16
+      Height = 80
+      Top = 8
+      Width = 384
+      Lines.Strings = (
+        'Memo1'
+      )
+      TabOrder = 0
+    end
+    object Memo2: TMemo
+      Left = 432
+      Height = 76
+      Top = 8
+      Width = 416
+      Lines.Strings = (
+        'Memo2'
+      )
+      TabOrder = 1
+    end
+    object Button1: TButton
+      Left = 160
+      Height = 25
+      Top = 112
+      Width = 75
+      Caption = 'Post'
+      OnClick = Button1Click
+      TabOrder = 2
+    end
+    object Button2: TButton
+      Left = 624
+      Height = 25
+      Top = 112
+      Width = 75
+      Caption = 'Post'
+      OnClick = Button2Click
+      TabOrder = 3
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Height = 356
+    Top = 158
+    Width = 869
+    Align = alClient
+    BevelInner = bvLowered
+    Caption = 'Panel2'
+    TabOrder = 1
+  end
 end

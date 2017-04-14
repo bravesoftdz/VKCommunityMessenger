@@ -28,6 +28,7 @@ type
 
   TVKGSChat = class(TCustomControl)
   private
+    FBoxBorder: integer;
     FBoxColor: TColor;
     FDistanceBetweenMessages: integer;
     FFrameColor: TColor;
@@ -36,6 +37,7 @@ type
     FPaddingBottom: integer;
     FPaddingLeft: integer;
     FPaddingRight: integer;
+    procedure SetBoxBorder(AValue: integer);
     procedure SetBoxColor(AValue: TColor);
     procedure SetDistanceBetweenMessages(AValue: integer);
     procedure SetFrameColor(AValue: TColor);
@@ -55,9 +57,11 @@ type
     property PaddingRight: integer read FPaddingRight write SetPaddingRight;
     property PaddingBottom: integer read FPaddingBottom write SetPaddingBottom;
     property Overlapping: integer read FOverlapping write SetOverlapping;
-    property DistanceBetweenMessages: integer read FDistanceBetweenMessages write SetDistanceBetweenMessages;
+    property DistanceBetweenMessages: integer
+      read FDistanceBetweenMessages write SetDistanceBetweenMessages;
     property BoxColor: TColor read FBoxColor write SetBoxColor;
     property FrameColor: TColor read FFrameColor write SetFrameColor;
+    property BoxBorder: integer read FBoxBorder write SetBoxBorder;
     property Font;
   end;
 
@@ -69,7 +73,7 @@ procedure TMessage.SetMessage(AValue: string);
 begin
   if FMessage = AValue then
     Exit;
-  FMessage := AValue;
+  FMessage := Trim(AValue);
 end;
 
 procedure TMessage.SetLeft(AValue: boolean);
@@ -86,93 +90,114 @@ begin
   if FMessages = AValue then
     Exit;
   FMessages := AValue;
-  Repaint;
 end;
 
 procedure TVKGSChat.SetDistanceBetweenMessages(AValue: integer);
 begin
-  if FDistanceBetweenMessages=AValue then Exit;
-  FDistanceBetweenMessages:=AValue;
-  Repaint;
+  if FDistanceBetweenMessages = AValue then
+    Exit;
+  FDistanceBetweenMessages := AValue;
 end;
 
 procedure TVKGSChat.SetFrameColor(AValue: TColor);
 begin
-  if FFrameColor=AValue then Exit;
-  FFrameColor:=AValue;
-  Repaint;
+  if FFrameColor = AValue then
+    Exit;
+  FFrameColor := AValue;
 end;
 
 procedure TVKGSChat.SetBoxColor(AValue: TColor);
 begin
-  if FBoxColor=AValue then Exit;
-  FBoxColor:=AValue;
-  Repaint;
+  if FBoxColor = AValue then
+    Exit;
+  FBoxColor := AValue;
+end;
+
+procedure TVKGSChat.SetBoxBorder(AValue: integer);
+begin
+  if FBoxBorder = AValue then
+    Exit;
+  FBoxBorder := AValue;
 end;
 
 procedure TVKGSChat.SetOverlapping(AValue: integer);
 begin
-  if FOverlapping=AValue then Exit;
-  FOverlapping:=AValue;
-  Repaint;
+  if FOverlapping = AValue then
+    Exit;
+  FOverlapping := AValue;
 end;
 
 procedure TVKGSChat.SetPaddingBottom(AValue: integer);
 begin
-  if FPaddingBottom=AValue then Exit;
-  FPaddingBottom:=AValue;
-  Repaint;
+  if FPaddingBottom = AValue then
+    Exit;
+  FPaddingBottom := AValue;
 end;
 
 procedure TVKGSChat.SetPaddingLeft(AValue: integer);
 begin
-  if FPaddingLeft=AValue then Exit;
-  FPaddingLeft:=AValue;
-  Repaint;
+  if FPaddingLeft = AValue then
+    Exit;
+  FPaddingLeft := AValue;
 end;
 
 procedure TVKGSChat.SetPaddingRight(AValue: integer);
 begin
-  if FPaddingRight=AValue then Exit;
-  FPaddingRight:=AValue;
-  Repaint;
+  if FPaddingRight = AValue then
+    Exit;
+  FPaddingRight := AValue;
 end;
 
 procedure TVKGSChat.Paint;
 var
-  RightBorder, LeftCenter, RightCenter: integer;
+  LeftBorder, RightBorder, LeftCenter, RightCenter: integer;
   i: integer;
   TopLine: integer;
   BottomLine: integer;
   Message: TMessage;
-  LRect: TRect;
+  LRect, LBox: TRect;
+  Buf: integer;
 begin
   inherited Paint;
 
   Canvas.Brush.Color := BoxColor;
   Canvas.Pen.Color := FrameColor;
-  Canvas.Font:=Font;
+  Canvas.Font := Font;
 
-  RightBorder := Canvas.Width - PaddingRight;
+  LeftBorder := ClientRect.Left + PaddingLeft;
+  RightBorder := ClientRect.Right - PaddingRight;
   LeftCenter := Trunc((RightBorder - PaddingLeft) / 2) - Overlapping;
-  RightCenter := LeftCenter + 2*Overlapping;
+  RightCenter := LeftCenter + 2 * Overlapping;
 
-  BottomLine := Canvas.Height - PaddingBottom;
+  BottomLine := ClientRect.Bottom - PaddingBottom;
 
   for i := Messages.Count - 1 downto 0 do
   begin
     Message := Messages[i];
-    LRect := Rect(PaddingLeft, BottomLine - Canvas.TextHeight('A'), RightCenter, BottomLine);
+
+    {Find size of rectangle for text}
+    LRect := Rect(LeftBorder, BottomLine - Canvas.TextHeight('A'),
+      RightCenter, BottomLine);
     DrawText(Canvas.Handle, PChar(Message.Message), Message.Message.Length,
       LRect, DT_CALCRECT or DT_WORDBREAK);
     Topline := BottomLine - LRect.Height;
     LRect.Top := Topline;
     LRect.Bottom := BottomLine;
-    Canvas.Rectangle(LRect);
+    if not Message.Left then
+    begin
+      Buf := LRect.Width;
+      LRect.Left := RightBorder - Buf;
+      LRect.Right := RightBorder;
+    end;
+    LBox.Left := LRect.Left - BoxBorder;
+    LBox.Right := LRect.Right + BoxBorder;
+    LBox.Top := LRect.Top - BoxBorder;
+    LBox.Bottom := LRect.Bottom + BoxBorder;
+    Canvas.Rectangle(Lbox);
     DrawText(Canvas.Handle, PChar(Message.Message), Message.Message.Length,
       LRect, DT_WORDBREAK);
     BottomLine := TopLine - DistanceBetweenMessages;
-    if BottomLine < 0 then
+    if BottomLine < ClientRect.Top then
       exit;
   end;
 
@@ -186,7 +211,8 @@ end;
 
 destructor TVKGSChat.Destroy;
 begin
-  FreeAndNil(FMessages);
+  inherited;
+  Messages.Free;
 end;
 
 end.
