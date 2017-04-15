@@ -1,4 +1,4 @@
-object Frame1: TFrame1
+object WelcomePageFrameView: TWelcomePageFrameView
   Left = 0
   Height = 629
   Top = 0

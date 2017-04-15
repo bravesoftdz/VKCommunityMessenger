@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel, IdKeyDialog, helpers, entities;
+  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView;
 
 type
 
@@ -15,10 +15,11 @@ type
   TfMainView = class(TForm)
     CommunitiesImageList: TImageList;
     ToolBar1: TToolBar;
-    procedure ChangeWorkspaceExecute(Sender: TObject);
     procedure PrepareWorkspaceForCommunity(Sender: TObject);
   private
+    FCurrentFrame: TFrame;
     FViewModel: IMainViewModel;
+    procedure SetCurrentFrame(AValue: TFrame);
     procedure SetViewModel(AValue: IMainViewModel);
   public
     property ViewModel: IMainViewModel read FViewModel write SetViewModel;
@@ -27,6 +28,7 @@ type
     procedure AddNewCommunityButton;
     {Event of "Add new community" button}
     procedure AddNewCommunity(Sender: TObject);
+    property CurrentFrame: TFrame read FCurrentFrame write SetCurrentFrame;
   end;
 
 var
@@ -39,13 +41,11 @@ implementation
 { TfMainView }
 
 procedure TfMainView.PrepareWorkspaceForCommunity(Sender: TObject);
+var
+  Community: TCommunity;
 begin
-  ShowMessage(((Sender as TToolButton).DataObject as TCommunity).ScreenName);
-end;
-
-procedure TfMainView.ChangeWorkspaceExecute(Sender: TObject);
-begin
-
+  Community := ((Sender as TToolButton).DataObject as TCommunity);
+  CurrentFrame :=
 end;
 
 procedure TfMainView.SetViewModel(AValue: IMainViewModel);
@@ -53,6 +53,13 @@ begin
   if FViewModel = AValue then
     Exit;
   FViewModel := AValue;
+end;
+
+procedure TfMainView.SetCurrentFrame(AValue: TFrame);
+begin
+  if Assigned(FCurrentFrame) then
+    FCurrentFrame.Parent := nil;
+  AValue.Parent := self;
 end;
 
 procedure TfMainView.UpdateGUI;
@@ -70,19 +77,19 @@ begin
   end;
 
   {Fill imagelist}
-  Data:=FViewModel.GetDataForUIUpdate;
-  CommunitiesImageList.Add(Data.NewCommunityPicture,nil);
-  for i:=0 to Data.ButtonPictures.Count-1 do
-      CommunitiesImageList.Add(Data.ButtonPictures[i],nil);
+  Data := FViewModel.GetDataForUIUpdate;
+  CommunitiesImageList.Add(Data.NewCommunityPicture, nil);
+  for i := 0 to Data.ButtonPictures.Count - 1 do
+    CommunitiesImageList.Add(Data.ButtonPictures[i], nil);
 
   {1, becuase index 0 stands for new community icon}
   for i := 1 to CommunitiesImageList.Count - 1 do
   begin
     NewButton := TToolButton.Create(ToolBar1);
     NewButton.ImageIndex := i;
-    NewButton.DataObject := Data.Communities[i-1];
-    NewButton.Parent:=ToolBar1;
-    NewButton.OnClick:=@PrepareWorkspaceForCommunity;
+    NewButton.DataObject := Data.Communities[i - 1];
+    NewButton.Parent := ToolBar1;
+    NewButton.OnClick := @PrepareWorkspaceForCommunity;
   end;
   AddNewCommunityButton;
 
@@ -95,9 +102,9 @@ var
 begin
   NewButton := TToolButton.Create(Toolbar1);
   NewButton.ImageIndex := 0;
-  NewButton.Parent:=ToolBar1;
+  NewButton.Parent := ToolBar1;
   {Hack: NewButton will be always first}
-  NewButton.Top:=-1;
+  NewButton.Top := -1;
   NewButton.OnClick := @AddNewCommunity;
 end;
 

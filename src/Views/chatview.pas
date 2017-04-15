@@ -5,23 +5,42 @@ unit ChatView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls;
+  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkgschat;
 
 type
 
-  { TFrame2 }
+  { TChatFrameView }
 
-  TFrame2 = class(TFrame)
+  TChatFrameView = class(TFrame)
+    ChatView: TVKGSChat;
     Panel1: TPanel;
+    TabControl: TTabControl;
   private
     { private declarations }
   public
-    { public declarations }
+    constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
   end;
+
+var
+  LChatView: TChatFrameView;
 
 implementation
 
 {$R *.lfm}
 
-end.
+{ TChatFrameView }
 
+constructor TChatFrameView.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+  ChatView:=TVKGSChat.Create(Self);
+end;
+
+destructor TChatFrameView.Destroy;
+begin
+  FreeAndnil(ChatView);
+  inherited Destroy;
+end;
+
+end.

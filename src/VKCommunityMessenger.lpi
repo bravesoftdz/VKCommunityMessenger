@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="19">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -74,7 +74,7 @@
       <Unit6>
         <Filename Value="Views\welcomepageview.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Frame1"/>
+        <ComponentName Value="WelcomePageFrameView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit6>
@@ -116,7 +116,8 @@
       <Unit14>
         <Filename Value="Views\chatview.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Frame2"/>
+        <ComponentName Value="ChatFrameView"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChatView"/>
       </Unit14>
@@ -124,6 +125,18 @@
         <Filename Value="Infrastructure\Helpers\helpers.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="ViewModels\chatviewmodel.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="Models\chatmodel.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit18>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -134,7 +147,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO;Infrastructure\Helpers"/>
+      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO;Infrastructure\Helpers;Infrastructure\VKGSChat"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TFrame1 }
+  { TWelcomePageFrameView }
 
-  TFrame1 = class(TFrame)
+  TWelcomePageFrameView = class(TFrame)
     NewsLabel: TLabel;
     WelcomeLabel: TLabel;
     IntroductionText: TLabel;
@@ -25,21 +25,21 @@ type
     property ViewModel: IWelcomePageViewModel read FViewModel write SetViewModel;
   end;
 
-var LWelcomePageView: TFrame1;
+var LWelcomePageView: TWelcomePageFrameView;
 
 implementation
 
 {$R *.lfm}
 
-{ TFrame1 }
+{ TWelcomePageFrameView }
 
-procedure TFrame1.SetViewModel(AValue: IWelcomePageViewModel);
+procedure TWelcomePageFrameView.SetViewModel(AValue: IWelcomePageViewModel);
 begin
   if FViewModel=AValue then Exit;
   FViewModel:=AValue;
 end;
 
-procedure TFrame1.InitializeFrame;
+procedure TWelcomePageFrameView.InitializeFrame;
 begin
   WelcomeLabel.Caption:=ViewModel.GetWelcomeCaption;
   IntroductionText.Caption:=ViewModel.GetWelcomeText;

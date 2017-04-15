@@ -9,7 +9,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   MainView { you can add units after this },
   Controls, Graphics, MainViewModel, MainModel, AbstractViewModel, entities,
   welcomepageview, AbstractModel, welcomepageviewmodel, welcomepagemodel,
-  vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView, sqlite3dyn, helpers;
+  vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView, sqlite3dyn, helpers,
+  vkgschat, chatviewmodel, chatmodel;
 
 {$R *.res}
 
@@ -30,10 +31,11 @@ begin
   {Create views}
   Application.CreateForm(TfMainView, LMainView);
   Application.CreateForm(TDialog, Dialog);
-  LWelcomePageView := TFrame1.Create(LMainView);
-  LWelcomePageView.Parent := LMainView;
+  LWelcomePageView := TWelcomePageFrameView.Create(LMainView);
+  LChatView:=TChatFrameView.Create(LMainView);
 
   {Bind mvvm}
+  LMainView.CurrentFrame:=LWelcomePageView;
   LMainViewModel.Model := LMainModel;
   LMainView.ViewModel := LMainViewModel;
   LWelcomePageView.ViewModel := LWelcomePageViewModel;
