@@ -22,7 +22,7 @@ object ChatFrameView: TChatFrameView
     )
     Align = alClient
     TabOrder = 0
-    object Panel1: TPanel
+    object ChatPanel: TPanel
       Left = 2
       Height = 688
       Top = 28

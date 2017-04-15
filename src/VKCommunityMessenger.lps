@@ -139,9 +139,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChatView"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="20"/>
-        <CursorPos X="35" Y="22"/>
+        <TopLine Value="37"/>
+        <CursorPos X="3" Y="39"/>
         <UsageCount Value="47"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -302,39 +303,38 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
         <CursorPos X="22" Y="37"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit36>
       <Unit37>
         <Filename Value="Models\chatmodel.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <CursorPos X="5" Y="15"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit37>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="Views\welcomepageview.pas"/>
-        <Caret Line="28" Column="76" TopLine="5"/>
-      </Position1>
-      <Position2>
-        <Filename Value="Views\mainview.pas"/>
-        <Caret Line="32" Column="76" TopLine="10"/>
-      </Position2>
-      <Position3>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <Caret Line="38" Column="43" TopLine="19"/>
-      </Position3>
-      <Position4>
+      </Position1>
+      <Position2>
         <Filename Value="Views\welcomepageview.pas"/>
         <Caret Line="19" Column="10" TopLine="10"/>
+      </Position2>
+      <Position3>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="10" Column="24"/>
+      </Position3>
+      <Position4>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="20" Column="35" TopLine="18"/>
       </Position4>
       <Position5>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="10" Column="24"/>
+        <Caret Line="21" Column="35" TopLine="19"/>
       </Position5>
       <Position6>
         <Filename Value="Views\chatview.pas"/>
@@ -346,7 +346,7 @@
       </Position7>
       <Position8>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="20" Column="35" TopLine="18"/>
+        <Caret Line="22" Column="35" TopLine="20"/>
       </Position8>
       <Position9>
         <Filename Value="Views\chatview.pas"/>
@@ -354,7 +354,7 @@
       </Position9>
       <Position10>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="22" Column="35" TopLine="20"/>
+        <Caret Line="20" Column="35" TopLine="18"/>
       </Position10>
       <Position11>
         <Filename Value="Views\chatview.pas"/>
@@ -362,15 +362,15 @@
       </Position11>
       <Position12>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="20" Column="35" TopLine="18"/>
+        <Caret Line="22" Column="35" TopLine="20"/>
       </Position12>
       <Position13>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="21" Column="35" TopLine="19"/>
+        <Caret Line="23" Column="35" TopLine="21"/>
       </Position13>
       <Position14>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="22" Column="35" TopLine="20"/>
+        <Caret Line="24" Column="35" TopLine="22"/>
       </Position14>
       <Position15>
         <Filename Value="Views\chatview.pas"/>
@@ -378,15 +378,15 @@
       </Position15>
       <Position16>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="24" Column="35" TopLine="22"/>
+        <Caret Line="22" Column="35" TopLine="20"/>
       </Position16>
       <Position17>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="23" Column="35" TopLine="21"/>
+        <Caret Line="21" Column="35" TopLine="19"/>
       </Position17>
       <Position18>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="22" Column="35" TopLine="20"/>
+        <Caret Line="20" Column="35" TopLine="18"/>
       </Position18>
       <Position19>
         <Filename Value="Views\chatview.pas"/>
@@ -401,40 +401,40 @@
         <Caret Line="21" Column="35" TopLine="19"/>
       </Position21>
       <Position22>
-        <Filename Value="Views\chatview.pas"/>
-        <Caret Line="20" Column="35" TopLine="18"/>
+        <Filename Value="ViewModels\chatviewmodel.pas"/>
+        <Caret Line="10" Column="30"/>
       </Position22>
       <Position23>
-        <Filename Value="Views\chatview.pas"/>
-        <Caret Line="21" Column="35" TopLine="19"/>
+        <Filename Value="ViewModels\chatviewmodel.pas"/>
+        <Caret Line="13" Column="72"/>
       </Position23>
       <Position24>
         <Filename Value="ViewModels\chatviewmodel.pas"/>
-        <Caret Line="10" Column="30"/>
+        <Caret Line="11"/>
       </Position24>
       <Position25>
         <Filename Value="ViewModels\chatviewmodel.pas"/>
-        <Caret Line="13" Column="72"/>
+        <Caret Line="10" Column="5"/>
       </Position25>
       <Position26>
         <Filename Value="ViewModels\chatviewmodel.pas"/>
-        <Caret Line="11"/>
+        <Caret Line="11" Column="29"/>
       </Position26>
       <Position27>
         <Filename Value="ViewModels\chatviewmodel.pas"/>
-        <Caret Line="10" Column="5"/>
+        <Caret Line="21" Column="57"/>
       </Position27>
       <Position28>
-        <Filename Value="ViewModels\chatviewmodel.pas"/>
-        <Caret Line="11" Column="29"/>
-      </Position28>
-      <Position29>
-        <Filename Value="ViewModels\chatviewmodel.pas"/>
-        <Caret Line="21" Column="57"/>
-      </Position29>
-      <Position30>
         <Filename Value="Models\chatmodel.pas"/>
         <Caret Line="10" Column="28"/>
+      </Position28>
+      <Position29>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="50" Column="57" TopLine="29"/>
+      </Position29>
+      <Position30>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="25" Column="73" TopLine="9"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
