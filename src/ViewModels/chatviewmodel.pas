@@ -5,10 +5,14 @@ unit chatviewmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractViewModel, AbstractModel;
+  Classes, SysUtils, AbstractViewModel, AbstractModel, ChatModel;
 
 type
+
+  { IChatViewModel }
+
   IChatViewModel = interface(IViewModel)
+    function GetSendButtonCaption: string;
   end;
 
   { TChatViewModel }
@@ -18,9 +22,13 @@ type
     FModel: IModel;
     function GetModel: IModel;
     procedure SetModel(AValue: IModel);
-  published
+  public
     property Model: IModel read GetModel write SetModel;
+    function GetSendButtonCaption: string;
   end;
+
+var
+  LChatViewModel: TChatViewModel;
 
 implementation
 
@@ -37,5 +45,9 @@ begin
     FModel := AValue;
 end;
 
-end.
+function TChatViewModel.GetSendButtonCaption: string;
+begin
+  Result := (Model as IChatModel).GetSendButtonName;
+end;
 
+end.

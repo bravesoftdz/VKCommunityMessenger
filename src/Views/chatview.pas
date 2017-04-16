@@ -5,15 +5,19 @@ unit ChatView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkgschat, Graphics, chatviewmodel;
+  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkgschat,
+  Graphics, StdCtrls, Buttons, chatviewmodel;
 
 type
 
   { TChatFrameView }
 
   TChatFrameView = class(TFrame)
+    SendButton: TBitBtn;
     ChatView: TVKGSChat;
     ChatPanel: TPanel;
+    Memo1: TMemo;
+    Memopanel: TPanel;
     TabControl: TTabControl;
   private
     FViewModel: IChatViewModel;
@@ -23,6 +27,8 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     property ViewModel:IChatViewModel read FViewModel write SetViewModel;
+    procedure UpdateGUI;
+    procedure InitializeFrame;
   end;
 
 var
@@ -45,25 +51,17 @@ begin
   inherited Create(TheOwner);
   ChatView:=TVKGSChat.Create(Self);
   ChatView.Align:=alClient;
-  ChatView.BoxBorder:=2;
-  ChatView.DistanceBetweenMessages:=10;
+  ChatView.BoxBorder:=10;
+  ChatView.DistanceBetweenMessages:=20;
   ChatView.BoxColor:=RGBToColor(93,139,201);
   ChatView.FrameColor:=clWhite;
   ChatView.Overlapping:=40;
   ChatView.PaddingLeft:=30;
   ChatView.PaddingRight:=30;
-  ChatView.PaddingBottom:=10;
+  ChatView.PaddingBottom:=20;
   ChatView.Font.Color:=clWhite;
   ChatView.Font.Name:='Segoe UI';
   ChatView.Font.Size:=12;
-  ChatView.Messages.Add(TMessage.Create);
-  ChatView.Messages[0].Left:=true;
-  ChatView.Messages[0].Message:='Здравствуйте, Иван! '
-  +'Мы прислушались к Вашей просьбе и решили что-то сделать, что понравится Вам! '
-  +'От лица всей фирмы ООО "Пупкин" мы дарим вам танк, который поможет Вам быстрее '
-  +'передвигаться по городу в условиях пробок! За этот невероятный подарок Вам '
-  +'следует поблагодарить Дартаньяна!' + #13#10
-  +'Он ждет Вас :)';
   ChatView.Parent:=ChatPanel;
 end;
 
@@ -71,6 +69,17 @@ destructor TChatFrameView.Destroy;
 begin
   FreeAndnil(ChatView);
   inherited Destroy;
+end;
+
+procedure TChatFrameView.UpdateGUI;
+begin
+  TabControl.Tabs.Clear;
+
+end;
+
+procedure TChatFrameView.InitializeFrame;
+begin
+  SendButton.Caption:=ViewModel.GetSendButtonCaption;
 end;
 
 end.

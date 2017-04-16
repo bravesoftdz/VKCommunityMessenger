@@ -25,6 +25,8 @@ begin
   LMainModel := TMainModel.Create;
   LWelcomePageModel := TWelcomePageModel.Create;
   LWelcomePageViewModel := TWelcomePageViewModel.Create;
+  LChatModel := TChatModel.Create;
+  LChatViewModel := TChatViewModel.Create;
 
   Application.Initialize;
 
@@ -40,8 +42,11 @@ begin
   LMainView.ViewModel := LMainViewModel;
   LWelcomePageView.ViewModel := LWelcomePageViewModel;
   LWelcomePageViewModel.Model := LWelcomePageModel;
+  LChatViewModel.Model := LChatModel;
+  LChatView.ViewModel := LChatViewModel;
 
   LWelcomePageView.InitializeFrame;
+  LChatView.InitializeFrame;
   LMainView.UpdateGUI;
   Application.Run;
 end.
