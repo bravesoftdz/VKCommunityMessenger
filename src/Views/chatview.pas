@@ -16,7 +16,7 @@ type
     SendButton: TBitBtn;
     ChatView: TVKGSChat;
     ChatPanel: TPanel;
-    Memo1: TMemo;
+    ChatMemo: TMemo;
     Memopanel: TPanel;
     TabControl: TTabControl;
   private

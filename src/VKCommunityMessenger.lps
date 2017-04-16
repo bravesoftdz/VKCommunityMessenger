@@ -8,9 +8,8 @@
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="25"/>
-        <CursorPos X="40" Y="46"/>
+        <CursorPos X="44" Y="46"/>
         <UsageCount Value="76"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -31,7 +30,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainViewModel"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="13"/>
+        <TopLine Value="30"/>
         <CursorPos X="42" Y="30"/>
         <UsageCount Value="76"/>
         <Loaded Value="True"/>
@@ -137,9 +136,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChatView"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="58"/>
-        <CursorPos X="55" Y="82"/>
+        <CursorPos X="3" Y="77"/>
         <UsageCount Value="49"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
