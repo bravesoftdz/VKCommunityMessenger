@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkgschat,
-  Graphics, StdCtrls, Buttons, chatviewmodel;
+  Graphics, StdCtrls, Buttons, chatviewmodel, entities;
 
 type
 
@@ -72,9 +72,19 @@ begin
 end;
 
 procedure TChatFrameView.UpdateGUI;
+var TabUsers: TUserList;
+    i: integer;
 begin
   TabControl.Tabs.Clear;
 
+  TabUsers := ViewModel.GetUsersForTabs;
+  TabControl.BeginUpdate;
+  for i:=0 to TabUsers.Count-1 do
+  begin
+
+
+  end;
+  TabControl.EndUpdate;
 end;
 
 procedure TChatFrameView.InitializeFrame;

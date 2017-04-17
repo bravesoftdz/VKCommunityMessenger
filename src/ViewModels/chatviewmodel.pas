@@ -5,7 +5,7 @@ unit chatviewmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractViewModel, AbstractModel, ChatModel;
+  Classes, SysUtils, AbstractViewModel, AbstractModel, ChatModel, entities;
 
 type
 
@@ -13,6 +13,9 @@ type
 
   IChatViewModel = interface(IViewModel)
     function GetSendButtonCaption: string;
+    {Get users which have to be assigned to tabs in tabview}
+    function GetUsersForTabs: TUserList;
+    function GetUserById(Id: string): TUser;
   end;
 
   { TChatViewModel }
@@ -25,6 +28,8 @@ type
   public
     property Model: IModel read GetModel write SetModel;
     function GetSendButtonCaption: string;
+    function GetUsersForTabs: TUserList;
+    function GetUserById(Id: string): TUser;
   end;
 
 var
@@ -48,6 +53,25 @@ end;
 function TChatViewModel.GetSendButtonCaption: string;
 begin
   Result := (Model as IChatModel).GetSendButtonName;
+end;
+
+function TChatViewModel.GetUsersForTabs: TUserList;
+var NewUser: TUser;
+begin
+  Result := TUserList.Create;
+  NewUser:=TUser.Create;
+  NewUser.CityId:='666';
+  NewUser.CityTitle:='Moscow';
+  NewUser.FirstName:='Нубито';
+  NewUser.Id:='anubis';
+  NewUser.LastName:='Гангстерито';
+  NewUser.Verified:=false;
+  Result.Add(NewUser);
+end;
+
+function TChatViewModel.GetUserById(Id: string): TUser;
+begin
+
 end;
 
 end.

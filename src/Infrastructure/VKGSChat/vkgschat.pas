@@ -5,24 +5,19 @@ unit vkgschat;
 interface
 
 uses
-  Classes, SysUtils, Controls, fgl, LCLIntf, LCLType, Graphics;
+  Classes, SysUtils, Controls, fgl, LCLIntf, LCLType, Graphics, entities;
 
 type
 
-  { TMessage }
+  { TUIMessage }
 
-  TMessage = class
+  TUIMessage = class(TMessage)
   private
     FLeft: boolean;
-    FMessage: string;
     procedure SetLeft(AValue: boolean);
-    procedure SetMessage(AValue: string);
-  published
+  public
     property Left: boolean read FLeft write SetLeft;
-    property Message: string read FMessage write SetMessage;
   end;
-
-  TMessegesList = specialize TFPGObjectList<TMessage>;
 
   { TVKGSChat }
 
@@ -32,7 +27,7 @@ type
     FBoxColor: TColor;
     FDistanceBetweenMessages: integer;
     FFrameColor: TColor;
-    FMessages: TMessegesList;
+    FMessages: TMessagesList;
     FOverlapping: integer;
     FPaddingBottom: integer;
     FPaddingLeft: integer;
@@ -41,7 +36,7 @@ type
     procedure SetBoxColor(AValue: TColor);
     procedure SetDistanceBetweenMessages(AValue: integer);
     procedure SetFrameColor(AValue: TColor);
-    procedure SetMessages(AValue: TMessegesList);
+    procedure SetMessages(AValue: TMessagesList);
     procedure SetOverlapping(AValue: integer);
     procedure SetPaddingBottom(AValue: integer);
     procedure SetPaddingLeft(AValue: integer);
@@ -52,7 +47,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property Messages: TMessegesList read FMessages write SetMessages;
+    property Messages: TMessagesList read FMessages write SetMessages;
     property PaddingLeft: integer read FPaddingLeft write SetPaddingLeft;
     property PaddingRight: integer read FPaddingRight write SetPaddingRight;
     property PaddingBottom: integer read FPaddingBottom write SetPaddingBottom;
@@ -67,16 +62,9 @@ type
 
 implementation
 
-{ TMessage }
+{ TUIMessage }
 
-procedure TMessage.SetMessage(AValue: string);
-begin
-  if FMessage = AValue then
-    Exit;
-  FMessage := Trim(AValue);
-end;
-
-procedure TMessage.SetLeft(AValue: boolean);
+procedure TUIMessage.SetLeft(AValue: boolean);
 begin
   if FLeft = AValue then
     Exit;
@@ -85,7 +73,7 @@ end;
 
 { TVKGSChat }
 
-procedure TVKGSChat.SetMessages(AValue: TMessegesList);
+procedure TVKGSChat.SetMessages(AValue: TMessagesList);
 begin
   if FMessages = AValue then
     Exit;
@@ -154,7 +142,7 @@ var
   i: integer;
   TopLine: integer;
   BottomLine: integer;
-  Message: TMessage;
+  Message: TUIMessage;
   LRect, LBox: TRect;
   Buf: integer;
 begin
@@ -173,7 +161,7 @@ begin
 
   for i := Messages.Count - 1 downto 0 do
   begin
-    Message := Messages[i];
+    Message := (Messages[i] as TUIMessage);
 
     {Find size of rectangle for text}
     LRect := Rect(LeftBorder, BottomLine - Canvas.TextHeight('A'),
@@ -206,7 +194,7 @@ end;
 constructor TVKGSChat.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FMessages := TMessegesList.Create(True);
+  FMessages := TMessagesList.Create(True);
 end;
 
 destructor TVKGSChat.Destroy;
