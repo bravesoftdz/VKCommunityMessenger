@@ -35,6 +35,8 @@ type
   private
     HTTPClient: TFPHTTPClient;
     Connection: TSQLite3Connection;
+    procedure ParseGroupGetByIdResponse(const JSONResponseDocument: TJSONObject;
+      const AccessKey: string; var Community: TCommunity);
   public
     constructor Create;
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
@@ -53,6 +55,33 @@ implementation
 
 { TMainModel }
 
+procedure TMainModel.ParseGroupGetByIdResponse(
+  const JSONResponseDocument: TJSONObject; const AccessKey: string;
+  var Community: TCommunity);
+var
+  JSONCommunityObject: TJSONObject;
+  ResponseArray: TJSONArray;
+begin
+  ResponseArray := (JSONResponseDocument['response'] as TJSONArray);
+  JSONCommunityObject := (ResponseArray[0] as TJSONObject);
+  {Serialize}
+  Community.AccessKey := AccessKey;
+  Community.CommunityType := StringToCommunityType(
+    JSONCommunityObject['type'].AsString);
+  if Assigned(JSONCommunityObject.Find('deactivated')) then
+    Community.Deactivated := True
+  else
+    Community.Deactivated := False;
+  Community.HasPhoto := JSONCommunityObject['has_photo'].AsBoolean;
+  Community.Id := JSONCommunityObject['id'].AsString;
+  Community.IsClosed := JSONCommunityObject['is_closed'].AsBoolean;
+  Community.Name := JSONCommunityObject['name'].AsString;
+  Community.ScreenName := JSONCommunityObject['screen_name'].AsString;
+  if Community.HasPhoto then
+    Community.Photo := DAO.LoadPhoto(HTTPClient,
+      JSONCommunityObject['photo_50'].AsString);
+end;
+
 constructor TMainModel.Create;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
@@ -67,35 +96,17 @@ begin
   Connection.Open;
 end;
 
-function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
-TCommunity;
+function TMainModel.GetExtendedCommunityInformation(CommunityId,
+  AccessKey: string): TCommunity;
 var
   JSONResponseDocument: TJSONObject;
-  ResponseArray: TJSONArray;
-  JSONCommunityObject: TJSONObject;
 begin
   Result := TCommunity.Create;
   try
     JSONResponseDocument := DAO.Groups.GetById(HTTPClient, AccessKey, CommunityId);
     if Assigned(JSONResponseDocument.Find('error')) then
       raise Exception.Create('Неправильные Id и/или ключ доступа');
-    ResponseArray := (JSONResponseDocument['response'] as TJSONArray);
-    JSONCommunityObject := (ResponseArray[0] as TJSONObject);
-    {Serialize}
-    Result.AccessKey := AccessKey;
-    Result.CommunityType := StringToCommunityType(JSONCommunityObject['type'].AsString);
-    if Assigned(JSONCommunityObject.Find('deactivated')) then
-      Result.Deactivated := True
-    else
-      Result.Deactivated := False;
-    Result.HasPhoto := JSONCommunityObject['has_photo'].AsBoolean;
-    Result.Id := JSONCommunityObject['id'].AsString;
-    Result.IsClosed := JSONCommunityObject['is_closed'].AsBoolean;
-    Result.Name := JSONCommunityObject['name'].AsString;
-    Result.ScreenName := JSONCommunityObject['screen_name'].AsString;
-    if Result.HasPhoto then
-      Result.Photo := DAO.LoadPhoto(HTTPClient,
-        JSONCommunityObject['photo_50'].AsString);
+    ParseGroupGetByIdResponse(JSONResponseDocument, AccessKey, Result);
   except
     raise;
   end;
@@ -132,8 +143,8 @@ begin
         CommunitiesDataset.FieldByName('Photo'), bmRead));
     end;
     Community.AccessKey := CommunitiesDataset.FieldByName('AccessKey').AsString;
-    Community.CommunityType := StringToCommunityType(
-      CommunitiesDataset.FieldByName('CommunityType').AsString);
+    Community.CommunityType :=
+      StringToCommunityType(CommunitiesDataset.FieldByName('CommunityType').AsString);
     Community.Deactivated := CommunitiesDataset.FieldByName('Deactivated').AsBoolean;
     Community.Id := CommunitiesDataset.FieldByName('Id').AsString;
     Community.IsClosed := CommunitiesDataset.FieldByName('IsClosed').AsBoolean;

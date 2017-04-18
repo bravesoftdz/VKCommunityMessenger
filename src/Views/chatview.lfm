@@ -24,12 +24,12 @@ object ChatFrameView: TChatFrameView
     TabOrder = 0
     object ChatPanel: TPanel
       Left = 2
-      Height = 688
-      Top = 28
+      Height = 683
+      Top = 33
       Width = 1219
       Align = alClient
       BevelOuter = bvLowered
-      ClientHeight = 688
+      ClientHeight = 683
       ClientWidth = 1219
       Color = 16113353
       ParentColor = False
@@ -37,7 +37,7 @@ object ChatFrameView: TChatFrameView
       object Memopanel: TPanel
         Left = 1
         Height = 175
-        Top = 512
+        Top = 507
         Width = 1217
         Align = alBottom
         ClientHeight = 175
@@ -58,6 +58,13 @@ object ChatFrameView: TChatFrameView
           Width = 160
           Anchors = [akRight]
           Caption = 'SendButton'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -20
+          Font.Name = 'Arial'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          Layout = blGlyphRight
+          ParentFont = False
           TabOrder = 1
         end
       end

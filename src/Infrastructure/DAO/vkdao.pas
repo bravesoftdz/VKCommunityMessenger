@@ -121,7 +121,7 @@ begin
   Query.SQL.Text := SQL_SELECT_WHOLE_DATABASE_SELECT_QUERY;
 
   Result := Query;
-  QueryTransaction:=Transaction;
+  QueryTransaction := Transaction;
 end;
 
 { DAO }
