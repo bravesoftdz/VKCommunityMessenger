@@ -17,6 +17,7 @@ type
     function GetUsersForTabs(Community: TCommunity): TUserList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
+    function GetLastMessages(Community: TCommunity; User: TUser): TMessagesList;
   end;
 
   { TChatViewModel }
@@ -32,6 +33,7 @@ type
     function GetUsersForTabs(Community: TCommunity): TUserList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
+    function GetLastMessages(Community: TCommunity; User: TUser): TMessagesList;
   end;
 
 var
@@ -80,6 +82,13 @@ end;
 function TChatViewModel.GetSendButtonGlyph: TBitmap;
 begin
   Result := (Model as TChatModel).GetSendPicture.Bitmap;
+end;
+
+function TChatViewModel.GetLastMessages(Community: TCommunity; User: TUser
+  ): TMessagesList;
+var UIMessage
+begin
+
 end;
 
 end.

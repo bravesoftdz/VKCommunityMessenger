@@ -9,7 +9,7 @@
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
         <CursorPos X="44" Y="46"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="83"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,7 +22,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="37"/>
         <CursorPos X="29" Y="50"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="83"/>
       </Unit1>
       <Unit2>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
@@ -31,16 +31,16 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="30"/>
         <CursorPos X="42" Y="30"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="83"/>
       </Unit2>
       <Unit3>
         <Filename Value="Models\mainmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainModel"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="140"/>
+        <TopLine Value="160"/>
         <CursorPos X="83" Y="152"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="83"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -48,14 +48,15 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="AbstractViewModel"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="83"/>
       </Unit4>
       <Unit5>
         <Filename Value="Models\entities.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
+        <TopLine Value="80"/>
         <CursorPos X="47" Y="23"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -67,14 +68,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="23"/>
         <CursorPos X="45" Y="23"/>
-        <UsageCount Value="70"/>
+        <UsageCount Value="71"/>
       </Unit6>
       <Unit7>
         <Filename Value="Models\abstractmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="AbstractModel"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="70"/>
       </Unit7>
       <Unit8>
         <Filename Value="ViewModels\welcomepageviewmodel.pas"/>
@@ -82,7 +83,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="9"/>
         <CursorPos X="30" Y="17"/>
-        <UsageCount Value="67"/>
+        <UsageCount Value="68"/>
       </Unit8>
       <Unit9>
         <Filename Value="Models\welcomepagemodel.pas"/>
@@ -90,7 +91,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
         <CursorPos X="53" Y="44"/>
-        <UsageCount Value="67"/>
+        <UsageCount Value="68"/>
       </Unit9>
       <Unit10>
         <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
@@ -98,7 +99,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="24"/>
         <CursorPos X="25" Y="35"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="64"/>
       </Unit10>
       <Unit11>
         <Filename Value="Views\idkeydialog.pas"/>
@@ -110,7 +111,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos X="17" Y="58"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="63"/>
       </Unit11>
       <Unit12>
         <Filename Value="Config\vkgsconfig.pas"/>
@@ -118,17 +119,16 @@
         <UnitName Value="VKGSConfig"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="21"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
       </Unit12>
       <Unit13>
         <Filename Value="Infrastructure\DAO\vkdao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="VKDAO"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="38"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="128"/>
         <CursorPos X="73" Y="78"/>
-        <UsageCount Value="57"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="58"/>
       </Unit13>
       <Unit14>
         <Filename Value="Views\chatview.pas"/>
@@ -137,12 +137,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChatView"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="86"/>
-        <CursorPos X="28" Y="100"/>
-        <UsageCount Value="55"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="76"/>
+        <CursorPos X="21" Y="76"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="Infrastructure\Helpers\helpers.pas"/>
@@ -150,23 +150,24 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos X="22" Y="28"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
       </Unit15>
       <Unit16>
         <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="4"/>
         <CursorPos X="20" Y="16"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit16>
       <Unit17>
         <Filename Value="ViewModels\chatviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="17"/>
-        <CursorPos X="30" Y="32"/>
-        <UsageCount Value="29"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="67"/>
+        <CursorPos X="14" Y="89"/>
+        <UsageCount Value="30"/>
+        <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="Models\chatmodel.pas"/>
@@ -174,7 +175,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos X="34" Y="37"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
       </Unit18>
       <Unit19>
         <Filename Value="C:\lazarus\lcl\include\imglist.inc"/>
@@ -313,7 +314,7 @@
         <UsageCount Value="11"/>
       </Unit37>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="12" HistoryIndex="11">
       <Position1>
         <Filename Value="Models\mainmodel.pas"/>
         <Caret Line="115" Column="3" TopLine="99"/>
@@ -324,28 +325,44 @@
       </Position2>
       <Position3>
         <Filename Value="Models\mainmodel.pas"/>
-        <Caret Line="38" Column="15" TopLine="83"/>
+        <Caret Line="81" Column="14" TopLine="60"/>
       </Position3>
       <Position4>
         <Filename Value="Models\mainmodel.pas"/>
-        <Caret Line="63" Column="43" TopLine="101"/>
+        <Caret Line="110" Column="43" TopLine="101"/>
       </Position4>
       <Position5>
-        <Filename Value="Models\mainmodel.pas"/>
-        <Caret Line="81" Column="14" TopLine="60"/>
-      </Position5>
-      <Position6>
-        <Filename Value="Models\mainmodel.pas"/>
-        <Caret Line="110" Column="43" TopLine="101"/>
-      </Position6>
-      <Position7>
         <Filename Value="Models\entities.pas"/>
         <Caret Line="138" TopLine="123"/>
+      </Position5>
+      <Position6>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="102" Column="62" TopLine="88"/>
+      </Position6>
+      <Position7>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="103" Column="33" TopLine="91"/>
       </Position7>
       <Position8>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="102" Column="62" TopLine="88"/>
+        <Caret Line="17" Column="10" TopLine="3"/>
       </Position8>
+      <Position9>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="78" Column="7" TopLine="58"/>
+      </Position9>
+      <Position10>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="23" Column="25" TopLine="13"/>
+      </Position10>
+      <Position11>
+        <Filename Value="Views\chatview.pas"/>
+        <Caret Line="121" Column="18" TopLine="19"/>
+      </Position11>
+      <Position12>
+        <Filename Value="ViewModels\chatviewmodel.pas"/>
+        <Caret Line="36" Column="81" TopLine="16"/>
+      </Position12>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
