@@ -1,35 +1,36 @@
 object ChatFrameView: TChatFrameView
   Left = 0
-  Height = 718
+  Height = 711
   Top = 0
   Width = 1223
   Align = alClient
-  ClientHeight = 718
+  ClientHeight = 711
   ClientWidth = 1223
   Color = clDefault
   ParentColor = False
   TabOrder = 0
-  DesignLeft = 424
-  DesignTop = 132
+  DesignLeft = 370
+  DesignTop = 285
   object TabControl: TTabControl
     Left = 0
-    Height = 718
+    Height = 711
     Top = 0
     Width = 1223
+    OnChange = TabControlChange
     TabIndex = 0
     Tabs.Strings = (
-      'Добавить нового юзера'
+      ''
     )
     Align = alClient
     TabOrder = 0
     object ChatPanel: TPanel
       Left = 2
-      Height = 688
-      Top = 28
+      Height = 676
+      Top = 33
       Width = 1219
       Align = alClient
       BevelOuter = bvLowered
-      ClientHeight = 688
+      ClientHeight = 676
       ClientWidth = 1219
       Color = 16113353
       ParentColor = False
@@ -37,7 +38,7 @@ object ChatFrameView: TChatFrameView
       object Memopanel: TPanel
         Left = 1
         Height = 175
-        Top = 512
+        Top = 500
         Width = 1217
         Align = alBottom
         ClientHeight = 175
@@ -64,8 +65,41 @@ object ChatFrameView: TChatFrameView
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
           Layout = blGlyphRight
+          OnClick = SendButtonClick
           ParentFont = False
           TabOrder = 1
+        end
+      end
+      object RightMenu: TPanel
+        Left = 1136
+        Height = 499
+        Top = 1
+        Width = 82
+        Align = alRight
+        ClientHeight = 499
+        ClientWidth = 82
+        TabOrder = 1
+        object ExpandMenuImage: TImage
+          Left = 12
+          Height = 60
+          Top = 12
+          Width = 60
+          OnClick = ExpandMenuImageClick
+        end
+        object UserAvatar: TImage
+          Left = 12
+          Height = 60
+          Top = 88
+          Width = 60
+          Proportional = True
+          Stretch = True
+        end
+        object SettingsButton: TImage
+          Left = 12
+          Height = 60
+          Top = 424
+          Width = 60
+          Anchors = [akLeft, akBottom]
         end
       end
     end

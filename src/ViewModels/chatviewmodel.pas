@@ -5,7 +5,8 @@ unit chatviewmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractViewModel, AbstractModel, ChatModel, entities, Graphics;
+  Classes, SysUtils, AbstractViewModel, AbstractModel, ChatModel,
+  entities, Graphics, vkgschat, Dialogs;
 
 type
 
@@ -17,7 +18,11 @@ type
     function GetUsersForTabs(Community: TCommunity): TUserList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
-    function GetLastMessages(Community: TCommunity; User: TUser): TMessagesList;
+    function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesList;
+    {Send message to a user}
+    procedure SendMessage(User: TUser; Message: TMessage);
+    {Get image for users with no avatar}
+    function GetNoAvatarImage: TPicture;
   end;
 
   { TChatViewModel }
@@ -33,7 +38,9 @@ type
     function GetUsersForTabs(Community: TCommunity): TUserList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
-    function GetLastMessages(Community: TCommunity; User: TUser): TMessagesList;
+    function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesList;
+    procedure SendMessage(User: TUser; Message: TMessage);
+    function GetNoAvatarImage: TPicture;
   end;
 
 var
@@ -65,12 +72,8 @@ var
 begin
   Result := TUserList.Create;
   NewUser := TUser.Create;
-  NewUser.CityId := '666';
-  NewUser.CityTitle := 'Moscow';
-  NewUser.FirstName := 'Нубито';
-  NewUser.Id := 'anubis';
-  NewUser.LastName := 'Гангстерито';
-  NewUser.Verified := False;
+  NewUser.FirstName:='Вася';
+  NewUser.LastName:='Пупкин';
   Result.Add(NewUser);
 end;
 
@@ -84,11 +87,32 @@ begin
   Result := (Model as TChatModel).GetSendPicture.Bitmap;
 end;
 
-function TChatViewModel.GetLastMessages(Community: TCommunity; User: TUser
-  ): TMessagesList;
-var UIMessage
+function TChatViewModel.GetLastMessages(Community: TCommunity;
+  User: TUser): TUIMessagesList;
+var
+  NewMessage: TUIMessage;
 begin
+  Result := TUIMessagesList.Create(True);
 
+  NewMessage := TUIMessage.Create;
+  NewMessage.Message := 'Привет!';
+  NewMessage.Out:= otRecieved;
+  Result.Add(NewMessage);
+
+  NewMessage := TUIMessage.Create;
+  NewMessage.Message := 'Ну привет!';
+  NewMessage.Out:= otSent;
+  Result.Add(NewMessage);
+end;
+
+procedure TChatViewModel.SendMessage(User: TUser; Message: TMessage);
+begin
+  ShowMessage('Отправлено :)');
+end;
+
+function TChatViewModel.GetNoAvatarImage: TPicture;
+begin
+  Result := (Model as TChatModel).GetNoAvatarPicture;
 end;
 
 end.

@@ -5,7 +5,7 @@ unit chatmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel, Graphics;
+  Classes, SysUtils, AbstractModel, Graphics, fphttpclient;
 
 type
 
@@ -20,8 +20,14 @@ type
   { TChatModel }
 
   TChatModel = class(TInterfacedObject, IChatModel, IModel)
+    private
+    HTTPClient: TFPHTTPClient;
+    public
+    constructor Create;
     function GetSendPicture: TPicture;
     function GetSendButtonName: string;
+    function GetNoAvatarPicture: TPicture;
+    destructor Destroy; override;
   end;
 
 var
@@ -30,6 +36,11 @@ var
 implementation
 
 { TChatModel }
+
+constructor TChatModel.Create;
+begin
+  HTTPClient:=TFPHTTPClient.Create(nil);
+end;
 
 function TChatModel.GetSendPicture: TPicture;
 begin
@@ -40,6 +51,18 @@ end;
 function TChatModel.GetSendButtonName: string;
 begin
   Result := 'Отправить';
+end;
+
+function TChatModel.GetNoAvatarPicture: TPicture;
+begin
+  Result:= TPicture.Create;
+  Result.LoadFromFile('.\img\no_userimage.png');
+end;
+
+destructor TChatModel.Destroy;
+begin
+  FreeAndNil(HTTPClient);
+  inherited Destroy;
 end;
 
 end.

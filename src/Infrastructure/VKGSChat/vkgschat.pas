@@ -13,11 +13,12 @@ type
 
   TUIMessage = class(TMessage)
   private
-    FLeft: boolean;
-    procedure SetLeft(AValue: boolean);
+    function GetLeft: boolean;
   public
-    property Left: boolean read FLeft write SetLeft;
+    property Left: boolean read GetLeft;
   end;
+
+  TUIMessagesList = specialize TFPGObjectList<TUIMessage>;
 
   { TVKGSChat }
 
@@ -27,7 +28,7 @@ type
     FBoxColor: TColor;
     FDistanceBetweenMessages: integer;
     FFrameColor: TColor;
-    FMessages: TMessagesList;
+    FMessages: TUIMessagesList;
     FOverlapping: integer;
     FPaddingBottom: integer;
     FPaddingLeft: integer;
@@ -36,7 +37,7 @@ type
     procedure SetBoxColor(AValue: TColor);
     procedure SetDistanceBetweenMessages(AValue: integer);
     procedure SetFrameColor(AValue: TColor);
-    procedure SetMessages(AValue: TMessagesList);
+    procedure SetMessages(AValue: TUIMessagesList);
     procedure SetOverlapping(AValue: integer);
     procedure SetPaddingBottom(AValue: integer);
     procedure SetPaddingLeft(AValue: integer);
@@ -47,7 +48,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property Messages: TMessagesList read FMessages write SetMessages;
+    property Messages: TUIMessagesList read FMessages write SetMessages;
     property PaddingLeft: integer read FPaddingLeft write SetPaddingLeft;
     property PaddingRight: integer read FPaddingRight write SetPaddingRight;
     property PaddingBottom: integer read FPaddingBottom write SetPaddingBottom;
@@ -64,20 +65,18 @@ implementation
 
 { TUIMessage }
 
-procedure TUIMessage.SetLeft(AValue: boolean);
+function TUIMessage.GetLeft: boolean;
 begin
-  if FLeft = AValue then
-    Exit;
-  FLeft := AValue;
+  Result := Out = otRecieved;
 end;
 
 { TVKGSChat }
 
-procedure TVKGSChat.SetMessages(AValue: TMessagesList);
+procedure TVKGSChat.SetMessages(AValue: TUIMessagesList);
 begin
-  if FMessages = AValue then
-    Exit;
-  FMessages := AValue;
+  if FMessages=AValue then Exit;
+  FreeAndNil(FMessages);
+  FMessages:=AValue;
 end;
 
 procedure TVKGSChat.SetDistanceBetweenMessages(AValue: integer);
@@ -194,7 +193,8 @@ end;
 constructor TVKGSChat.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FMessages := TMessagesList.Create(True);
+  FMessages := TUIMessagesList.Create(True);
+  DoubleBuffered:=true;
 end;
 
 destructor TVKGSChat.Destroy;

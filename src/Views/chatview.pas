@@ -6,24 +6,33 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkgschat,
-  Graphics, StdCtrls, Buttons, chatviewmodel, entities;
+  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs;
 
 type
 
   { TChatFrameView }
 
   TChatFrameView = class(TFrame)
+    ExpandMenuImage: TImage;
+    UserAvatar: TImage;
+    SettingsButton: TImage;
+    RightMenu: TPanel;
     SendButton: TBitBtn;
     Chat: TVKGSChat;
     ChatPanel: TPanel;
     ChatMemo: TMemo;
     Memopanel: TPanel;
     TabControl: TTabControl;
+    procedure ExpandMenuImageClick(Sender: TObject);
+    procedure SendButtonClick(Sender: TObject);
+    procedure TabControlChange(Sender: TObject);
   private
+    FRightMenuExpanded: boolean;
     TabUsers: TUserList;
     FCommunity: TCommunity;
     FViewModel: IChatViewModel;
     procedure SetCommunity(AValue: TCommunity);
+    procedure SetRightMenuExpanded(AValue: boolean);
     procedure SetViewModel(AValue: IChatViewModel);
     { private declarations }
   public
@@ -34,6 +43,8 @@ type
     procedure UpdateGUI;
     procedure InitializeFrame;
     procedure LoadUserMessages(User: TUser);
+    procedure OpenNewDialog;
+    property RightMenuExpanded: boolean read FRightMenuExpanded write SetRightMenuExpanded;
   end;
 
 var
@@ -52,11 +63,60 @@ begin
   FViewModel := AValue;
 end;
 
+procedure TChatFrameView.SendButtonClick(Sender: TObject);
+var
+  NewMessage: TMessage;
+  SelectedUser: TUser;
+begin
+  if TabUsers.Count<1 then exit;
+  SelectedUser := TabUsers[TabControl.TabIndex];
+  NewMessage := TMessage.Create;
+  NewMessage.Message := ChatMemo.Text;
+  ViewModel.SendMessage(SelectedUser, NewMessage);
+  UpdateGUI;
+end;
+
+procedure TChatFrameView.ExpandMenuImageClick(Sender: TObject);
+begin
+  RightMenuExpanded:=not RightMenuExpanded;
+end;
+
+procedure TChatFrameView.TabControlChange(Sender: TObject);
+var
+  SelectedUser: TUser;
+begin
+  if TabControl.TabIndex = TabUsers.Count then
+  begin
+    OpenNewDialog;
+    TabControl.TabIndex := 0;
+  end
+  else
+  begin
+    try
+      SelectedUser := TabUsers[TabControl.TabIndex];
+      LoadUserMessages(SelectedUser);
+    except
+      ShowMessage('Ошибка приложения (несоответствие индексов вкладок и количества пользователей)');
+      UpdateGUI;
+    end;
+  end;
+end;
+
 procedure TChatFrameView.SetCommunity(AValue: TCommunity);
 begin
   if FCommunity = AValue then
     Exit;
   FCommunity := AValue;
+end;
+
+procedure TChatFrameView.SetRightMenuExpanded(AValue: boolean);
+begin
+  if FRightMenuExpanded=AValue then Exit;
+  FRightMenuExpanded:=AValue;
+  if FRightMenuExpanded then
+     RightMenu.Width:=ChatPanel.Width-300
+  else
+     RightMenu.Width := 82;
 end;
 
 constructor TChatFrameView.Create(TheOwner: TComponent);
@@ -103,22 +163,33 @@ begin
     TabControl.Tabs.Add(NewTab);
   end;
   {"Write new message" tab}
-  TabControl.Tabs.Add('Написать новое сообщение');
+  TabControl.Tabs.Add('Открыть новый диалог');
   TabControl.TabIndex := 0;
   TabControl.EndUpdate;
 
-  LoadUserMessages(TabUsers[0]);
+  if TabUsers.Count > 0 then
+    LoadUserMessages(TabUsers[0]);
 end;
 
 procedure TChatFrameView.InitializeFrame;
 begin
   SendButton.Caption := ViewModel.GetSendButtonCaption;
   SendButton.Glyph := ViewModel.GetSendButtonGlyph;
+  RightMenuExpanded:=false;
 end;
 
 procedure TChatFrameView.LoadUserMessages(User: TUser);
 begin
-  Chat.Messages:=ViewModel.GetLastMessages(Community,User);
+  Chat.Messages := ViewModel.GetLastMessages(Community, User);
+  if Assigned(User.Photo) then
+     UserAvatar.Picture:=User.Photo
+  else
+     UserAvatar.Picture := ViewModel.GetNoAvatarImage;
+end;
+
+procedure TChatFrameView.OpenNewDialog;
+begin
+  ShowMessage('Not ready');
 end;
 
 end.

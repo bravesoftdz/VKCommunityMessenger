@@ -77,24 +77,45 @@ type
 
   TUserList = specialize TFPGList<TUser>;
 
+  TReadState = (rsRead, rsUnread);
+
+  TOutType = (otSent, otRecieved);
+
   { TMessage }
 
   TMessage = class
   private
+    FDate: TDateTime;
+    FDeleted: boolean;
+    FEmoji: boolean;
+    FFromId: string;
+    FId: string;
     FMessage: string;
+    FOut: TOutType;
+    FReadState: TReadState;
+    FTitle: string;
+    FUserId: string;
+    procedure SetDate(AValue: TDateTime);
+    procedure SetDeleted(AValue: boolean);
+    procedure SetEmoji(AValue: boolean);
+    procedure SetFromId(AValue: string);
+    procedure SetId(AValue: string);
     procedure SetMessage(AValue: string);
+    procedure SetOut(AValue: TOutType);
+    procedure SetReadState(AValue: TReadState);
+    procedure SetTitle(AValue: string);
+    procedure SetUserId(AValue: string);
   public
+    property Id: string read FId write SetId;
     property Message: string read FMessage write SetMessage;
-  end;
-
-  { TUserMessage }
-
-  TUserMessage = class(TMessage)
-  private
-    FOwner: TUser;
-    procedure SetOwner(AValue: TUser);
-  published
-    property Owner: TUser read FOwner write SetOwner;
+    property UserId: string read FUserId write SetUserId;
+    property FromId: string read FFromId write SetFromId;
+    property Date: TDateTime read FDate write SetDate;
+    property ReadState: TReadState read FReadState write SetReadState;
+    property Out: TOutType read FOut write SetOut;
+    property Title: string read FTitle write SetTitle;
+    property Deleted: boolean read FDeleted write SetDeleted;
+    property Emoji: boolean read FEmoji write SetEmoji;
   end;
 
   TMessagesList = specialize TFPGObjectList<TMessage>;
@@ -140,15 +161,6 @@ begin
   end;
 end;
 
-{ TUserMessage }
-
-procedure TUserMessage.SetOwner(AValue: TUser);
-begin
-  if FOwner = AValue then
-    Exit;
-  FOwner := AValue;
-end;
-
 { TMessage }
 
 procedure TMessage.SetMessage(AValue: string);
@@ -156,6 +168,60 @@ begin
   if FMessage = AValue then
     Exit;
   FMessage := Trim(AValue);
+end;
+
+procedure TMessage.SetDate(AValue: TDateTime);
+begin
+  if FDate=AValue then Exit;
+  FDate:=AValue;
+end;
+
+procedure TMessage.SetDeleted(AValue: boolean);
+begin
+  if FDeleted=AValue then Exit;
+  FDeleted:=AValue;
+end;
+
+procedure TMessage.SetEmoji(AValue: boolean);
+begin
+  if FEmoji=AValue then Exit;
+  FEmoji:=AValue;
+end;
+
+procedure TMessage.SetFromId(AValue: string);
+begin
+  if FFromId=AValue then Exit;
+  FFromId:=AValue;
+end;
+
+procedure TMessage.SetId(AValue: string);
+begin
+  if FId=AValue then Exit;
+  FId:=AValue;
+end;
+
+procedure TMessage.SetOut(AValue: TOutType);
+begin
+  if FOut=AValue then Exit;
+  FOut:=AValue;
+end;
+
+procedure TMessage.SetReadState(AValue: TReadState);
+begin
+  if FReadState=AValue then Exit;
+  FReadState:=AValue;
+end;
+
+procedure TMessage.SetTitle(AValue: string);
+begin
+  if FTitle=AValue then Exit;
+  FTitle:=AValue;
+end;
+
+procedure TMessage.SetUserId(AValue: string);
+begin
+  if FUserId=AValue then Exit;
+  FUserId:=AValue;
 end;
 
 { TUser }
