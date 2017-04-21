@@ -23,6 +23,10 @@ type
     procedure SendMessage(User: TUser; Message: TMessage);
     {Get image for users with no avatar}
     function GetNoAvatarImage: TPicture;
+    {Expand/Hide button images}
+    function GetHidePicture: TPicture;
+    function GetExpandPicture: TPicture;
+    function GetSettingsPicture: TPicture;
   end;
 
   { TChatViewModel }
@@ -41,6 +45,9 @@ type
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesList;
     procedure SendMessage(User: TUser; Message: TMessage);
     function GetNoAvatarImage: TPicture;
+    function GetHidePicture: TPicture;
+    function GetExpandPicture: TPicture;
+    function GetSettingsPicture: TPicture;
   end;
 
 var
@@ -113,6 +120,24 @@ end;
 function TChatViewModel.GetNoAvatarImage: TPicture;
 begin
   Result := (Model as TChatModel).GetNoAvatarPicture;
+end;
+
+function TChatViewModel.GetHidePicture: TPicture;
+begin
+  Result := TPicture.Create;
+  Result.LoadFromFile('.\img\hide_new.png');
+end;
+
+function TChatViewModel.GetExpandPicture: TPicture;
+begin
+  Result := TPicture.Create;
+  Result.LoadFromFile('.\img\expand_new.png');
+end;
+
+function TChatViewModel.GetSettingsPicture: TPicture;
+begin
+  Result := TPicture.Create;
+  Result.LoadFromFile('.\img\settings_3.png');
 end;
 
 end.

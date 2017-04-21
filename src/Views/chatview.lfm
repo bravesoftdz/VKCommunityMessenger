@@ -85,6 +85,7 @@ object ChatFrameView: TChatFrameView
           Top = 12
           Width = 60
           OnClick = ExpandMenuImageClick
+          Stretch = True
         end
         object UserAvatar: TImage
           Left = 12
@@ -100,6 +101,8 @@ object ChatFrameView: TChatFrameView
           Top = 424
           Width = 60
           Anchors = [akLeft, akBottom]
+          OnClick = SettingsButtonClick
+          Stretch = True
         end
       end
     end

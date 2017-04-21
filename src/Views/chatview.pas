@@ -25,12 +25,15 @@ type
     TabControl: TTabControl;
     procedure ExpandMenuImageClick(Sender: TObject);
     procedure SendButtonClick(Sender: TObject);
+    procedure SettingsButtonClick(Sender: TObject);
     procedure TabControlChange(Sender: TObject);
   private
     FRightMenuExpanded: boolean;
     TabUsers: TUserList;
     FCommunity: TCommunity;
     FViewModel: IChatViewModel;
+    ExpandPicture: TPicture;
+    HidePicture: TPicture;
     procedure SetCommunity(AValue: TCommunity);
     procedure SetRightMenuExpanded(AValue: boolean);
     procedure SetViewModel(AValue: IChatViewModel);
@@ -44,7 +47,8 @@ type
     procedure InitializeFrame;
     procedure LoadUserMessages(User: TUser);
     procedure OpenNewDialog;
-    property RightMenuExpanded: boolean read FRightMenuExpanded write SetRightMenuExpanded;
+    property RightMenuExpanded: boolean read FRightMenuExpanded
+      write SetRightMenuExpanded;
   end;
 
 var
@@ -68,7 +72,8 @@ var
   NewMessage: TMessage;
   SelectedUser: TUser;
 begin
-  if TabUsers.Count<1 then exit;
+  if TabUsers.Count < 1 then
+    exit;
   SelectedUser := TabUsers[TabControl.TabIndex];
   NewMessage := TMessage.Create;
   NewMessage.Message := ChatMemo.Text;
@@ -76,9 +81,14 @@ begin
   UpdateGUI;
 end;
 
+procedure TChatFrameView.SettingsButtonClick(Sender: TObject);
+begin
+  ShowMessage('We have no settings');
+end;
+
 procedure TChatFrameView.ExpandMenuImageClick(Sender: TObject);
 begin
-  RightMenuExpanded:=not RightMenuExpanded;
+  RightMenuExpanded := not RightMenuExpanded;
 end;
 
 procedure TChatFrameView.TabControlChange(Sender: TObject);
@@ -111,12 +121,17 @@ end;
 
 procedure TChatFrameView.SetRightMenuExpanded(AValue: boolean);
 begin
-  if FRightMenuExpanded=AValue then Exit;
-  FRightMenuExpanded:=AValue;
+  FRightMenuExpanded := AValue;
   if FRightMenuExpanded then
-     RightMenu.Width:=ChatPanel.Width-300
+  begin
+    RightMenu.Width := ChatPanel.Width - 300;
+    ExpandMenuImage.Picture:=HidePicture;
+  end
   else
-     RightMenu.Width := 82;
+  begin
+    RightMenu.Width := 82;
+    ExpandMenuImage.Picture:=ExpandPicture;
+  end;
 end;
 
 constructor TChatFrameView.Create(TheOwner: TComponent);
@@ -175,16 +190,19 @@ procedure TChatFrameView.InitializeFrame;
 begin
   SendButton.Caption := ViewModel.GetSendButtonCaption;
   SendButton.Glyph := ViewModel.GetSendButtonGlyph;
-  RightMenuExpanded:=false;
+  ExpandPicture:=ViewModel.GetExpandPicture;
+  HidePicture:=ViewModel.GetHidePicture;
+  RightMenuExpanded := False;
+  SettingsButton.Picture:=ViewModel.GetSettingsPicture;
 end;
 
 procedure TChatFrameView.LoadUserMessages(User: TUser);
 begin
   Chat.Messages := ViewModel.GetLastMessages(Community, User);
   if Assigned(User.Photo) then
-     UserAvatar.Picture:=User.Photo
+    UserAvatar.Picture := User.Photo
   else
-     UserAvatar.Picture := ViewModel.GetNoAvatarImage;
+    UserAvatar.Picture := ViewModel.GetNoAvatarImage;
 end;
 
 procedure TChatFrameView.OpenNewDialog;
