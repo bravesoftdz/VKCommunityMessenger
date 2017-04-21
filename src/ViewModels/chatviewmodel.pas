@@ -125,19 +125,19 @@ end;
 function TChatViewModel.GetHidePicture: TPicture;
 begin
   Result := TPicture.Create;
-  Result.LoadFromFile('.\img\hide_new.png');
+  Result.LoadFromFile('.\img\hide.png');
 end;
 
 function TChatViewModel.GetExpandPicture: TPicture;
 begin
   Result := TPicture.Create;
-  Result.LoadFromFile('.\img\expand_new.png');
+  Result.LoadFromFile('.\img\expand.png');
 end;
 
 function TChatViewModel.GetSettingsPicture: TPicture;
 begin
   Result := TPicture.Create;
-  Result.LoadFromFile('.\img\settings_3.png');
+  Result.LoadFromFile('.\img\settings.png');
 end;
 
 end.
