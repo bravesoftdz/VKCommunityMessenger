@@ -13,7 +13,6 @@ type
 
   IChatModel = interface(IModel)
     ['{F58AF832-F8DE-46DF-AC0C-85B19585DB0E}']
-    function GetSendButtonName: string;
     function GetSendPicture: TPicture;
   end;
 
@@ -25,7 +24,6 @@ type
     public
     constructor Create;
     function GetSendPicture: TPicture;
-    function GetSendButtonName: string;
     function GetNoAvatarPicture: TPicture;
     destructor Destroy; override;
   end;
@@ -45,12 +43,7 @@ end;
 function TChatModel.GetSendPicture: TPicture;
 begin
   Result := TPicture.Create;
-  Result.LoadFromFile('.\img\send.bmp');
-end;
-
-function TChatModel.GetSendButtonName: string;
-begin
-  Result := 'Отправить';
+  Result.LoadFromFile('.\img\send.png');
 end;
 
 function TChatModel.GetNoAvatarPicture: TPicture;

@@ -48,26 +48,20 @@ object ChatFrameView: TChatFrameView
           Left = 20
           Height = 154
           Top = 10
-          Width = 1000
+          Width = 1008
           Anchors = [akTop, akLeft, akRight, akBottom]
           TabOrder = 0
         end
-        object SendButton: TBitBtn
-          Left = 1040
-          Height = 48
-          Top = 64
-          Width = 160
-          Anchors = [akRight]
-          Caption = 'SendButton'
-          Font.CharSet = ANSI_CHARSET
-          Font.Height = -20
-          Font.Name = 'Arial'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          Layout = blGlyphRight
+        object SendButton: TSpeedButton
+          Left = 1072
+          Height = 110
+          Top = 30
+          Width = 110
+          Anchors = [akRight, akBottom]
+          Color = 15715497
+          Flat = True
+          Transparent = False
           OnClick = SendButtonClick
-          ParentFont = False
-          TabOrder = 1
         end
       end
       object RightMenu: TPanel

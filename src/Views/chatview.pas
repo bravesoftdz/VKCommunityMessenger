@@ -14,10 +14,10 @@ type
 
   TChatFrameView = class(TFrame)
     ExpandMenuImage: TImage;
+    SendButton: TSpeedButton;
     UserAvatar: TImage;
     SettingsButton: TImage;
     RightMenu: TPanel;
-    SendButton: TBitBtn;
     Chat: TVKGSChat;
     ChatPanel: TPanel;
     ChatMemo: TMemo;
@@ -188,7 +188,6 @@ end;
 
 procedure TChatFrameView.InitializeFrame;
 begin
-  SendButton.Caption := ViewModel.GetSendButtonCaption;
   SendButton.Glyph := ViewModel.GetSendButtonGlyph;
   ExpandPicture:=ViewModel.GetExpandPicture;
   HidePicture:=ViewModel.GetHidePicture;

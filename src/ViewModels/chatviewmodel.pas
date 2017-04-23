@@ -70,7 +70,7 @@ end;
 
 function TChatViewModel.GetSendButtonCaption: string;
 begin
-  Result := (Model as IChatModel).GetSendButtonName;
+  Result := 'Отправить';
 end;
 
 function TChatViewModel.GetUsersForTabs(Community: TCommunity): TUserList;
