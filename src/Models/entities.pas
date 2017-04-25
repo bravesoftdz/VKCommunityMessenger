@@ -118,22 +118,25 @@ type
     property Emoji: boolean read FEmoji write SetEmoji;
   end;
 
-  TMessagesList = specialize TFPGObjectList<TMessage>;
+  TMessagesObjectList = specialize TFPGObjectList<TMessage>;
 
   { TDialog }
 
   TDialog = class
   private
-    FMessages: TMessagesList;
+    FMessages: TMessagesObjectList;
     FPerson: TUser;
-    procedure SetMessages(AValue: TMessagesList);
+    procedure SetMessages(AValue: TMessagesObjectList);
     procedure SetPerson(AValue: TUser);
   public
     constructor Create;
+    {Person to which you are talking}
     property Person: TUser read FPerson write SetPerson;
-    property Messages: TMessagesList read FMessages write SetMessages;
+    property Messages: TMessagesObjectList read FMessages write SetMessages;
     destructor Destroy; override;
   end;
+
+  TDialogsList = specialize TFPGList<TDialog>;
 
 function StringToCommunityType(Str: string): TCommunityType;
 function CommunintyTypeToString(AType: TCommunityType): string;
@@ -286,7 +289,7 @@ end;
 
 constructor TDialog.Create;
 begin
-  FMessages := TMessagesList.Create(true);
+  FMessages := TMessagesObjectList.Create(true);
 end;
 
 destructor TDialog.Destroy;
@@ -295,7 +298,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TDialog.SetMessages(AValue: TMessagesList);
+procedure TDialog.SetMessages(AValue: TMessagesObjectList);
 begin
   if FMessages=AValue then Exit;
   FMessages:=AValue;

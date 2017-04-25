@@ -75,13 +75,17 @@ end;
 
 function TChatViewModel.GetUsersForTabs(Community: TCommunity): TUserList;
 var
-  NewUser: TUser;
+  DialogsList: TDialogsList;
+  i: integer;
+  Dialog: TDialog;
 begin
   Result := TUserList.Create;
-  NewUser := TUser.Create;
-  NewUser.FirstName:='Вася';
-  NewUser.LastName:='Пупкин';
-  Result.Add(NewUser);
+  DialogsList := (Model as IChatModel).GetLastDialogs;
+  for i := 0 to DialogsList.Count - 1 do
+  begin
+    Dialog := DialogsList[i];
+    Result.Add(Dialog.Person);
+  end;
 end;
 
 function TChatViewModel.GetUserById(Id: string): TUser;
@@ -91,7 +95,7 @@ end;
 
 function TChatViewModel.GetSendButtonGlyph: TBitmap;
 begin
-  Result := (Model as TChatModel).GetSendPicture.Bitmap;
+  Result := (Model as IChatModel).GetSendPicture.Bitmap;
 end;
 
 function TChatViewModel.GetLastMessages(Community: TCommunity;
@@ -103,12 +107,12 @@ begin
 
   NewMessage := TUIMessage.Create;
   NewMessage.Message := 'Привет!';
-  NewMessage.Out:= otRecieved;
+  NewMessage.Out := otRecieved;
   Result.Add(NewMessage);
 
   NewMessage := TUIMessage.Create;
   NewMessage.Message := 'Ну привет!';
-  NewMessage.Out:= otSent;
+  NewMessage.Out := otSent;
   Result.Add(NewMessage);
 end;
 
@@ -119,7 +123,7 @@ end;
 
 function TChatViewModel.GetNoAvatarImage: TPicture;
 begin
-  Result := (Model as TChatModel).GetNoAvatarPicture;
+  Result := (Model as IChatModel).GetNoAvatarPicture;
 end;
 
 function TChatViewModel.GetHidePicture: TPicture;

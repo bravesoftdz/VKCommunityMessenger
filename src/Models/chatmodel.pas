@@ -5,7 +5,7 @@ unit chatmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel, Graphics, fphttpclient;
+  Classes, SysUtils, AbstractModel, Graphics, fphttpclient, entities;
 
 type
 
@@ -14,6 +14,8 @@ type
   IChatModel = interface(IModel)
     ['{F58AF832-F8DE-46DF-AC0C-85B19585DB0E}']
     function GetSendPicture: TPicture;
+    function GetLastDialogs: TDialogsList;
+    function GetNoAvatarPicture: TPicture;
   end;
 
   { TChatModel }
@@ -25,6 +27,7 @@ type
     constructor Create;
     function GetSendPicture: TPicture;
     function GetNoAvatarPicture: TPicture;
+    function GetLastDialogs: TDialogsList;
     destructor Destroy; override;
   end;
 
@@ -50,6 +53,11 @@ function TChatModel.GetNoAvatarPicture: TPicture;
 begin
   Result:= TPicture.Create;
   Result.LoadFromFile('.\img\no_userimage.png');
+end;
+
+function TChatModel.GetLastDialogs: TDialogsList;
+begin
+  Result := TDialogsList.Create;
 end;
 
 destructor TChatModel.Destroy;
