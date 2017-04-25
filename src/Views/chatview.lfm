@@ -73,14 +73,6 @@ object ChatFrameView: TChatFrameView
         ClientHeight = 499
         ClientWidth = 82
         TabOrder = 1
-        object ExpandMenuImage: TImage
-          Left = 12
-          Height = 60
-          Top = 12
-          Width = 60
-          OnClick = ExpandMenuImageClick
-          Stretch = True
-        end
         object UserAvatar: TImage
           Left = 12
           Height = 60
@@ -89,14 +81,23 @@ object ChatFrameView: TChatFrameView
           Proportional = True
           Stretch = True
         end
-        object SettingsButton: TImage
+        object ExpandButton: TSpeedButton
+          Left = 12
+          Height = 60
+          Top = 8
+          Width = 60
+          Flat = True
+          OnClick = ExpandMenuImageClick
+        end
+        object SettingsButton: TSpeedButton
           Left = 12
           Height = 60
           Top = 424
           Width = 60
           Anchors = [akLeft, akBottom]
+          Color = clWhite
+          Flat = True
           OnClick = SettingsButtonClick
-          Stretch = True
         end
       end
     end

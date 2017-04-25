@@ -13,10 +13,10 @@ type
   { TChatFrameView }
 
   TChatFrameView = class(TFrame)
-    ExpandMenuImage: TImage;
     SendButton: TSpeedButton;
+    ExpandButton: TSpeedButton;
+    SettingsButton: TSpeedButton;
     UserAvatar: TImage;
-    SettingsButton: TImage;
     RightMenu: TPanel;
     Chat: TVKGSChat;
     ChatPanel: TPanel;
@@ -125,12 +125,12 @@ begin
   if FRightMenuExpanded then
   begin
     RightMenu.Width := ChatPanel.Width - 300;
-    ExpandMenuImage.Picture:=HidePicture;
+    ExpandButton.Glyph:=HidePicture.Bitmap;
   end
   else
   begin
     RightMenu.Width := 82;
-    ExpandMenuImage.Picture:=ExpandPicture;
+    ExpandButton.Glyph:=ExpandPicture.Bitmap;
   end;
 end;
 
@@ -192,7 +192,7 @@ begin
   ExpandPicture:=ViewModel.GetExpandPicture;
   HidePicture:=ViewModel.GetHidePicture;
   RightMenuExpanded := False;
-  SettingsButton.Picture:=ViewModel.GetSettingsPicture;
+  SettingsButton.Glyph:=ViewModel.GetSettingsPicture.Bitmap;
 end;
 
 procedure TChatFrameView.LoadUserMessages(User: TUser);
