@@ -80,12 +80,15 @@ var
   Dialog: TDialog;
 begin
   Result := TUserList.Create;
-  DialogsList := (Model as IChatModel).GetLastDialogs;
-  for i := 0 to DialogsList.Count - 1 do
-  begin
-    Dialog := DialogsList[i];
-    Result.Add(Dialog.Person);
-  end;
+  Result.Add(TUser.Create);
+  Result.Items[0].FirstName:='Bob';
+  Result.Items[0].LastName:='Don';
+  //DialogsList := (Model as IChatModel).GetLastDialogs;
+  //for i := 0 to DialogsList.Count - 1 do
+  //begin
+  //  Dialog := DialogsList[i];
+  //  Result.Add(Dialog.Person);
+  //end;
 end;
 
 function TChatViewModel.GetUserById(Id: string): TUser;
@@ -106,13 +109,28 @@ begin
   Result := TUIMessagesList.Create(True);
 
   NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'Привет!';
+  NewMessage.Message := 'If you know some softwares tell me :)' + #10#13 + 'I really want some ideas';
   NewMessage.Out := otRecieved;
   Result.Add(NewMessage);
 
   NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'Ну привет!';
+  NewMessage.Message := 'I really NEED some ideas';
+  NewMessage.Out := otRecieved;
+  Result.Add(NewMessage);
+
+  NewMessage := TUIMessage.Create;
+  NewMessage.Message := 'This is my app. In a center is a chat but now I haven''t load any messages :)))';
   NewMessage.Out := otSent;
+  Result.Add(NewMessage);
+
+  NewMessage := TUIMessage.Create;
+  NewMessage.Message := 'Load';
+  NewMessage.Out := otRecieved;
+  Result.Add(NewMessage);
+
+  NewMessage := TUIMessage.Create;
+  NewMessage.Message := 'Are you using Indy?';
+  NewMessage.Out := otRecieved;
   Result.Add(NewMessage);
 end;
 
