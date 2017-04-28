@@ -18,7 +18,7 @@ type
     function GetUsersForTabs(Community: TCommunity): TUserList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
-    function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesList;
+    function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
     {Send message to a user}
     procedure SendMessage(User: TUser; Message: TMessage);
     {Get image for users with no avatar}
@@ -42,7 +42,7 @@ type
     function GetUsersForTabs(Community: TCommunity): TUserList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
-    function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesList;
+    function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
     procedure SendMessage(User: TUser; Message: TMessage);
     function GetNoAvatarImage: TPicture;
     function GetHidePicture: TPicture;
@@ -80,15 +80,12 @@ var
   Dialog: TDialog;
 begin
   Result := TUserList.Create;
-  Result.Add(TUser.Create);
-  Result.Items[0].FirstName:='Bob';
-  Result.Items[0].LastName:='Don';
-  //DialogsList := (Model as IChatModel).GetLastDialogs;
-  //for i := 0 to DialogsList.Count - 1 do
-  //begin
-  //  Dialog := DialogsList[i];
-  //  Result.Add(Dialog.Person);
-  //end;
+  DialogsList := (Model as IChatModel).GetLastDialogs(Community);
+  for i := 0 to DialogsList.Count - 1 do
+  begin
+    Dialog := DialogsList[i];
+    Result.Add(Dialog.Person);
+  end;
 end;
 
 function TChatViewModel.GetUserById(Id: string): TUser;
@@ -102,36 +99,9 @@ begin
 end;
 
 function TChatViewModel.GetLastMessages(Community: TCommunity;
-  User: TUser): TUIMessagesList;
-var
-  NewMessage: TUIMessage;
+  User: TUser): TUIMessagesObjectList;
 begin
-  Result := TUIMessagesList.Create(True);
-
-  NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'If you know some softwares tell me :)' + #10#13 + 'I really want some ideas';
-  NewMessage.Out := otRecieved;
-  Result.Add(NewMessage);
-
-  NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'I really NEED some ideas';
-  NewMessage.Out := otRecieved;
-  Result.Add(NewMessage);
-
-  NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'This is my app. In a center is a chat but now I haven''t load any messages :)))';
-  NewMessage.Out := otSent;
-  Result.Add(NewMessage);
-
-  NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'Load';
-  NewMessage.Out := otRecieved;
-  Result.Add(NewMessage);
-
-  NewMessage := TUIMessage.Create;
-  NewMessage.Message := 'Are you using Indy?';
-  NewMessage.Out := otRecieved;
-  Result.Add(NewMessage);
+  Result := TUIMessagesObjectList.Create(true);
 end;
 
 procedure TChatViewModel.SendMessage(User: TUser; Message: TMessage);

@@ -30,6 +30,14 @@ type
 
   TDatabaseDAOType = class of TDatabaseDAO;
 
+  { TMessagesDAO }
+
+  TMessagesDAO = class
+    class function GetDialogs(Client: TFPHTTPCLient; AccessToken: string; Count, Offset: integer): TJSONObject;
+  end;
+
+  TMessagesDAOType = class of TMessagesDAO;
+
   { DAO }
 
   {DAO doesn't handle any exceptions}
@@ -37,10 +45,27 @@ type
     class var
     Groups: TGroupsVKDAOType;
     Database: TDatabaseDAOType;
+    Messages: TMessagesDAOType;
     class function LoadPhoto(Client: TFPHTTPClient; URL: string): TPicture;
   end;
 
 implementation
+
+{ TMessagesDAO }
+
+class function TMessagesDAO.GetDialogs(Client: TFPHTTPCLient;
+  AccessToken: string; Count, Offset: integer): TJSONObject;
+var URL: string;
+    Response: string;
+begin
+  URL := VK_API_BASE_URL + 'messages.getDialogs?' +
+  '&access_token=' + AccessToken +
+  '&v=' + USED_API_VERSION +
+  '&count=' + IntToStr(Count) +
+  '&offset=' + IntToStr(Offset);
+  Response:=Client.Get(URL);
+  Result := (GetJSON(Response) as TJSONObject);
+end;
 
 { TDatabaseDAO }
 

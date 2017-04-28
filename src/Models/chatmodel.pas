@@ -5,7 +5,7 @@ unit chatmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel, Graphics, fphttpclient, entities;
+  Classes, SysUtils, AbstractModel, Graphics, fphttpclient, entities, VKDAO, fpjson;
 
 type
 
@@ -14,7 +14,7 @@ type
   IChatModel = interface(IModel)
     ['{F58AF832-F8DE-46DF-AC0C-85B19585DB0E}']
     function GetSendPicture: TPicture;
-    function GetLastDialogs: TDialogsList;
+    function GetLastDialogs(Community: TCommunity): TDialogsList;
     function GetNoAvatarPicture: TPicture;
   end;
 
@@ -27,7 +27,7 @@ type
     constructor Create;
     function GetSendPicture: TPicture;
     function GetNoAvatarPicture: TPicture;
-    function GetLastDialogs: TDialogsList;
+    function GetLastDialogs(Community: TCommunity): TDialogsList;
     destructor Destroy; override;
   end;
 
@@ -55,9 +55,15 @@ begin
   Result.LoadFromFile('.\img\no_userimage.png');
 end;
 
-function TChatModel.GetLastDialogs: TDialogsList;
+function TChatModel.GetLastDialogs(Community: TCommunity): TDialogsList;
+var NewDialog: TDialog;
+    JSONResponse: TJSONObject;
+    Items: TJSONArray;
 begin
   Result := TDialogsList.Create;
+  JSONResponse:=DAO.Messages.GetDialogs(HTTPClient,Community.AccessKey,10,0);
+  Items := JSONResponse['items'] as TJSONArray;
+
 end;
 
 destructor TChatModel.Destroy;
