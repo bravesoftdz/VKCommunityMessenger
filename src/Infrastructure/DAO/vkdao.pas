@@ -35,11 +35,11 @@ type
   TMessagesDAO = class
     class function GetDialogs(Client: TFPHTTPCLient; AccessToken: string;
       Count, Offset: integer): TJSONObject;
+    class function GetHistory(Client: TFPHTTPClient; AccessToken: string;
+      UserId: string; Count: integer): TJSONObject;
   end;
 
   TMessagesDAOType = class of TMessagesDAO;
-
-
 
   { TUsersDAO }
 
@@ -78,13 +78,12 @@ begin
   Result.Remove(Length(Result) - 1, 1);
 end;
 
-class function TUsersDAO.Get(Client: TFPHTTPClient; UserIds: TStringList
-  ): TJSONObject;
+class function TUsersDAO.Get(Client: TFPHTTPClient; UserIds: TStringList): TJSONObject;
 var
   URL: string;
   Response: string;
 begin
-  URL := VK_API_BASE_URL + 'users.get?' +
+  URL := VK_API_BASE_URL + 'users.get?' + '&v=' + USED_API_VERSION +
     '&fields=city,photo_50,photo_200' + '&user_ids=' + StringifyUserIds(UserIds);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
@@ -103,6 +102,18 @@ begin
     '&offset=' + IntToStr(Offset) + '&preview_length=1';
   Response := Client.Get(URL);
 
+  Result := (GetJSON(Response) as TJSONObject);
+end;
+
+class function TMessagesDAO.GetHistory(Client: TFPHTTPClient;
+  AccessToken: string; UserId: string; Count: integer): TJSONObject;
+var
+  URL, Response: string;
+begin
+  URL := VK_API_BASE_URL + 'messages.getHistory?' + '&access_token=' +
+    AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserId +
+    '&count=' + IntToStr(Count);
+  Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
 

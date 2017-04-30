@@ -174,7 +174,7 @@ begin
   TabDialogs := ViewModel.GetDialogs(Community);
 
   TabControl.BeginUpdate;
-  TabIndex:=TabControl.TabIndex;
+  TabIndex := TabControl.TabIndex;
   TabControl.Tabs.Clear;
   for i := 0 to TabDialogs.Count - 1 do
   begin
@@ -201,10 +201,29 @@ begin
 end;
 
 procedure TChatFrameView.LoadMessages(Dialog: TDialog);
-var User: TUser;
+var
+  User: TUser;
+  i: integer;
+  NewUIMessage: TUIMessage;
 begin
+  Chat.Messages.Clear;
+  for i := 0 to Dialog.Messages.Count - 1 do
+  begin
+    NewUIMessage := TUIMessage.Create;
+    NewUIMessage.Id := Dialog.Messages[i].Id;
+    NewUIMessage.Message := Dialog.Messages[i].Message;
+    NewUIMessage.FromId := Dialog.Messages[i].FromId;
+    NewUIMessage.Emoji := Dialog.Messages[i].Emoji;
+    NewUIMessage.Deleted := Dialog.Messages[i].Deleted;
+    NewUIMessage.Date := Dialog.Messages[i].Date;
+    NewUIMessage.Out := Dialog.Messages[i].Out;
+    NewUIMessage.ReadState := Dialog.Messages[i].ReadState;
+    NewUIMessage.Title := Dialog.Messages[i].Title;
+    NewUIMessage.UserId := Dialog.Messages[i].UserId;
+    Chat.Messages.Add(NewUIMessage);
+  end;
+  Chat.Repaint;
   User := Dialog.Person;
-  Chat.Messages := ViewModel.GetLastMessages(Community, User);
   if Assigned(User.Photo50) then
     UserAvatar.Picture := User.Photo50
   else

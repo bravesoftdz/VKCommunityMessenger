@@ -16,7 +16,6 @@ type
     function GetSendButtonCaption: string;
     {Get users which have to be assigned to tabs in tabview}
     function GetDialogs(Community: TCommunity): TDialogsList;
-    function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
     {Send message to a user}
@@ -40,7 +39,6 @@ type
     property Model: IModel read GetModel write SetModel;
     function GetSendButtonCaption: string;
     function GetDialogs(Community: TCommunity): TDialogsList;
-    function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
     procedure SendMessage(User: TUser; Message: TMessage);
@@ -76,11 +74,6 @@ end;
 function TChatViewModel.GetDialogs(Community: TCommunity): TDialogsList;
 begin
   Result := (Model as IChatModel).GetLastDialogs(Community);
-end;
-
-function TChatViewModel.GetUserById(Id: string): TUser;
-begin
-
 end;
 
 function TChatViewModel.GetSendButtonGlyph: TBitmap;

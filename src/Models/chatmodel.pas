@@ -5,7 +5,8 @@ unit chatmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel, Graphics, fphttpclient, entities, VKDAO, fpjson;
+  Classes, SysUtils, AbstractModel, Graphics, fphttpclient, entities,
+  VKDAO, fpjson, dateutils;
 
 type
 
@@ -23,6 +24,7 @@ type
   TChatModel = class(TInterfacedObject, IChatModel, IModel)
   private
     HTTPClient: TFPHTTPClient;
+    procedure LoadMessagesIntoDialog(Dialog: TDialog; AccesKey: string);
   public
     constructor Create;
     function GetSendPicture: TPicture;
@@ -37,6 +39,42 @@ var
 implementation
 
 { TChatModel }
+
+procedure TChatModel.LoadMessagesIntoDialog(Dialog: TDialog; AccesKey: string);
+var
+  JSONResponse: TJSONObject;
+  Response: TJSONObject;
+  Items: TJSONArray;
+  i: integer;
+  Message: TJSONObject;
+  NewMessage: TMessage;
+begin
+  JSONResponse := DAO.Messages.GetHistory(HTTPClient, AccesKey, Dialog.Person.Id, 50);
+  Response := (JSONResponse['response'] as TJSONObject);
+  Items := (Response['items'] as TJSONArray);
+  for i := 0 to Items.Count - 1 do
+  begin
+    Message := (Items[i] as TJSONObject);
+    NewMessage := TMessage.Create;
+    NewMessage.Message := Message['body'].AsString;
+    NewMessage.Id := Message['id'].AsString;
+    NewMessage.Date := UnixToDateTime(Message['date'].AsInt64);
+    NewMessage.Deleted := False;
+    NewMessage.Emoji := False;
+    NewMessage.FromId := Message['from_id'].AsString;
+    if Message['out'].AsInt64 = 0 then
+      NewMessage.Out := otRecieved
+    else
+      NewMessage.Out := otSent;
+    if Message['read_state'].AsInt64 = 0 then
+      NewMessage.ReadState := rsUnread
+    else
+      NewMessage.ReadState := rsRead;
+    NewMessage.Title:='';
+    NewMessage.UserId:=Dialog.Person.Id;
+    Dialog.Messages.Add(NewMessage);
+  end;
+end;
 
 constructor TChatModel.Create;
 begin
@@ -69,8 +107,7 @@ var
   CurrentUser, City: TJSONObject;
   NewUser: TUser;
 begin
-  {Create resources}
-  UserIds:= TStringList.Create;
+  UserIds := TStringList.Create;
   Result := TDialogsList.Create;
   JSONDialogsResponse := DAO.Messages.GetDialogs(HTTPClient, Community.AccessKey, 10, 0);
   DialogsResponse := (JSONDialogsResponse['response'] as TJSONObject);
@@ -81,18 +118,20 @@ begin
     UserId := Message['user_id'].AsString;
     UserIds.Add(UserId);
   end;
-  JSONUserResponse:=DAO.Users.Get(HTTPClient,UserIds);
+  JSONUserResponse := DAO.Users.Get(HTTPClient, UserIds);
   UserResponse := (JSONUserResponse['response'] as TJSONArray);
-  for i:=0 to UserResponse.Count-1 do
+  for i := 0 to UserResponse.Count - 1 do
   begin
     CurrentUser := (UserResponse[i] as TJSONObject);
     NewUser := TUser.Create;
-    NewUser.FirstName:=CurrentUser['first_name'].AsString;
-    NewUser.LastName:=CurrentUser['last_name'].AsString;
-    NewUser.Photo50:=DAO.LoadPhoto(HTTPClient,CurrentUser['photo_50'].AsString);
-    NewUser.Photo200:=DAO.LoadPhoto(HTTPClient,CurrentUser['photo_200'].AsString);
+    NewUser.Id:=CurrentUser['id'].AsString;
+    NewUser.FirstName := CurrentUser['first_name'].AsString;
+    NewUser.LastName := CurrentUser['last_name'].AsString;
+    NewUser.Photo50 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_50'].AsString);
+    NewUser.Photo200 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_200'].AsString);
     NewDialog := TDialog.Create;
-    NewDialog.Person:=NewUser;
+    NewDialog.Person := NewUser;
+    LoadMessagesIntoDialog(NewDialog, Community.AccessKey);
     Result.Add(NewDialog);
   end;
   FreeAndNil(UserIds);
