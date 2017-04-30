@@ -33,10 +33,24 @@ type
   { TMessagesDAO }
 
   TMessagesDAO = class
-    class function GetDialogs(Client: TFPHTTPCLient; AccessToken: string; Count, Offset: integer): TJSONObject;
+    class function GetDialogs(Client: TFPHTTPCLient; AccessToken: string;
+      Count, Offset: integer): TJSONObject;
   end;
 
   TMessagesDAOType = class of TMessagesDAO;
+
+
+
+  { TUsersDAO }
+
+  TUsersDAO = class
+  private
+    class function StringifyUserIds(Ids: TStringList): string;
+  public
+    class function Get(Client: TFPHTTPClient; UserIds: TStringList): TJSONObject;
+  end;
+
+  TUsersDAOType = class of TUsersDAO;
 
   { DAO }
 
@@ -46,24 +60,49 @@ type
     Groups: TGroupsVKDAOType;
     Database: TDatabaseDAOType;
     Messages: TMessagesDAOType;
+    Users: TUsersDAOType;
     class function LoadPhoto(Client: TFPHTTPClient; URL: string): TPicture;
   end;
 
 implementation
 
+{ TUsersDAO }
+
+class function TUsersDAO.StringifyUserIds(Ids: TStringList): string;
+var
+  i: integer;
+begin
+  Result := '';
+  for i := 0 to Ids.Count - 1 do
+    Result := Result + Ids[i] + ',';
+  Result.Remove(Length(Result) - 1, 1);
+end;
+
+class function TUsersDAO.Get(Client: TFPHTTPClient; UserIds: TStringList
+  ): TJSONObject;
+var
+  URL: string;
+  Response: string;
+begin
+  URL := VK_API_BASE_URL + 'users.get?' +
+    '&fields=city,photo_50,photo_200' + '&user_ids=' + StringifyUserIds(UserIds);
+  Response := Client.Get(URL);
+  Result := (GetJSON(Response) as TJSONObject);
+end;
+
 { TMessagesDAO }
 
 class function TMessagesDAO.GetDialogs(Client: TFPHTTPCLient;
   AccessToken: string; Count, Offset: integer): TJSONObject;
-var URL: string;
-    Response: string;
+var
+  URL: string;
+  Response: string;
 begin
-  URL := VK_API_BASE_URL + 'messages.getDialogs?' +
-  '&access_token=' + AccessToken +
-  '&v=' + USED_API_VERSION +
-  '&count=' + IntToStr(Count) +
-  '&offset=' + IntToStr(Offset);
-  Response:=Client.Get(URL);
+  URL := VK_API_BASE_URL + 'messages.getDialogs?' + '&access_token=' +
+    AccessToken + '&v=' + USED_API_VERSION + '&count=' + IntToStr(Count) +
+    '&offset=' + IntToStr(Offset) + '&preview_length=1';
+  Response := Client.Get(URL);
+
   Result := (GetJSON(Response) as TJSONObject);
 end;
 

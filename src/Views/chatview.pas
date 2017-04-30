@@ -198,8 +198,8 @@ end;
 procedure TChatFrameView.LoadUserMessages(User: TUser);
 begin
   Chat.Messages := ViewModel.GetLastMessages(Community, User);
-  if Assigned(User.Photo) then
-    UserAvatar.Picture := User.Photo
+  if Assigned(User.Photo50) then
+    UserAvatar.Picture := User.Photo50
   else
     UserAvatar.Picture := ViewModel.GetNoAvatarImage;
 end;

@@ -57,22 +57,22 @@ type
     FId: string;
     FLastName: string;
     FPhoto: TPicture;
-    FVerified: boolean;
+    FPhoto200: TPicture;
     procedure SetCityId(AValue: string);
     procedure SetCityTitle(AValue: string);
     procedure SetFirstName(AValue: string);
     procedure SetId(AValue: string);
     procedure SetLastName(AValue: string);
     procedure SetPhoto(AValue: TPicture);
-    procedure SetVerified(AValue: boolean);
+    procedure SetPhoto200(AValue: TPicture);
   public
     property Id: string read FId write SetId;
     property FirstName: string read FFirstName write SetFirstName;
     property LastName: string read FLastName write SetLastName;
     property CityId: string read FCityId write SetCityId;
     property CityTitle: string read FCityTitle write SetCityTitle;
-    property Photo: TPicture read FPhoto write SetPhoto;
-    property Verified: boolean read FVerified write SetVerified;
+    property Photo50: TPicture read FPhoto write SetPhoto;
+    property Photo200: TPicture read FPhoto200 write SetPhoto200;
   end;
 
   TUserList = specialize TFPGList<TUser>;
@@ -271,11 +271,10 @@ begin
   FPhoto := AValue;
 end;
 
-procedure TUser.SetVerified(AValue: boolean);
+procedure TUser.SetPhoto200(AValue: TPicture);
 begin
-  if FVerified = AValue then
-    Exit;
-  FVerified := AValue;
+  if FPhoto200=AValue then Exit;
+  FPhoto200:=AValue;
 end;
 
 { TDialog }
