@@ -45,9 +45,9 @@ var
   Community: TCommunity;
 begin
   Community := ((Sender as TToolButton).DataObject as TCommunity);
-  CurrentFrame := LChatView;
   LChatView.Community := Community;
   LChatView.UpdateGUI;
+  CurrentFrame := LChatView;
 end;
 
 procedure TfMainView.SetViewModel(AValue: IMainViewModel);

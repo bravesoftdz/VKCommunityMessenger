@@ -89,9 +89,6 @@ begin
     NewUser := TUser.Create;
     NewUser.FirstName:=CurrentUser['first_name'].AsString;
     NewUser.LastName:=CurrentUser['last_name'].AsString;
-    //City := (CurrentUser['city'] as TJSONObject);
-    //NewUser.CityId:=City['id'].AsString;
-    //NewUser.CityTitle:=City['title'].AsString;
     NewUser.Photo50:=DAO.LoadPhoto(HTTPClient,CurrentUser['photo_50'].AsString);
     NewUser.Photo200:=DAO.LoadPhoto(HTTPClient,CurrentUser['photo_200'].AsString);
     NewDialog := TDialog.Create;

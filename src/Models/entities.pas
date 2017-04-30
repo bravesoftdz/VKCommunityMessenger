@@ -51,15 +51,11 @@ type
 
   TUser = class
   private
-    FCityId: string;
-    FCityTitle: string;
     FFirstName: string;
     FId: string;
     FLastName: string;
     FPhoto: TPicture;
     FPhoto200: TPicture;
-    procedure SetCityId(AValue: string);
-    procedure SetCityTitle(AValue: string);
     procedure SetFirstName(AValue: string);
     procedure SetId(AValue: string);
     procedure SetLastName(AValue: string);
@@ -69,8 +65,6 @@ type
     property Id: string read FId write SetId;
     property FirstName: string read FFirstName write SetFirstName;
     property LastName: string read FLastName write SetLastName;
-    property CityId: string read FCityId write SetCityId;
-    property CityTitle: string read FCityTitle write SetCityTitle;
     property Photo50: TPicture read FPhoto write SetPhoto;
     property Photo200: TPicture read FPhoto200 write SetPhoto200;
   end;
@@ -228,20 +222,6 @@ begin
 end;
 
 { TUser }
-
-procedure TUser.SetCityId(AValue: string);
-begin
-  if FCityId = AValue then
-    Exit;
-  FCityId := AValue;
-end;
-
-procedure TUser.SetCityTitle(AValue: string);
-begin
-  if FCityTitle = AValue then
-    Exit;
-  FCityTitle := AValue;
-end;
 
 procedure TUser.SetFirstName(AValue: string);
 begin

@@ -15,7 +15,7 @@ type
   IChatViewModel = interface(IViewModel)
     function GetSendButtonCaption: string;
     {Get users which have to be assigned to tabs in tabview}
-    function GetUsersForTabs(Community: TCommunity): TUserList;
+    function GetDialogs(Community: TCommunity): TDialogsList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
@@ -39,7 +39,7 @@ type
   public
     property Model: IModel read GetModel write SetModel;
     function GetSendButtonCaption: string;
-    function GetUsersForTabs(Community: TCommunity): TUserList;
+    function GetDialogs(Community: TCommunity): TDialogsList;
     function GetUserById(Id: string): TUser;
     function GetSendButtonGlyph: TBitmap;
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
@@ -73,19 +73,9 @@ begin
   Result := 'Отправить';
 end;
 
-function TChatViewModel.GetUsersForTabs(Community: TCommunity): TUserList;
-var
-  DialogsList: TDialogsList;
-  i: integer;
-  Dialog: TDialog;
+function TChatViewModel.GetDialogs(Community: TCommunity): TDialogsList;
 begin
-  Result := TUserList.Create;
-  DialogsList := (Model as IChatModel).GetLastDialogs(Community);
-  for i := 0 to DialogsList.Count - 1 do
-  begin
-    Dialog := DialogsList[i];
-    Result.Add(Dialog.Person);
-  end;
+  Result := (Model as IChatModel).GetLastDialogs(Community);
 end;
 
 function TChatViewModel.GetUserById(Id: string): TUser;
