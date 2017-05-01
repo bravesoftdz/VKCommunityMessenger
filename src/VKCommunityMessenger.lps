@@ -125,7 +125,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="VKDAO"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="99"/>
+        <TopLine Value="102"/>
         <CursorPos X="11" Y="117"/>
         <UsageCount Value="76"/>
         <Loaded Value="True"/>
@@ -137,10 +137,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChatView"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="207"/>
-        <CursorPos X="52" Y="221"/>
+        <TopLine Value="197"/>
+        <CursorPos X="90" Y="218"/>
         <UsageCount Value="74"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -157,8 +156,8 @@
         <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="7"/>
-        <CursorPos X="3" Y="14"/>
+        <TopLine Value="41"/>
+        <CursorPos X="41" Y="51"/>
         <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -174,9 +173,10 @@
       <Unit18>
         <Filename Value="Models\chatmodel.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="116"/>
-        <CursorPos X="43" Y="127"/>
+        <TopLine Value="50"/>
+        <CursorPos X="30" Y="55"/>
         <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit18>
@@ -322,7 +322,7 @@
         <UsageCount Value="9"/>
       </Unit38>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="Views\chatview.pas"/>
         <Caret Line="100" Column="38" TopLine="87"/>
@@ -373,76 +373,68 @@
       </Position12>
       <Position13>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="46" Column="20" TopLine="101"/>
+        <Caret Line="191" Column="35" TopLine="171"/>
       </Position13>
       <Position14>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="191" Column="35" TopLine="171"/>
+        <Caret Line="109" Column="37" TopLine="94"/>
       </Position14>
       <Position15>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="109" Column="37" TopLine="94"/>
+        <Caret Line="207" Column="74" TopLine="192"/>
       </Position15>
       <Position16>
         <Filename Value="Views\chatview.pas"/>
-        <Caret Line="207" Column="74" TopLine="192"/>
+        <Caret Line="211" Column="5" TopLine="192"/>
       </Position16>
       <Position17>
-        <Filename Value="Views\chatview.pas"/>
-        <Caret Line="211" Column="5" TopLine="192"/>
-      </Position17>
-      <Position18>
         <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
         <Caret Line="14" Column="3"/>
-      </Position18>
-      <Position19>
+      </Position17>
+      <Position18>
         <Filename Value="Views\chatview.pas"/>
         <Caret Line="211" Column="37" TopLine="192"/>
+      </Position18>
+      <Position19>
+        <Filename Value="Models\chatmodel.pas"/>
+        <Caret Line="26" Column="55" TopLine="10"/>
       </Position19>
       <Position20>
         <Filename Value="Models\chatmodel.pas"/>
-        <Caret Line="26" Column="55" TopLine="10"/>
+        <Caret Line="101" Column="37" TopLine="85"/>
       </Position20>
       <Position21>
-        <Filename Value="Models\chatmodel.pas"/>
-        <Caret Line="101" Column="37" TopLine="85"/>
+        <Filename Value="Infrastructure\DAO\vkdao.pas"/>
+        <Caret Line="39" Column="52" TopLine="24"/>
       </Position21>
       <Position22>
         <Filename Value="Infrastructure\DAO\vkdao.pas"/>
-        <Caret Line="39" Column="52" TopLine="24"/>
+        <Caret Line="110" Column="18" TopLine="72"/>
       </Position22>
       <Position23>
         <Filename Value="Infrastructure\DAO\vkdao.pas"/>
-        <Caret Line="110" Column="18" TopLine="72"/>
+        <Caret Line="113" Column="40" TopLine="96"/>
       </Position23>
       <Position24>
-        <Filename Value="Infrastructure\DAO\vkdao.pas"/>
-        <Caret Line="113" Column="40" TopLine="96"/>
+        <Filename Value="Models\chatmodel.pas"/>
+        <Caret Line="75" Column="35" TopLine="56"/>
       </Position24>
       <Position25>
         <Filename Value="Models\chatmodel.pas"/>
-        <Caret Line="45" Column="15" TopLine="86"/>
+        <Caret Line="52" Column="42" TopLine="39"/>
       </Position25>
       <Position26>
-        <Filename Value="Models\chatmodel.pas"/>
-        <Caret Line="75" Column="35" TopLine="56"/>
+        <Filename Value="Infrastructure\DAO\vkdao.pas"/>
+        <Caret Line="117" Column="50" TopLine="99"/>
       </Position26>
       <Position27>
         <Filename Value="Models\chatmodel.pas"/>
-        <Caret Line="52" Column="42" TopLine="39"/>
+        <Caret Line="127" Column="43" TopLine="116"/>
       </Position27>
       <Position28>
         <Filename Value="Infrastructure\DAO\vkdao.pas"/>
-        <Caret Line="117" Column="50" TopLine="99"/>
-      </Position28>
-      <Position29>
-        <Filename Value="Models\chatmodel.pas"/>
-        <Caret Line="127" Column="43" TopLine="116"/>
-      </Position29>
-      <Position30>
-        <Filename Value="Infrastructure\DAO\vkdao.pas"/>
         <Caret Line="117" Column="11" TopLine="99"/>
-      </Position30>
+      </Position28>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

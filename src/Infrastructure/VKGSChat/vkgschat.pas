@@ -48,6 +48,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
+    {Last message in list will be drawn most bottom}
     property Messages: TUIMessagesObjectList read FMessages write SetMessages;
     property PaddingLeft: integer read FPaddingLeft write SetPaddingLeft;
     property PaddingRight: integer read FPaddingRight write SetPaddingRight;

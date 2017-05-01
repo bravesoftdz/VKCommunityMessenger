@@ -52,7 +52,7 @@ begin
   JSONResponse := DAO.Messages.GetHistory(HTTPClient, AccesKey, Dialog.Person.Id, 50);
   Response := (JSONResponse['response'] as TJSONObject);
   Items := (Response['items'] as TJSONArray);
-  for i := 0 to Items.Count - 1 do
+  for i := Items.Count-1 downto 0 do
   begin
     Message := (Items[i] as TJSONObject);
     NewMessage := TMessage.Create;
