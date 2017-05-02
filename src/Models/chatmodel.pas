@@ -17,6 +17,7 @@ type
     function GetSendPicture: TPicture;
     function GetLastDialogs(Community: TCommunity): TDialogsList;
     function GetNoAvatarPicture: TPicture;
+    procedure SendMessage(Community: TCommunity; Message: TMessage);
   end;
 
   { TChatModel }
@@ -30,6 +31,7 @@ type
     function GetSendPicture: TPicture;
     function GetNoAvatarPicture: TPicture;
     function GetLastDialogs(Community: TCommunity): TDialogsList;
+    procedure SendMessage(Community: TCommunity; Message: TMessage);
     destructor Destroy; override;
   end;
 
@@ -52,7 +54,7 @@ begin
   JSONResponse := DAO.Messages.GetHistory(HTTPClient, AccesKey, Dialog.Person.Id, 50);
   Response := (JSONResponse['response'] as TJSONObject);
   Items := (Response['items'] as TJSONArray);
-  for i := Items.Count-1 downto 0 do
+  for i := Items.Count - 1 downto 0 do
   begin
     Message := (Items[i] as TJSONObject);
     NewMessage := TMessage.Create;
@@ -70,8 +72,8 @@ begin
       NewMessage.ReadState := rsUnread
     else
       NewMessage.ReadState := rsRead;
-    NewMessage.Title:='';
-    NewMessage.UserId:=Dialog.Person.Id;
+    NewMessage.Title := '';
+    NewMessage.UserId := Dialog.Person.Id;
     Dialog.Messages.Add(NewMessage);
   end;
 end;
@@ -124,7 +126,7 @@ begin
   begin
     CurrentUser := (UserResponse[i] as TJSONObject);
     NewUser := TUser.Create;
-    NewUser.Id:=CurrentUser['id'].AsString;
+    NewUser.Id := CurrentUser['id'].AsString;
     NewUser.FirstName := CurrentUser['first_name'].AsString;
     NewUser.LastName := CurrentUser['last_name'].AsString;
     NewUser.Photo50 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_50'].AsString);
@@ -135,6 +137,11 @@ begin
     Result.Add(NewDialog);
   end;
   FreeAndNil(UserIds);
+end;
+
+procedure TChatModel.SendMessage(Community: TCommunity; Message: TMessage);
+begin
+  DAO.Messages.Send(HTTPClient, Community.AccessKey, Message.UserId, Message.Message);
 end;
 
 destructor TChatModel.Destroy;

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, jsonparser, fphttpclient, VKGSConfig,
-  Graphics, sqldb, entities, DB;
+  Graphics, sqldb, entities, DB, urlencoder;
 
 type
 
@@ -37,6 +37,8 @@ type
       Count, Offset: integer): TJSONObject;
     class function GetHistory(Client: TFPHTTPClient; AccessToken: string;
       UserId: string; Count: integer): TJSONObject;
+    class procedure Send(Client: TFPHTTPClient; AccessToken: string;
+      UserID: string; Message: string);
   end;
 
   TMessagesDAOType = class of TMessagesDAO;
@@ -115,6 +117,17 @@ begin
     '&count=' + IntToStr(Count);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
+end;
+
+class procedure TMessagesDAO.Send(Client: TFPHTTPClient; AccessToken: string;
+  UserID: string; Message: string);
+var
+  URL: string;
+begin
+  URL := VK_API_BASE_URL + 'messages.send?' + '&access_token=' +
+    AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserID +
+    '&message=' + EncodeURL(Message);
+  Client.Get(URL);
 end;
 
 { TDatabaseDAO }

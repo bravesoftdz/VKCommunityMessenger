@@ -25,12 +25,12 @@ object ChatFrameView: TChatFrameView
     TabOrder = 0
     object ChatPanel: TPanel
       Left = 2
-      Height = 681
-      Top = 28
+      Height = 676
+      Top = 33
       Width = 1219
       Align = alClient
       BevelOuter = bvLowered
-      ClientHeight = 681
+      ClientHeight = 676
       ClientWidth = 1219
       Color = 16113353
       ParentColor = False
@@ -38,7 +38,7 @@ object ChatFrameView: TChatFrameView
       object Memopanel: TPanel
         Left = 1
         Height = 175
-        Top = 505
+        Top = 500
         Width = 1217
         Align = alBottom
         ClientHeight = 175
@@ -66,11 +66,11 @@ object ChatFrameView: TChatFrameView
       end
       object RightMenu: TPanel
         Left = 1136
-        Height = 504
+        Height = 499
         Top = 1
         Width = 82
         Align = alRight
-        ClientHeight = 504
+        ClientHeight = 499
         ClientWidth = 82
         TabOrder = 1
         object UserAvatar: TImage
@@ -92,7 +92,7 @@ object ChatFrameView: TChatFrameView
         object SettingsButton: TSpeedButton
           Left = 12
           Height = 60
-          Top = 429
+          Top = 424
           Width = 60
           Anchors = [akLeft, akBottom]
           Color = clWhite

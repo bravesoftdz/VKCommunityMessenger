@@ -69,7 +69,6 @@ end;
 
 procedure TChatFrameView.SendButtonClick(Sender: TObject);
 var
-  NewMessage: TMessage;
   SelectedUser: TUser;
   SelectedDialog: TDialog;
 begin
@@ -77,10 +76,10 @@ begin
     exit;
   SelectedDialog := TabDialogs[TabControl.TabIndex];
   SelectedUser := SelectedDialog.Person;
-  NewMessage := TMessage.Create;
-  NewMessage.Message := ChatMemo.Text;
-  ViewModel.SendMessage(SelectedUser, NewMessage);
+  ViewModel.SendMessage(Community, SelectedUser, ChatMemo.Text);
+  ChatMemo.Clear;
   UpdateGUI;
+  TabControl.TabIndex := 0; {Our dialog will appear first}
 end;
 
 procedure TChatFrameView.SettingsButtonClick(Sender: TObject);

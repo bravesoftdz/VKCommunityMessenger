@@ -19,7 +19,7 @@ type
     function GetSendButtonGlyph: TBitmap;
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
     {Send message to a user}
-    procedure SendMessage(User: TUser; Message: TMessage);
+    procedure SendMessage(Community: TCommunity; User: TUser; Message: string);
     {Get image for users with no avatar}
     function GetNoAvatarImage: TPicture;
     {Expand/Hide button images}
@@ -41,7 +41,7 @@ type
     function GetDialogs(Community: TCommunity): TDialogsList;
     function GetSendButtonGlyph: TBitmap;
     function GetLastMessages(Community: TCommunity; User: TUser): TUIMessagesObjectList;
-    procedure SendMessage(User: TUser; Message: TMessage);
+    procedure SendMessage(Community: TCommunity; User: TUser; MessageText: string);
     function GetNoAvatarImage: TPicture;
     function GetHidePicture: TPicture;
     function GetExpandPicture: TPicture;
@@ -87,9 +87,20 @@ begin
   Result := TUIMessagesObjectList.Create(true);
 end;
 
-procedure TChatViewModel.SendMessage(User: TUser; Message: TMessage);
+procedure TChatViewModel.SendMessage(Community: TCommunity; User: TUser; MessageText: string);
+var Message: TMessage;
 begin
-  ShowMessage('Отправлено :)');
+  Message:=TMessage.Create;
+  Message.Date:=Now;
+  Message.Deleted:=false;
+  Message.Emoji:=false;
+  Message.Out:=otSent;
+  Message.UserId:=User.Id;
+  Message.Title:='';
+  Message.ReadState:=rsUnread;
+  Message.FromId:=Community.Id;
+  Message.Message := MessageText;
+  (Model as IChatModel).SendMessage(Community,Message);
 end;
 
 function TChatViewModel.GetNoAvatarImage: TPicture;
