@@ -141,6 +141,7 @@ end;
 
 procedure TChatModel.SendMessage(Community: TCommunity; Message: TMessage);
 begin
+  if Message.Message = '' then exit;
   DAO.Messages.Send(HTTPClient, Community.AccessKey, Message.UserId, Message.Message);
 end;
 

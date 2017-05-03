@@ -165,7 +165,8 @@ var
   i: integer;
   NewTab: string;
   User: TUser;
-  TabIndex: integer;
+  TabName: string;
+  NewTabIndex: integer;
 begin
   if Assigned(TabDialogs) then
     FreeAndNil(TabDialogs);
@@ -173,7 +174,7 @@ begin
   TabDialogs := ViewModel.GetDialogs(Community);
 
   TabControl.BeginUpdate;
-  TabIndex := TabControl.TabIndex;
+  TabName := TabControl.Tabs[TabControl.TabIndex];
   TabControl.Tabs.Clear;
   for i := 0 to TabDialogs.Count - 1 do
   begin
@@ -183,7 +184,11 @@ begin
   end;
   {"Write new message" tab}
   TabControl.Tabs.Add('Открыть новый диалог');
-  TabControl.TabIndex := TabIndex;
+  NewTabIndex := TabControl.IndexOfTabWithCaption(TabName);
+  if (NewTabIndex >= 0) and (NewTabIndex < TabControl.Tabs.Count - 1) then
+    TabControl.TabIndex := NewTabIndex
+  else
+    TabControl.TabIndex := 0;
   TabControl.EndUpdate;
 
   if TabDialogs.Count > 0 then
