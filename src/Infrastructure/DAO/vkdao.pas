@@ -39,6 +39,8 @@ type
       UserId: string; Count: integer): TJSONObject;
     class procedure Send(Client: TFPHTTPClient; AccessToken: string;
       UserID: string; Message: string);
+    class function GetLongPollServer(Client: TFPHTTPClient;
+      AccessToken: string): TJSONObject;
   end;
 
   TMessagesDAOType = class of TMessagesDAO;
@@ -128,6 +130,16 @@ begin
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserID +
     '&message=' + EncodeURL(Message);
   Client.Get(URL);
+end;
+
+class function TMessagesDAO.GetLongPollServer(Client: TFPHTTPClient;
+  AccessToken: string): TJSONObject;
+var
+  URL: string;
+begin
+  URL := VK_API_BASE_URL + 'messages.getLongPollServer?' + '&access_token=' +
+    AccessToken + '&v=' + USED_API_VERSION;
+  Result := GetJSON(Client.Get(URL)) as TJSONObject;
 end;
 
 { TDatabaseDAO }
