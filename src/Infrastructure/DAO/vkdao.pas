@@ -66,6 +66,7 @@ type
     Messages: TMessagesDAOType;
     Users: TUsersDAOType;
     class function LoadPhoto(Client: TFPHTTPClient; URL: string): TPicture;
+    class function LongPollServerRequest(Client: TFPHTTPClient; Server: string; SecretKey: string; ts: string; wait: integer): TJSONObject;
   end;
 
 implementation
@@ -236,6 +237,12 @@ begin
 
   Result := TPicture.Create;
   Result.LoadFromStream(Stream);
+end;
+
+class function DAO.LongPollServerRequest(Client: TFPHTTPClient; Server: string;
+  SecretKey: string; ts: string; wait: integer): TJSONObject;
+begin
+
 end;
 
 { TGroupsVKDAO }

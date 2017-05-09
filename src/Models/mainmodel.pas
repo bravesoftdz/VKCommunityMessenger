@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, DB, sqldb, longpoll, VKGSObserver;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, DB,
+  sqldb, longpoll, VKGSObserver;
 
 type
 
@@ -58,9 +59,8 @@ implementation
 
 { TMainModel }
 
-procedure TMainModel.ParseGroupGetByIdResponse(
-  const JSONResponseDocument: TJSONObject; const AccessKey: string;
-  var Community: TCommunity);
+procedure TMainModel.ParseGroupGetByIdResponse(const JSONResponseDocument: TJSONObject;
+  const AccessKey: string; var Community: TCommunity);
 var
   JSONCommunityObject: TJSONObject;
   ResponseArray: TJSONArray;
@@ -105,15 +105,15 @@ begin
   Connection.Open;
 
   Observer := TVKGSObserver.Create;
-  Observer.Notify:=@OnNotified;
+  Observer.Notify := @OnNotified;
 
-  LongpollWorker := TLongPollWorker.Create(true,GetCommunities);
+  LongpollWorker := TLongPollWorker.Create(True, GetCommunities);
   LongpollWorker.SubscribeForNotifications(Observer);
   LongpollWorker.Start;
 end;
 
-function TMainModel.GetExtendedCommunityInformation(CommunityId,
-  AccessKey: string): TCommunity;
+function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
+TCommunity;
 var
   JSONResponseDocument: TJSONObject;
 begin
@@ -135,6 +135,9 @@ begin
   except
     raise;
   end;
+  LongpollWorker.FreeOnTerminate := True;
+  LongpollWorker.Terminate;
+  LongpollWorker := TLongPollWorker.Create(False, GetCommunities);
 end;
 
 function TMainModel.GetCommunities: TCommunityList;

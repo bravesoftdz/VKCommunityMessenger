@@ -5,9 +5,28 @@ unit longpoll;
 interface
 
 uses
-  Classes, SysUtils, vkgsobserver, fphttpclient, fpjson, vkdao, sqldb, DB, sqlite3conn, vkgsconfig, entities;
+  Classes, SysUtils, vkgsobserver, fphttpclient, fpjson, vkdao, sqldb,
+  entities, fgl;
 
 type
+
+  { TLongPollServer }
+
+  TLongPollServer = class
+  private
+    FTS: string;
+    FKey: string;
+    FServer: string;
+    procedure SetTS(AValue: string);
+    procedure SetKey(AValue: string);
+    procedure SetServer(AValue: string);
+  public
+    property Key: string read FKey write SetKey;
+    property Server: string read FServer write SetServer;
+    property TS: string read FTS write SetTS;
+  end;
+
+  TLongPollServersObjectList = specialize TFPGObjectList<TLongpollServer>;
 
   { TLongPollWorker }
 
@@ -17,8 +36,12 @@ type
     ServerAddress: string;
     Key: string;
     HTTPClient: TFPHTTPClient;
+    CommunitiesKeys: TStringList;
+    procedure InitializeServerList(var ServersList: TLongPollServersObjectList);
     {Function returns first ts}
-    function MakeFirstCall: string;
+    function MakeFirstCall(AccessKey: string): TLongPollServer;
+    {Function decides whether to send update notification}
+    function ProcessServer(Server: TLongPollServer): boolean;
   protected
     procedure Execute; override;
   public
@@ -29,51 +52,100 @@ type
 
 implementation
 
+{ TLongPollServer }
+
+procedure TLongPollServer.SetKey(AValue: string);
+begin
+  if FKey = AValue then
+    Exit;
+  FKey := AValue;
+end;
+
+procedure TLongPollServer.SetTS(AValue: string);
+begin
+  if FTS = AValue then
+    Exit;
+  FTS := AValue;
+end;
+
+procedure TLongPollServer.SetServer(AValue: string);
+begin
+  if FServer = AValue then
+    Exit;
+  FServer := AValue;
+end;
+
 { TLongPollWorker }
 
-function TLongPollWorker.MakeFirstCall: string;
+function TLongPollWorker.MakeFirstCall(AccessKey: string): TLongPollServer;
 var
-  Response: TJSONObject;
-  Connection: TSQLConnection;
-  Transaction: TSQLTransaction;
-  Communities: TDataset;
-  i: integer;
-  AccessKeys: TStringList;
+  JSONResponse, Response: TJSONObject;
 begin
-  {Get access keys of communities}
-  Connection := TSQLite3Connection.Create(nil);
-  AccessKeys:= TStringList.Create;
-  try
-    Connection.DatabaseName := DATABASE_NAME;
-    Communities := DAO.Database.LoadDatabaseDataset(Connection, Transaction);
-    Communities.Open;
-    Communities.First;
-    for i:=0 to Communities.RecordCount-1 do
-    begin
-      AccessKeys.Add(Communities.FieldByName('AccessKey').AsString);
-    end;
-  finally
-    FreeAndNil(Transaction);
-    FreeAndNil(Connection);
-    FreeAndNil(AccessKeys);
+  JSONResponse := DAO.Messages.GetLongPollServer(HTTPClient, AccessKey);
+  Response := (JSONResponse['response'] as TJSONObject);
+
+  Result := TLongPollServer.Create;
+  Result.Key := Response['key'].AsString;
+  Result.Server := Response['server'].AsString;
+  Result.TS := Response['ts'].AsString;
+
+  FreeAndNil(JSONResponse);
+end;
+
+function TLongPollWorker.ProcessServer(Server: TLongPollServer): boolean;
+begin
+  //TODO
+  Result := False;
+end;
+
+procedure TLongPollWorker.InitializeServerList(
+  var ServersList: TLongPollServersObjectList);
+var
+  i: integer;
+begin
+  for i := 0 to CommunitiesKeys.Count - 1 do
+  begin
+    ServersList.Add(MakeFirstCall(CommunitiesKeys[i]));
   end;
 end;
 
 procedure TLongPollWorker.Execute;
+var
+  ServersList: TLongPollServersObjectList;
+  i: integer;
+  CurrentServer: TLongPollServer;
 begin
+  ServersList := TLongPollServersObjectList.Create(True);
+  InitializeServerList(ServersList);
+
   while not Terminated do
   begin
-    Observable.NotifyObservers;
-    Sleep(10000);
+    for i := 0 to ServersList.Count - 1 do
+    begin
+      CurrentServer := ServersList[i];
+
+      if ProcessServer(CurrentServer) then
+        Observable.NotifyObservers;
+
+      if terminated then
+        break;
+    end;
   end;
+  FreeAndNil(ServersList);
 end;
 
 constructor TLongPollWorker.Create(CreateSuspended: boolean;
   Communities: TCommunityList);
+var
+  i: integer;
 begin
-  inherited Create(CreateSuspended);
   HTTPClient := TFPHTTPClient.Create(nil);
   Observable := TVKGSObservable.Create;
+  CommunitiesKeys := TStringList.Create;
+  for i := 0 to Communities.Count - 1 do
+    CommunitiesKeys.Add(Communities[i].AccessKey);
+  FreeAndNil(Communities);
+  inherited Create(CreateSuspended);
 end;
 
 procedure TLongPollWorker.SubscribeForNotifications(Me: TVKGSObserver);
