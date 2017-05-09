@@ -24,15 +24,16 @@ type
     destructor Destroy; override;
   end;
 
+  TVKGSNotifyEvent = procedure of object;
 
   { TVKGSObserver }
 
   TVKGSObserver = class
   private
-    FNotify: TNotifyEvent;
-    procedure SetNotify(AValue: TNotifyEvent);
+    FNotify: TVKGSNotifyEvent;
+    procedure SetNotify(AValue: TVKGSNotifyEvent);
   public
-    property Notify: TNotifyEvent read FNotify write SetNotify;
+    property Notify: TVKGSNotifyEvent read FNotify write SetNotify;
     procedure Subscribe(Observable: TVKGSObservable);
   end;
 
@@ -40,7 +41,7 @@ implementation
 
 { TVKGSObserver }
 
-procedure TVKGSObserver.SetNotify(AValue: TNotifyEvent);
+procedure TVKGSObserver.SetNotify(AValue: TVKGSNotifyEvent);
 begin
   if FNotify=AValue then Exit;
   FNotify:=AValue;
@@ -63,7 +64,7 @@ var
   i: integer;
 begin
   for i := 0 to Observers.Count - 1 do
-    Observers[i].Notify(Self);
+    Observers[i].Notify;
 end;
 
 destructor TVKGSObservable.Destroy;

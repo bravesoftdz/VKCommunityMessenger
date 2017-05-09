@@ -5,7 +5,7 @@ unit longpoll;
 interface
 
 uses
-  Classes, SysUtils, vkgsobserver, fphttpclient, fpjson, vkdao, sqldb, DB, sqlite3conn, vkgsconfig;
+  Classes, SysUtils, vkgsobserver, fphttpclient, fpjson, vkdao, sqldb, DB, sqlite3conn, vkgsconfig, entities;
 
 type
 
@@ -13,43 +13,23 @@ type
 
   TLongPollWorker = class(TThread)
   private
-    FObservable: TVKGSObservable;
+    Observable: TVKGSObservable;
     ServerAddress: string;
     Key: string;
     HTTPClient: TFPHTTPClient;
-    procedure SetObservable(AValue: TVKGSObservable);
     {Function returns first ts}
     function MakeFirstCall: string;
   protected
     procedure Execute; override;
   public
-    constructor Create(CreateSuspended: boolean);
+    constructor Create(CreateSuspended: boolean; Communities: TCommunityList);
+    procedure SubscribeForNotifications(Me: TVKGSObserver);
     destructor Destroy; override;
   end;
-
-  { TLongPollClient }
-
-  TLongPollClient = class
-  private
-    Worker: TLongPollWorker;
-  public
-    constructor Create;
-    destructor Destroy; override;
-  end;
-
-var
-  LongPollClient: TLongPollClient;
 
 implementation
 
 { TLongPollWorker }
-
-procedure TLongPollWorker.SetObservable(AValue: TVKGSObservable);
-begin
-  if FObservable = AValue then
-    Exit;
-  FObservable := AValue;
-end;
 
 function TLongPollWorker.MakeFirstCall: string;
 var
@@ -83,14 +63,22 @@ procedure TLongPollWorker.Execute;
 begin
   while not Terminated do
   begin
-
+    Observable.NotifyObservers;
+    Sleep(10000);
   end;
 end;
 
-constructor TLongPollWorker.Create(CreateSuspended: boolean);
+constructor TLongPollWorker.Create(CreateSuspended: boolean;
+  Communities: TCommunityList);
 begin
   inherited Create(CreateSuspended);
   HTTPClient := TFPHTTPClient.Create(nil);
+  Observable := TVKGSObservable.Create;
+end;
+
+procedure TLongPollWorker.SubscribeForNotifications(Me: TVKGSObserver);
+begin
+  Me.Subscribe(Observable);
 end;
 
 destructor TLongPollWorker.Destroy;
@@ -98,28 +86,5 @@ begin
   FreeAndNil(HTTPClient);
   inherited Destroy;
 end;
-
-{ TLongPollClient }
-
-constructor TLongPollClient.Create;
-begin
-  Worker := TLongPollWorker.Create(True);
-  Worker.Start;
-end;
-
-destructor TLongPollClient.Destroy;
-begin
-  Worker.Terminate;
-  Worker.WaitFor;
-  FreeAndNil(Worker);
-end;
-
-initialization
-
-  LongPollClient := TLongPollClient.Create;
-
-finalization
-
-  FreeAndNil(LongPollClient);
 
 end.

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, DB, sqldb;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, DB, sqldb, longpoll, VKGSObserver;
 
 type
 
@@ -35,8 +35,11 @@ type
   private
     HTTPClient: TFPHTTPClient;
     Connection: TSQLite3Connection;
+    LongpollWorker: TLongPollWorker;
+    Observer: TVKGSObserver;
     procedure ParseGroupGetByIdResponse(const JSONResponseDocument: TJSONObject;
       const AccessKey: string; var Community: TCommunity);
+    procedure OnNotified;
   public
     constructor Create;
     function GetExtendedCommunityInformation(CommunityId, AccessKey: string): TCommunity;
@@ -82,9 +85,15 @@ begin
       JSONCommunityObject['photo_50'].AsString);
 end;
 
+procedure TMainModel.OnNotified;
+begin
+  ShowMessage('Notified');
+end;
+
 constructor TMainModel.Create;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
+
   Connection := TSQLite3Connection.Create(nil);
   Connection.DatabaseName := DATABASE_NAME;
   if not FileExists(DATABASE_NAME) then
@@ -94,6 +103,13 @@ begin
       raise Exception.Create('Ошибка при создании базы');
     end;
   Connection.Open;
+
+  Observer := TVKGSObserver.Create;
+  Observer.Notify:=@OnNotified;
+
+  LongpollWorker := TLongPollWorker.Create(true,GetCommunities);
+  LongpollWorker.SubscribeForNotifications(Observer);
+  LongpollWorker.Start;
 end;
 
 function TMainModel.GetExtendedCommunityInformation(CommunityId,
@@ -181,6 +197,9 @@ begin
   Connection.Close();
   FreeAndNil(HTTPClient);
   FreeAndNil(Connection);
+  LongpollWorker.Terminate;
+  LongpollWorker.WaitFor;
+  FreeAndNil(LongpollWorker);
   inherited Destroy;
 end;
 
