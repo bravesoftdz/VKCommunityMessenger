@@ -38,6 +38,7 @@ type
     Connection: TSQLite3Connection;
     LongpollWorker: TLongPollWorker;
     Observer: TVKGSObserver;
+    Observable: TVKGSObservable;
     procedure ParseGroupGetByIdResponse(const JSONResponseDocument: TJSONObject;
       const AccessKey: string; var Community: TCommunity);
     procedure OnNotified;
@@ -87,7 +88,7 @@ end;
 
 procedure TMainModel.OnNotified;
 begin
-  ShowMessage('Notified');
+  Observable.NotifyObservers;
 end;
 
 constructor TMainModel.Create;
@@ -106,6 +107,8 @@ begin
 
   Observer := TVKGSObserver.Create;
   Observer.Notify := @OnNotified;
+
+  Observable:=TVKGSObservable.Create;
 
   LongpollWorker := TLongPollWorker.Create(True, GetCommunities);
   LongpollWorker.SubscribeForNotifications(Observer);

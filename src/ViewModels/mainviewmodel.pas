@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, AbstractViewModel, Controls, AbstractModel,
-  MainModel, entities, Graphics, fgl;
+  MainModel, entities, Graphics, fgl, vkgsobserver;
 
 type
 
@@ -41,13 +41,15 @@ type
 
   { TMainViewModel }
 
-  TMainViewModel = class(TInterfacedObject, IMainViewModel, IViewModel)
+  TMainViewModel = class(TObserverViewModel, IMainViewModel, IViewModel)
   private
     FModel: IModel;
     procedure SetModel(AValue: IModel);
     function GetModel: IModel;
     procedure ResizeBitmap(Bitmap: TBitmap; const NewWidth, NewHeight: integer);
+    procedure OnNotify;
   public
+    constructor Create;
     function GetDataForUIUpdate: TUIData;
     property Model: IModel read GetModel write SetModel;
     procedure SaveNewCommunity(AccessKey, Id: string);
@@ -102,6 +104,17 @@ begin
     Rect(0, 0, NewWidth, NewHeight),
     Bitmap);
   Bitmap.SetSize(NewWidth, NewHeight);
+end;
+
+procedure TMainViewModel.OnNotify;
+begin
+  Observable.NotifyObservers;
+end;
+
+constructor TMainViewModel.Create;
+begin
+  inherited Create;
+  Observer.Notify:=@OnNotify;
 end;
 
 procedure TMainViewModel.SetModel(AValue: IModel);
