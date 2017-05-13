@@ -93,9 +93,18 @@ begin
 end;
 
 function TLongPollWorker.ProcessServer(Server: TLongPollServer): boolean;
+var URL, Response : string;
+    JSONResponse: TJSONObject;
+    Updates: TJSONArray;
 begin
-  //TODO
-  Result := False;
+  URL := 'https://' + Server.Server + '?act=a_check&key=' + Server.Key +
+    '&ts=' + Server.TS + '&wait=5&mode=2&version=1';
+  Response := HTTPClient.Get(URL);
+  JSONResponse := GetJSON(Response) as TJSONObject;
+  Server.TS := JSONResponse['ts'].AsString;
+  Updates := JSONResponse['updates'] as TJSONArray;
+  Result := not (Updates.Count=0);
+  FreeAndNil(JSONResponse);
 end;
 
 procedure TLongPollWorker.InitializeServerList(
