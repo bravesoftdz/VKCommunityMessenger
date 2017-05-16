@@ -4,14 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="42">
+    <Units Count="44">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
-        <CursorPos X="52" Y="44"/>
-        <UsageCount Value="113"/>
-        <Loaded Value="True"/>
+        <CursorPos Y="26"/>
+        <UsageCount Value="116"/>
       </Unit0>
       <Unit1>
         <Filename Value="Views\mainview.pas"/>
@@ -21,43 +21,44 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainView"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="10"/>
-        <CursorPos X="55" Y="23"/>
-        <UsageCount Value="113"/>
+        <TopLine Value="97"/>
+        <CursorPos Y="57"/>
+        <UsageCount Value="116"/>
       </Unit1>
       <Unit2>
         <Filename Value="ViewModels\mainviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainViewModel"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="19"/>
-        <CursorPos X="55" Y="39"/>
-        <UsageCount Value="113"/>
+        <TopLine Value="13"/>
+        <CursorPos X="9" Y="108"/>
+        <UsageCount Value="116"/>
       </Unit2>
       <Unit3>
         <Filename Value="Models\mainmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MainModel"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="38" Y="111"/>
-        <UsageCount Value="113"/>
+        <TopLine Value="28"/>
+        <CursorPos X="37" Y="39"/>
+        <UsageCount Value="116"/>
       </Unit3>
       <Unit4>
         <Filename Value="ViewModels\abstractviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="AbstractViewModel"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="22"/>
-        <CursorPos X="33" Y="27"/>
-        <UsageCount Value="113"/>
+        <TopLine Value="57"/>
+        <CursorPos X="15" Y="82"/>
+        <UsageCount Value="116"/>
       </Unit4>
       <Unit5>
         <Filename Value="Models\entities.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="54"/>
-        <CursorPos X="3" Y="80"/>
-        <UsageCount Value="109"/>
+        <TopLine Value="310"/>
+        <CursorPos X="36" Y="333"/>
+        <UsageCount Value="112"/>
       </Unit5>
       <Unit6>
         <Filename Value="Views\welcomepageview.pas"/>
@@ -68,14 +69,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="23"/>
         <CursorPos X="45" Y="23"/>
-        <UsageCount Value="101"/>
+        <UsageCount Value="104"/>
       </Unit6>
       <Unit7>
         <Filename Value="Models\abstractmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="AbstractModel"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="100"/>
+        <CursorPos X="31" Y="20"/>
+        <UsageCount Value="103"/>
       </Unit7>
       <Unit8>
         <Filename Value="ViewModels\welcomepageviewmodel.pas"/>
@@ -83,7 +85,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="9"/>
         <CursorPos X="30" Y="17"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="101"/>
       </Unit8>
       <Unit9>
         <Filename Value="Models\welcomepagemodel.pas"/>
@@ -91,15 +93,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
         <CursorPos X="53" Y="44"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="101"/>
       </Unit9>
       <Unit10>
         <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="50" Y="33"/>
-        <UsageCount Value="94"/>
+        <TopLine Value="46"/>
+        <CursorPos Y="67"/>
+        <UsageCount Value="97"/>
       </Unit10>
       <Unit11>
         <Filename Value="Views\idkeydialog.pas"/>
@@ -111,7 +113,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos X="17" Y="58"/>
-        <UsageCount Value="93"/>
+        <UsageCount Value="96"/>
       </Unit11>
       <Unit12>
         <Filename Value="Config\vkgsconfig.pas"/>
@@ -119,17 +121,16 @@
         <UnitName Value="VKGSConfig"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="76" Y="22"/>
-        <UsageCount Value="91"/>
+        <UsageCount Value="94"/>
       </Unit12>
       <Unit13>
         <Filename Value="Infrastructure\DAO\vkdao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="VKDAO"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="232"/>
-        <CursorPos X="3" Y="245"/>
-        <UsageCount Value="88"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="89"/>
+        <CursorPos Y="110"/>
+        <UsageCount Value="91"/>
       </Unit13>
       <Unit14>
         <Filename Value="Views\chatview.pas"/>
@@ -139,9 +140,9 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ChatView"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="33"/>
-        <CursorPos X="15" Y="47"/>
-        <UsageCount Value="86"/>
+        <TopLine Value="114"/>
+        <CursorPos X="28" Y="129"/>
+        <UsageCount Value="89"/>
       </Unit14>
       <Unit15>
         <Filename Value="Infrastructure\Helpers\helpers.pas"/>
@@ -149,7 +150,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos X="22" Y="28"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="68"/>
       </Unit15>
       <Unit16>
         <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
@@ -157,23 +158,23 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="35"/>
         <CursorPos X="41" Y="51"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="66"/>
       </Unit16>
       <Unit17>
         <Filename Value="ViewModels\chatviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="88"/>
-        <CursorPos X="47" Y="103"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="63"/>
+        <CursorPos X="19" Y="41"/>
+        <UsageCount Value="63"/>
       </Unit17>
       <Unit18>
         <Filename Value="Models\chatmodel.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="123"/>
-        <CursorPos X="30" Y="144"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="125"/>
+        <CursorPos X="22" Y="136"/>
+        <UsageCount Value="63"/>
       </Unit18>
       <Unit19>
         <Filename Value="Infrastructure\uriencoder\urlencoder.pas"/>
@@ -181,16 +182,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos Y="21"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="34"/>
       </Unit19>
       <Unit20>
         <Filename Value="Infrastructure\longpoll.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="5"/>
-        <CursorPos X="51" Y="103"/>
-        <UsageCount Value="29"/>
+        <TopLine Value="90"/>
+        <CursorPos X="16" Y="112"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit20>
       <Unit21>
@@ -225,9 +225,9 @@
       <Unit25>
         <Filename Value="C:\lazarus\lcl\include\control.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="4778"/>
-        <CursorPos Y="4793"/>
-        <UsageCount Value="7"/>
+        <TopLine Value="2613"/>
+        <CursorPos Y="2627"/>
+        <UsageCount Value="10"/>
       </Unit25>
       <Unit26>
         <Filename Value="C:\lazarus\fpc\3.0.2\source\packages\fcl-db\src\sqldb\sqlite\sqlite3conn.pp"/>
@@ -342,76 +342,58 @@
         <CursorPos Y="74"/>
         <UsageCount Value="10"/>
       </Unit41>
+      <Unit42>
+        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1948"/>
+        <CursorPos Y="1962"/>
+        <UsageCount Value="10"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="C:\lazarus\lcl\include\toolbutton.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="148"/>
+        <CursorPos Y="162"/>
+        <UsageCount Value="10"/>
+      </Unit43>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="44" Column="14" TopLine="28"/>
+        <Caret Line="104" Column="6" TopLine="90"/>
       </Position1>
       <Position2>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="16" Column="8" TopLine="10"/>
+        <Caret Line="114" Column="21" TopLine="90"/>
       </Position2>
       <Position3>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="18" Column="50" TopLine="7"/>
+        <Caret Line="106" Column="25" TopLine="99"/>
       </Position3>
       <Position4>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="23" Column="72" TopLine="3"/>
+        <Caret Line="105" TopLine="90"/>
       </Position4>
       <Position5>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="66" Column="27" TopLine="61"/>
+        <Caret Line="106" TopLine="90"/>
       </Position5>
       <Position6>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="26" Column="61" TopLine="23"/>
+        <Caret Line="107" Column="23" TopLine="90"/>
       </Position6>
       <Position7>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="41" Column="64" TopLine="26"/>
+        <Caret Line="105" TopLine="90"/>
       </Position7>
       <Position8>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="20" Column="19" TopLine="5"/>
+        <Caret Line="106" TopLine="90"/>
       </Position8>
       <Position9>
         <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="87" Column="16" TopLine="74"/>
+        <Caret Line="107" TopLine="90"/>
       </Position9>
-      <Position10>
-        <Filename Value="Infrastructure\DAO\vkdao.pas"/>
-        <Caret Line="69" Column="140" TopLine="49"/>
-      </Position10>
-      <Position11>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="97" Column="14" TopLine="67"/>
-      </Position11>
-      <Position12>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="122" Column="35" TopLine="101"/>
-      </Position12>
-      <Position13>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="68" Column="4" TopLine="51"/>
-      </Position13>
-      <Position14>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="100" Column="10" TopLine="85"/>
-      </Position14>
-      <Position15>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="44" Column="14" TopLine="29"/>
-      </Position15>
-      <Position16>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="107" Column="28" TopLine="107"/>
-      </Position16>
-      <Position17>
-        <Filename Value="Infrastructure\longpoll.pas"/>
-        <Caret Line="96" Column="10" TopLine="86"/>
-      </Position17>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

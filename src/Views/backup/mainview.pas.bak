@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView;
+  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView, vkgsobserver, AbstractViewModel;
 
 type
 
@@ -15,12 +15,18 @@ type
   TfMainView = class(TForm)
     CommunitiesImageList: TImageList;
     ToolBar1: TToolBar;
+    procedure FormCreate(Sender: TObject);
     procedure PrepareWorkspaceForCommunity(Sender: TObject);
   private
     FCurrentFrame: TFrame;
+    FObservable: TVKGSObservable;
+    FObserver: TVKGSObserver;
     FViewModel: IMainViewModel;
     procedure SetCurrentFrame(AValue: TFrame);
+    procedure SetObservable(AValue: TVKGSObservable);
+    procedure SetObserver(AValue: TVKGSObserver);
     procedure SetViewModel(AValue: IMainViewModel);
+    procedure OnNotify;
   public
     property ViewModel: IMainViewModel read FViewModel write SetViewModel;
     procedure UpdateGUI;
@@ -29,6 +35,8 @@ type
     {Event of "Add new community" button}
     procedure AddNewCommunity(Sender: TObject);
     property CurrentFrame: TFrame read FCurrentFrame write SetCurrentFrame;
+    property Observer: TVKGSObserver read FObserver write SetObserver;
+    property Observable: TVKGSObservable read FObservable write SetObservable;
   end;
 
 var
@@ -47,7 +55,15 @@ begin
   Community := ((Sender as TToolButton).DataObject as TCommunity);
   LChatView.Community := Community;
   LChatView.UpdateGUI;
+  LChatView.Observer.Subscribe(Observable);
   CurrentFrame := LChatView;
+end;
+
+procedure TfMainView.FormCreate(Sender: TObject);
+begin
+  Observer := TVKGSObserver.Create;
+  Observer.Notify:=@OnNotify;
+  Observable := TVKGSObservable.Create;
 end;
 
 procedure TfMainView.SetViewModel(AValue: IMainViewModel);
@@ -55,6 +71,14 @@ begin
   if FViewModel = AValue then
     Exit;
   FViewModel := AValue;
+  if (FViewModel is TObserverViewModel) then
+    Observer.Subscribe((FViewModel as TObserverViewModel));
+end;
+
+procedure TfMainView.OnNotify;
+begin
+  UpdateGUI;
+  Observable.NotifyObservers;
 end;
 
 procedure TfMainView.SetCurrentFrame(AValue: TFrame);
@@ -62,6 +86,18 @@ begin
   if Assigned(FCurrentFrame) then
     FCurrentFrame.Parent := nil;
   AValue.Parent := self;
+end;
+
+procedure TfMainView.SetObservable(AValue: TVKGSObservable);
+begin
+  if FObservable=AValue then Exit;
+  FObservable:=AValue;
+end;
+
+procedure TfMainView.SetObserver(AValue: TVKGSObserver);
+begin
+  if FObserver=AValue then Exit;
+  FObserver:=AValue;
 end;
 
 procedure TfMainView.UpdateGUI;

@@ -43,6 +43,7 @@ type
     property HasPhoto: boolean read FHasPhoto write SetHasPhoto;
     property Photo: TPicture read FPhoto write SetPhoto;
     property AccessKey: string read FAccessKey write SetAccessKey;
+    function Copy: TCommunity;
   end;
 
   TCommunityList = specialize TFPGList<TCommunity>;
@@ -169,56 +170,65 @@ end;
 
 procedure TMessage.SetDate(AValue: TDateTime);
 begin
-  if FDate=AValue then Exit;
-  FDate:=AValue;
+  if FDate = AValue then
+    Exit;
+  FDate := AValue;
 end;
 
 procedure TMessage.SetDeleted(AValue: boolean);
 begin
-  if FDeleted=AValue then Exit;
-  FDeleted:=AValue;
+  if FDeleted = AValue then
+    Exit;
+  FDeleted := AValue;
 end;
 
 procedure TMessage.SetEmoji(AValue: boolean);
 begin
-  if FEmoji=AValue then Exit;
-  FEmoji:=AValue;
+  if FEmoji = AValue then
+    Exit;
+  FEmoji := AValue;
 end;
 
 procedure TMessage.SetFromId(AValue: string);
 begin
-  if FFromId=AValue then Exit;
-  FFromId:=AValue;
+  if FFromId = AValue then
+    Exit;
+  FFromId := AValue;
 end;
 
 procedure TMessage.SetId(AValue: string);
 begin
-  if FId=AValue then Exit;
-  FId:=AValue;
+  if FId = AValue then
+    Exit;
+  FId := AValue;
 end;
 
 procedure TMessage.SetOut(AValue: TOutType);
 begin
-  if FOut=AValue then Exit;
-  FOut:=AValue;
+  if FOut = AValue then
+    Exit;
+  FOut := AValue;
 end;
 
 procedure TMessage.SetReadState(AValue: TReadState);
 begin
-  if FReadState=AValue then Exit;
-  FReadState:=AValue;
+  if FReadState = AValue then
+    Exit;
+  FReadState := AValue;
 end;
 
 procedure TMessage.SetTitle(AValue: string);
 begin
-  if FTitle=AValue then Exit;
-  FTitle:=AValue;
+  if FTitle = AValue then
+    Exit;
+  FTitle := AValue;
 end;
 
 procedure TMessage.SetUserId(AValue: string);
 begin
-  if FUserId=AValue then Exit;
-  FUserId:=AValue;
+  if FUserId = AValue then
+    Exit;
+  FUserId := AValue;
 end;
 
 { TUser }
@@ -253,8 +263,9 @@ end;
 
 procedure TUser.SetPhoto200(AValue: TPicture);
 begin
-  if FPhoto200=AValue then Exit;
-  FPhoto200:=AValue;
+  if FPhoto200 = AValue then
+    Exit;
+  FPhoto200 := AValue;
 end;
 
 { TDialog }
@@ -268,7 +279,7 @@ end;
 
 constructor TDialog.Create;
 begin
-  FMessages := TMessagesObjectList.Create(true);
+  FMessages := TMessagesObjectList.Create(True);
 end;
 
 destructor TDialog.Destroy;
@@ -279,8 +290,9 @@ end;
 
 procedure TDialog.SetMessages(AValue: TMessagesObjectList);
 begin
-  if FMessages=AValue then Exit;
-  FMessages:=AValue;
+  if FMessages = AValue then
+    Exit;
+  FMessages := AValue;
 end;
 
 { TCommunity }
@@ -304,6 +316,23 @@ begin
   if FScreenName = AValue then
     Exit;
   FScreenName := AValue;
+end;
+
+function TCommunity.Copy: TCommunity;
+begin
+  Result := TCommunity.Create;
+  Result.AccessKey := Self.AccessKey;
+  Result.CommunityType := Self.CommunityType;
+  Result.Deactivated := Self.Deactivated;
+  Result.HasPhoto := Self.HasPhoto;
+  Result.Id := Self.Id;
+  Result.IsClosed := Self.IsClosed;
+  Result.Name := Self.Name;
+  if Result.HasPhoto then
+    begin
+    Result.Photo := TPicture.Create;
+    Result.Photo.Assign(Self.Photo);
+    end;
 end;
 
 procedure TCommunity.SetId(AValue: string);

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkgschat,
-  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs;
+  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkgsobserver;
 
 type
 
@@ -28,6 +28,7 @@ type
     procedure SettingsButtonClick(Sender: TObject);
     procedure TabControlChange(Sender: TObject);
   private
+    FObserver: TVKGSObserver;
     FRightMenuExpanded: boolean;
     TabDialogs: TDialogsList;
     FCommunity: TCommunity;
@@ -35,9 +36,10 @@ type
     ExpandPicture: TPicture;
     HidePicture: TPicture;
     procedure SetCommunity(AValue: TCommunity);
+    procedure SetObserver(AValue: TVKGSObserver);
     procedure SetRightMenuExpanded(AValue: boolean);
     procedure SetViewModel(AValue: IChatViewModel);
-    { private declarations }
+    procedure OnNotify;
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -49,6 +51,7 @@ type
     procedure OpenNewDialog;
     property RightMenuExpanded: boolean read FRightMenuExpanded
       write SetRightMenuExpanded;
+    property Observer: TVKGSObserver read FObserver write SetObserver;
   end;
 
 var
@@ -65,6 +68,11 @@ begin
   if FViewModel = AValue then
     Exit;
   FViewModel := AValue;
+end;
+
+procedure TChatFrameView.OnNotify;
+begin
+  UpdateGUI;
 end;
 
 procedure TChatFrameView.SendButtonClick(Sender: TObject);
@@ -117,7 +125,14 @@ procedure TChatFrameView.SetCommunity(AValue: TCommunity);
 begin
   if FCommunity = AValue then
     Exit;
-  FCommunity := AValue;
+  FreeAndNil(FCommunity);
+  FCommunity := AValue.Copy;
+end;
+
+procedure TChatFrameView.SetObserver(AValue: TVKGSObserver);
+begin
+  if FObserver=AValue then Exit;
+  FObserver:=AValue;
 end;
 
 procedure TChatFrameView.SetRightMenuExpanded(AValue: boolean);
@@ -138,6 +153,8 @@ end;
 constructor TChatFrameView.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  Observer := TVKGSObserver.Create;
+  Observer.Notify:=@OnNotify;
   Chat := TVKGSChat.Create(Self);
   Chat.Align := alClient;
   Chat.BoxBorder := 10;

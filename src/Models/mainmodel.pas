@@ -32,13 +32,11 @@ type
 
   { TMainModel }
 
-  TMainModel = class(TInterfacedObject, IMainModel, IModel)
+  TMainModel = class(TObserverModel, IMainModel, IModel)
   private
     HTTPClient: TFPHTTPClient;
     Connection: TSQLite3Connection;
     LongpollWorker: TLongPollWorker;
-    Observer: TVKGSObserver;
-    Observable: TVKGSObservable;
     procedure ParseGroupGetByIdResponse(const JSONResponseDocument: TJSONObject;
       const AccessKey: string; var Community: TCommunity);
     procedure OnNotified;

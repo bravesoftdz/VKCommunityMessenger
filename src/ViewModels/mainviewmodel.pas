@@ -43,9 +43,6 @@ type
 
   TMainViewModel = class(TObserverViewModel, IMainViewModel, IViewModel)
   private
-    FModel: IModel;
-    procedure SetModel(AValue: IModel);
-    function GetModel: IModel;
     procedure ResizeBitmap(Bitmap: TBitmap; const NewWidth, NewHeight: integer);
     procedure OnNotify;
   public
@@ -115,18 +112,6 @@ constructor TMainViewModel.Create;
 begin
   inherited Create;
   Observer.Notify:=@OnNotify;
-end;
-
-procedure TMainViewModel.SetModel(AValue: IModel);
-begin
-  if FModel = AValue then
-    Exit;
-  FModel := AValue;
-end;
-
-function TMainViewModel.GetModel: IModel;
-begin
-  Result := FModel;
 end;
 
 function TMainViewModel.GetDataForUIUpdate: TUIData;

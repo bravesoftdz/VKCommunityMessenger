@@ -33,8 +33,6 @@ type
   TLongPollWorker = class(TThread)
   private
     Observable: TVKGSObservable;
-    ServerAddress: string;
-    Key: string;
     HTTPClient: TFPHTTPClient;
     CommunitiesKeys: TStringList;
     procedure InitializeServerList(var ServersList: TLongPollServersObjectList);
@@ -42,6 +40,7 @@ type
     function MakeFirstCall(AccessKey: string): TLongPollServer;
     {Function decides whether to send update notification}
     function ProcessServer(Server: TLongPollServer): boolean;
+    procedure NotifyObserversThreadMethod;
   protected
     procedure Execute; override;
   public
@@ -93,9 +92,12 @@ begin
 end;
 
 function TLongPollWorker.ProcessServer(Server: TLongPollServer): boolean;
-var URL, Response : string;
-    JSONResponse: TJSONObject;
-    Updates: TJSONArray;
+var
+  URL, Response: string;
+  JSONResponse: TJSONObject;
+  Updates: TJSONArray;
+  Update: TJSONArray;
+  i: integer;
 begin
   URL := 'https://' + Server.Server + '?act=a_check&key=' + Server.Key +
     '&ts=' + Server.TS + '&wait=5&mode=2&version=1';
@@ -103,8 +105,23 @@ begin
   JSONResponse := GetJSON(Response) as TJSONObject;
   Server.TS := JSONResponse['ts'].AsString;
   Updates := JSONResponse['updates'] as TJSONArray;
-  Result := not (Updates.Count=0);
+  if Updates.Count > 0 then
+    for i := 0 to Updates.Count - 1 do
+    begin
+      Update := (Updates[i] as TJSONArray);
+      if Update.Items[0].AsInt64 = 4 then
+        Result := True
+      else
+        Result := False;
+    end
+  else
+    Result := False;
   FreeAndNil(JSONResponse);
+end;
+
+procedure TLongPollWorker.NotifyObserversThreadMethod;
+begin
+  Observable.NotifyObservers;
 end;
 
 procedure TLongPollWorker.InitializeServerList(
@@ -134,7 +151,7 @@ begin
       CurrentServer := ServersList[i];
 
       if ProcessServer(CurrentServer) then
-        Observable.NotifyObservers;
+        Queue(@NotifyObserversThreadMethod);
 
       if terminated then
         break;
