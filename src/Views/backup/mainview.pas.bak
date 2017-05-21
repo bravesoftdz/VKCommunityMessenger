@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView, vkgsobserver, AbstractViewModel;
+  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView,
+  vkgsobserver, AbstractViewModel;
 
 type
 
@@ -56,14 +57,14 @@ begin
   LChatView.Community := Community;
   LChatView.UpdateGUI;
   if Observable.Observers.IndexOf(LChatView.Observer) = -1 then
-  LChatView.Observer.Subscribe(Observable);
+    LChatView.Observer.Subscribe(Observable);
   CurrentFrame := LChatView;
 end;
 
 procedure TfMainView.FormCreate(Sender: TObject);
 begin
   Observer := TVKGSObserver.Create;
-  Observer.Notify:=@OnNotify;
+  Observer.Notify := @OnNotify;
   Observable := TVKGSObservable.Create;
 end;
 
@@ -95,14 +96,16 @@ end;
 
 procedure TfMainView.SetObservable(AValue: TVKGSObservable);
 begin
-  if FObservable=AValue then Exit;
-  FObservable:=AValue;
+  if FObservable = AValue then
+    Exit;
+  FObservable := AValue;
 end;
 
 procedure TfMainView.SetObserver(AValue: TVKGSObserver);
 begin
-  if FObserver=AValue then Exit;
-  FObserver:=AValue;
+  if FObserver = AValue then
+    Exit;
+  FObserver := AValue;
 end;
 
 procedure TfMainView.UpdateGUI;
@@ -111,6 +114,9 @@ var
   NewButton: TToolButton;
   Data: TUIData;
 begin
+  {Prepare}
+
+
   {Clean imagelist and toolbar}
   CommunitiesImageList.Clear;
   while ToolBar1.ControlCount > 0 do

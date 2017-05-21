@@ -84,8 +84,8 @@ begin
     exit;
   SelectedDialog := TabDialogs[TabControl.TabIndex];
   SelectedUser := SelectedDialog.Person;
-  ViewModel.SendMessage(Community, SelectedUser, ChatMemo.Text);
   ChatMemo.Clear;
+  ViewModel.SendMessage(Community, SelectedUser, ChatMemo.Text);
   UpdateGUI;
   TabControl.TabIndex := 0; {Our dialog will appear first}
 end;
@@ -131,8 +131,9 @@ end;
 
 procedure TChatFrameView.SetObserver(AValue: TVKGSObserver);
 begin
-  if FObserver=AValue then Exit;
-  FObserver:=AValue;
+  if FObserver = AValue then
+    Exit;
+  FObserver := AValue;
 end;
 
 procedure TChatFrameView.SetRightMenuExpanded(AValue: boolean);
@@ -154,7 +155,7 @@ constructor TChatFrameView.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   Observer := TVKGSObserver.Create;
-  Observer.Notify:=@OnNotify;
+  Observer.Notify := @OnNotify;
   Chat := TVKGSChat.Create(Self);
   Chat.Align := alClient;
   Chat.BoxBorder := 10;
@@ -185,31 +186,37 @@ var
   TabName: string;
   NewTabIndex: integer;
 begin
-  if Assigned(TabDialogs) then
-    FreeAndNil(TabDialogs);
+  SendButton.Enabled := False;
 
-  TabDialogs := ViewModel.GetDialogs(Community);
+  try
+    if Assigned(TabDialogs) then
+      FreeAndNil(TabDialogs);
 
-  TabControl.BeginUpdate;
-  TabName := TabControl.Tabs[TabControl.TabIndex];
-  TabControl.Tabs.Clear;
-  for i := 0 to TabDialogs.Count - 1 do
-  begin
-    User := TabDialogs[i].Person;
-    NewTab := User.FirstName + ' ' + User.LastName;
-    TabControl.Tabs.Add(NewTab);
+    TabDialogs := ViewModel.GetDialogs(Community);
+
+    TabControl.BeginUpdate;
+    TabName := TabControl.Tabs[TabControl.TabIndex];
+    TabControl.Tabs.Clear;
+    for i := 0 to TabDialogs.Count - 1 do
+    begin
+      User := TabDialogs[i].Person;
+      NewTab := User.FirstName + ' ' + User.LastName;
+      TabControl.Tabs.Add(NewTab);
+    end;
+    {"Write new message" tab}
+    TabControl.Tabs.Add('Открыть новый диалог');
+    NewTabIndex := TabControl.IndexOfTabWithCaption(TabName);
+    if (NewTabIndex >= 0) and (NewTabIndex < TabControl.Tabs.Count - 1) then
+      TabControl.TabIndex := NewTabIndex
+    else
+      TabControl.TabIndex := 0;
+    TabControl.EndUpdate;
+
+    if TabDialogs.Count > 0 then
+      LoadMessages(TabDialogs[0]);
+  finally
+    SendButton.Enabled := True;
   end;
-  {"Write new message" tab}
-  TabControl.Tabs.Add('Открыть новый диалог');
-  NewTabIndex := TabControl.IndexOfTabWithCaption(TabName);
-  if (NewTabIndex >= 0) and (NewTabIndex < TabControl.Tabs.Count - 1) then
-    TabControl.TabIndex := NewTabIndex
-  else
-    TabControl.TabIndex := 0;
-  TabControl.EndUpdate;
-
-  if TabDialogs.Count > 0 then
-    LoadMessages(TabDialogs[0]);
 end;
 
 procedure TChatFrameView.InitializeFrame;
