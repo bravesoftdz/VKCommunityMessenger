@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView, vkgsobserver, AbstractViewModel;
+  ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView,
+  vkgsobserver, AbstractViewModel;
 
 type
 
@@ -55,14 +56,15 @@ begin
   Community := ((Sender as TToolButton).DataObject as TCommunity);
   LChatView.Community := Community;
   LChatView.UpdateGUI;
-  LChatView.Observer.Subscribe(Observable);
+  if Observable.Observers.IndexOf(LChatView.Observer) = -1 then
+    LChatView.Observer.Subscribe(Observable);
   CurrentFrame := LChatView;
 end;
 
 procedure TfMainView.FormCreate(Sender: TObject);
 begin
   Observer := TVKGSObserver.Create;
-  Observer.Notify:=@OnNotify;
+  Observer.Notify := @OnNotify;
   Observable := TVKGSObservable.Create;
 end;
 
@@ -70,6 +72,10 @@ procedure TfMainView.SetViewModel(AValue: IMainViewModel);
 begin
   if FViewModel = AValue then
     Exit;
+  {Unsubscribe old viewmodel}
+  if (FViewModel is TObserverViewModel) then
+    Observer.Unsubscribe((FViewModel as TObserverViewModel).Observable);
+  {Assign and subscribe}
   FViewModel := AValue;
   if (FViewModel is TObserverViewModel) then
     Observer.Subscribe((FViewModel as TObserverViewModel).Observable);
@@ -90,14 +96,16 @@ end;
 
 procedure TfMainView.SetObservable(AValue: TVKGSObservable);
 begin
-  if FObservable=AValue then Exit;
-  FObservable:=AValue;
+  if FObservable = AValue then
+    Exit;
+  FObservable := AValue;
 end;
 
 procedure TfMainView.SetObserver(AValue: TVKGSObserver);
 begin
-  if FObserver=AValue then Exit;
-  FObserver:=AValue;
+  if FObserver = AValue then
+    Exit;
+  FObserver := AValue;
 end;
 
 procedure TfMainView.UpdateGUI;

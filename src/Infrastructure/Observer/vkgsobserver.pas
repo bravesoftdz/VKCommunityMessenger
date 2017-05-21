@@ -17,10 +17,12 @@ type
 
   TVKGSObservable = class
   private
-    Observers: TVKGSObserversList;
+    FObservers: TVKGSObserversList;
+    procedure SetObservers(AValue: TVKGSObserversList);
   public
     constructor Create;
     procedure NotifyObservers;
+    property Observers: TVKGSObserversList read FObservers write SetObservers;
     destructor Destroy; override;
   end;
 
@@ -35,6 +37,7 @@ type
   public
     property Notify: TVKGSNotifyEvent read FNotify write SetNotify;
     procedure Subscribe(Observable: TVKGSObservable);
+    procedure Unsubscribe(Observable: TVKGSObservable);
   end;
 
 implementation
@@ -43,8 +46,9 @@ implementation
 
 procedure TVKGSObserver.SetNotify(AValue: TVKGSNotifyEvent);
 begin
-  if FNotify=AValue then Exit;
-  FNotify:=AValue;
+  if FNotify = AValue then
+    Exit;
+  FNotify := AValue;
 end;
 
 procedure TVKGSObserver.Subscribe(Observable: TVKGSObservable);
@@ -52,7 +56,18 @@ begin
   Observable.Observers.Add(Self);
 end;
 
+procedure TVKGSObserver.Unsubscribe(Observable: TVKGSObservable);
+begin
+  Observable.Observers.Remove(Self);
+end;
+
 { TVKGSObservable }
+
+procedure TVKGSObservable.SetObservers(AValue: TVKGSObserversList);
+begin
+  if FObservers=AValue then Exit;
+  FObservers:=AValue;
+end;
 
 constructor TVKGSObservable.Create;
 begin
@@ -69,7 +84,7 @@ end;
 
 destructor TVKGSObservable.Destroy;
 begin
-  FreeAndNil(Observers);
+  FreeAndNil(FObservers);
   inherited Destroy;
 end;
 
