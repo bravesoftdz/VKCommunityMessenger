@@ -103,14 +103,17 @@ begin
     '&ts=' + Server.TS + '&wait=5&mode=2&version=1';
   Response := HTTPClient.Get(URL);
   JSONResponse := GetJSON(Response) as TJSONObject;
-  Server.TS := JSONResponse['ts'].AsString;
   Updates := JSONResponse['updates'] as TJSONArray;
   if Updates.Count > 0 then
     for i := 0 to Updates.Count - 1 do
     begin
       Update := (Updates[i] as TJSONArray);
       if Update.Items[0].AsInt64 = 4 then
-        Result := True
+      begin
+        Result := True;
+        Server.TS := JSONResponse['ts'].AsString;
+        break;
+      end
       else
         Result := False;
     end

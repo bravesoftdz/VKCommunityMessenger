@@ -79,13 +79,16 @@ procedure TChatFrameView.SendButtonClick(Sender: TObject);
 var
   SelectedUser: TUser;
   SelectedDialog: TDialog;
+  MessageText: string;
 begin
   if TabDialogs.Count < 1 then
     exit;
   SelectedDialog := TabDialogs[TabControl.TabIndex];
   SelectedUser := SelectedDialog.Person;
+  MessageText := ChatMemo.Text;
   ChatMemo.Clear;
-  ViewModel.SendMessage(Community, SelectedUser, ChatMemo.Text);
+  ChatMemo.Repaint;
+  ViewModel.SendMessage(Community, SelectedUser, MessageText);
   UpdateGUI;
   TabControl.TabIndex := 0; {Our dialog will appear first}
 end;
