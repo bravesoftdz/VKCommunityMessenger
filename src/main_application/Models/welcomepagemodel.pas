@@ -5,7 +5,7 @@ unit welcomepagemodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel;
+  Classes, SysUtils, AbstractModel, fphttpclient, VKGSConfig;
 
 type
 
@@ -47,9 +47,19 @@ begin
 end;
 
 function TWelcomePageModel.GetNews: string;
+var
+  Client: TFPHTTPClient;
 begin
-  Result := 'На данный момент продукт находится в разработке. ' +
-            'Процесс разработки можно отслеживать в нашем Github репозитории.';
+  Client := TFPHTTPClient.Create(nil);
+  try
+    try
+      Result := Client.Get(NEWS_WEBPAGE);
+    finally
+      FreeAndNil(Client);
+    end;
+  except
+    Result := 'Невозможно подключиться к сервису новостей';
+  end;
 end;
 
 end.
