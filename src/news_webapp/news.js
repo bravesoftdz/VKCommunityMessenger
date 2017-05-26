@@ -3,8 +3,10 @@ var getNews = function () {
         case 0:
             return "На данный момент продукт находится в разработке, которая ведется в нашем GitHub репозитории";
         default:
-            return "Two";
+            return 'Ведется подготовка к первому релизу, с базовым функционалом для отправки и приема сообщений. ' +
+                   'Релиз будет выпцщен под грифом "dev", что означает, что он не готов даже к альфа тестированию ' +
+                   'и является лишь прототипом';
     }
 }
 
-document.getElementById("newstext").innerHtML = getNews();
+document.getElementById("newstext").innerText = getNews();
