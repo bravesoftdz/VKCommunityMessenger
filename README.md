@@ -1,6 +1,6 @@
 # VKCommunityMessenger
 
-![Logo](https://raw.githubusercontent.com/Zawuza/VKCommunityMessenger/master/logo.jpg)
+![Logo](https://raw.githubusercontent.com/Zawuza/VKCommunityMessenger/master/logo.svg)
 
 App for group messaging in VK social network
 
