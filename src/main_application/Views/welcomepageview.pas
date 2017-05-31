@@ -5,15 +5,14 @@ unit welcomepageview;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
-  welcomepageviewmodel;
+  Classes, SysUtils, FileUtil, IpHtml, Forms, Controls, StdCtrls, ExtCtrls,
+  welcomepageviewmodel, Dialogs;
 
 type
 
   { TWelcomePageFrameView }
 
   TWelcomePageFrameView = class(TFrame)
-    NewsLabel: TLabel;
     WelcomeLabel: TLabel;
     IntroductionText: TLabel;
   private
@@ -25,7 +24,8 @@ type
     property ViewModel: IWelcomePageViewModel read FViewModel write SetViewModel;
   end;
 
-var LWelcomePageView: TWelcomePageFrameView;
+var
+  LWelcomePageView: TWelcomePageFrameView;
 
 implementation
 
@@ -35,16 +35,16 @@ implementation
 
 procedure TWelcomePageFrameView.SetViewModel(AValue: IWelcomePageViewModel);
 begin
-  if FViewModel=AValue then Exit;
-  FViewModel:=AValue;
+  if FViewModel = AValue then
+    Exit;
+  FViewModel := AValue;
 end;
 
 procedure TWelcomePageFrameView.InitializeFrame;
 begin
-  WelcomeLabel.Caption:=ViewModel.GetWelcomeCaption;
-  IntroductionText.Caption:=ViewModel.GetWelcomeText;
-  NewsLabel.Caption:=ViewModel.GetNews;
+  WelcomeLabel.Caption := ViewModel.GetWelcomeCaption;
+  IntroductionText.Caption := ViewModel.GetWelcomeText;
+  //ViewModel.GetNews;
 end;
 
 end.
-

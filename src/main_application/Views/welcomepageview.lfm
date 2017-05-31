@@ -27,7 +27,6 @@ object WelcomePageFrameView: TWelcomePageFrameView
     WordWrap = True
   end
   object IntroductionText: TLabel
-    AnchorSideBottom.Control = NewsLabel
     Left = 30
     Height = 176
     Top = 128
@@ -37,23 +36,6 @@ object WelcomePageFrameView: TWelcomePageFrameView
     Caption = 'Text'
     Font.CharSet = RUSSIAN_CHARSET
     Font.Height = -24
-    Font.Name = 'Segoe UI'
-    Font.Pitch = fpVariable
-    Font.Quality = fqDraft
-    ParentColor = False
-    ParentFont = False
-    WordWrap = True
-  end
-  object NewsLabel: TLabel
-    Left = 30
-    Height = 301
-    Top = 304
-    Width = 1088
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    AutoSize = False
-    Caption = 'News'
-    Font.CharSet = ANSI_CHARSET
-    Font.Height = -15
     Font.Name = 'Segoe UI'
     Font.Pitch = fpVariable
     Font.Quality = fqDraft

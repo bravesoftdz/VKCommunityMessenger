@@ -63,8 +63,7 @@ end;
 function TWelcomePageViewModel.GetNews: string;
 var tmp:string;
 begin
-  tmp := (Model as TWelcomePageModel).GetNews;
-  Result := 'Сервер новостей не готов к работе';
+  Result := (Model as TWelcomePageModel).GetNews;
 end;
 
 end.
