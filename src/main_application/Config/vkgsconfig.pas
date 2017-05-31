@@ -20,7 +20,7 @@ resourcestring
   {$ENDIF}
   SQL_INSERT_COMMUNITY_QUERY = 'queries/insert.sql';
   SQL_SELECT_WHOLE_DATABASE_SELECT_QUERY = 'SELECT * FROM communitiesview';
-  NEWS_WEBPAGE = 'http://vkcmnews.azurewebsites.net/news.html';
+  NEWS_WEBPAGE = 'http://vkcmnews.azurewebsites.net/news.txt';
 
 
 implementation

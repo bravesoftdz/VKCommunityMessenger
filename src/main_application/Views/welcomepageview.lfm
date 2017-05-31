@@ -31,7 +31,7 @@ object WelcomePageFrameView: TWelcomePageFrameView
     Height = 176
     Top = 128
     Width = 1087
-    Anchors = [akTop, akLeft, akRight, akBottom]
+    Anchors = [akTop, akLeft, akRight]
     AutoSize = False
     Caption = 'Text'
     Font.CharSet = RUSSIAN_CHARSET
@@ -41,6 +41,17 @@ object WelcomePageFrameView: TWelcomePageFrameView
     Font.Quality = fqDraft
     ParentColor = False
     ParentFont = False
+    WordWrap = True
+  end
+  object NewsLabel: TLabel
+    Left = 32
+    Height = 305
+    Top = 312
+    Width = 1083
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = False
+    Caption = 'NewsLabel'
+    ParentColor = False
     WordWrap = True
   end
 end

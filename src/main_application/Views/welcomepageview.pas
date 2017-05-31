@@ -13,6 +13,7 @@ type
   { TWelcomePageFrameView }
 
   TWelcomePageFrameView = class(TFrame)
+    NewsLabel: TLabel;
     WelcomeLabel: TLabel;
     IntroductionText: TLabel;
   private
@@ -44,7 +45,7 @@ procedure TWelcomePageFrameView.InitializeFrame;
 begin
   WelcomeLabel.Caption := ViewModel.GetWelcomeCaption;
   IntroductionText.Caption := ViewModel.GetWelcomeText;
-  //ViewModel.GetNews;
+  NewsLabel.Caption := ViewModel.GetNews;
 end;
 
 end.
