@@ -9,8 +9,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   MainView { you can add units after this },
   Controls, Graphics, MainViewModel, MainModel, AbstractViewModel, entities,
   welcomepageview, AbstractModel, welcomepageviewmodel, welcomepagemodel,
-  vkgsobserver, IdKeyDialog, VKGSConfig, VKDAO, ChatView, sqlite3dyn, helpers,
-  vkgschat, chatviewmodel, chatmodel, urlencoder, longpoll;
+  vkcmobserver, IdKeyDialog, vkcmconfig, VKDAO, ChatView, sqlite3dyn, helpers,
+  vkcmchat, chatviewmodel, chatmodel, urlencoder, longpoll;
 
 {$R *.res}
 

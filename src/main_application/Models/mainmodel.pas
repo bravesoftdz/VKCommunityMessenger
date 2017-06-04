@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, entities, Graphics, AbstractModel, fphttpclient,
-  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, VKGSConfig, DB,
-  sqldb, longpoll, VKGSObserver;
+  Dialogs, fpjson, jsonparser, VKDAO, sqlite3conn, vkcmconfig, DB,
+  sqldb, longpoll, vkcmobserver;
 
 type
 
@@ -103,10 +103,10 @@ begin
     end;
   Connection.Open;
 
-  Observer := TVKGSObserver.Create;
+  Observer := TVKCMObserver.Create;
   Observer.Notify := @OnNotified;
 
-  Observable:=TVKGSObservable.Create;
+  Observable:=TVKCMObservable.Create;
 
   LongpollWorker := TLongPollWorker.Create(True, GetCommunities);
   LongpollWorker.SubscribeForNotifications(Observer);

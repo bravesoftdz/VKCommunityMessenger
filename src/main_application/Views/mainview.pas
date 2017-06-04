@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
   ActnList, MainViewModel, IdKeyDialog, helpers, entities, ChatView,
-  vkgsobserver, AbstractViewModel;
+  vkcmobserver, AbstractViewModel;
 
 type
 
@@ -20,12 +20,12 @@ type
     procedure PrepareWorkspaceForCommunity(Sender: TObject);
   private
     FCurrentFrame: TFrame;
-    FObservable: TVKGSObservable;
-    FObserver: TVKGSObserver;
+    FObservable: TVKCMObservable;
+    FObserver: TVKCMObserver;
     FViewModel: IMainViewModel;
     procedure SetCurrentFrame(AValue: TFrame);
-    procedure SetObservable(AValue: TVKGSObservable);
-    procedure SetObserver(AValue: TVKGSObserver);
+    procedure SetObservable(AValue: TVKCMObservable);
+    procedure SetObserver(AValue: TVKCMObserver);
     procedure SetViewModel(AValue: IMainViewModel);
     procedure OnNotify;
   public
@@ -36,8 +36,8 @@ type
     {Event of "Add new community" button}
     procedure AddNewCommunity(Sender: TObject);
     property CurrentFrame: TFrame read FCurrentFrame write SetCurrentFrame;
-    property Observer: TVKGSObserver read FObserver write SetObserver;
-    property Observable: TVKGSObservable read FObservable write SetObservable;
+    property Observer: TVKCMObserver read FObserver write SetObserver;
+    property Observable: TVKCMObservable read FObservable write SetObservable;
   end;
 
 var
@@ -63,9 +63,9 @@ end;
 
 procedure TfMainView.FormCreate(Sender: TObject);
 begin
-  Observer := TVKGSObserver.Create;
+  Observer := TVKCMObserver.Create;
   Observer.Notify := @OnNotify;
-  Observable := TVKGSObservable.Create;
+  Observable := TVKCMObservable.Create;
 end;
 
 procedure TfMainView.SetViewModel(AValue: IMainViewModel);
@@ -94,14 +94,14 @@ begin
   AValue.Parent := self;
 end;
 
-procedure TfMainView.SetObservable(AValue: TVKGSObservable);
+procedure TfMainView.SetObservable(AValue: TVKCMObservable);
 begin
   if FObservable = AValue then
     Exit;
   FObservable := AValue;
 end;
 
-procedure TfMainView.SetObserver(AValue: TVKGSObserver);
+procedure TfMainView.SetObserver(AValue: TVKCMObserver);
 begin
   if FObserver = AValue then
     Exit;

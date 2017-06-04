@@ -5,7 +5,7 @@ unit welcomepagemodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel, fphttpclient, VKGSConfig;
+  Classes, SysUtils, AbstractModel, fphttpclient, vkcmconfig;
 
 type
 

@@ -5,7 +5,7 @@ unit AbstractModel;
 interface
 
 uses
-  Classes, SysUtils, vkgsobserver;
+  Classes, SysUtils, vkcmobserver;
 
 type
   IModel = interface
@@ -16,26 +16,26 @@ type
 
   TObserverModel = class(TInterfacedObject, IModel)
   private
-    FObservable: TVKGSObservable;
-    FObserver: TVKGSObserver;
-    procedure SetObservable(AValue: TVKGSObservable);
-    procedure SetObserver(AValue: TVKGSObserver);
+    FObservable: TVKCMObservable;
+    FObserver: TVKCMObserver;
+    procedure SetObservable(AValue: TVKCMObservable);
+    procedure SetObserver(AValue: TVKCMObserver);
   published
-     property Observer: TVKGSObserver read FObserver write SetObserver;
-    property Observable: TVKGSObservable read FObservable write SetObservable;
+     property Observer: TVKCMObserver read FObserver write SetObserver;
+    property Observable: TVKCMObservable read FObservable write SetObservable;
   end;
 
 implementation
 
 { TObserverModel }
 
-procedure TObserverModel.SetObservable(AValue: TVKGSObservable);
+procedure TObserverModel.SetObservable(AValue: TVKCMObservable);
 begin
   if FObservable=AValue then Exit;
   FObservable:=AValue;
 end;
 
-procedure TObserverModel.SetObserver(AValue: TVKGSObserver);
+procedure TObserverModel.SetObserver(AValue: TVKCMObserver);
 begin
   if FObserver=AValue then Exit;
   FObserver:=AValue;

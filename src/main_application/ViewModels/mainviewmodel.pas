@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, AbstractViewModel, Controls, AbstractModel,
-  MainModel, entities, Graphics, fgl, vkgsobserver;
+  MainModel, entities, Graphics, fgl, vkcmobserver;
 
 type
 

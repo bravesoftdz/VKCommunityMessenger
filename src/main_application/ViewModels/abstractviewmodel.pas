@@ -5,7 +5,7 @@ unit AbstractViewModel;
 interface
 
 uses
-  Classes, SysUtils, AbstractModel, vkgsobserver;
+  Classes, SysUtils, AbstractModel, vkcmobserver;
 
 type
 
@@ -23,19 +23,19 @@ type
 
   TObserverViewModel = class(TInterfacedObject, IViewModel)
   private
-    procedure SetObservable(AValue: TVKGSObservable);
-    procedure SetObserver(AValue: TVKGSObserver);
+    procedure SetObservable(AValue: TVKCMObservable);
+    procedure SetObserver(AValue: TVKCMObserver);
   protected
-    FObserver: TVKGSObserver;
-    FObservable: TVKGSObservable;
+    FObserver: TVKCMObserver;
+    FObservable: TVKCMObservable;
     FModel: IModel;
     function GetModel: IModel;
     procedure SetModel(AValue: IModel);
   public
     constructor Create;
     property Model: IModel read GetModel write SetModel;
-    property Observable: TVKGSObservable read FObservable write SetObservable;
-    property Observer: TVKGSObserver read FObserver write SetObserver;
+    property Observable: TVKCMObservable read FObservable write SetObservable;
+    property Observer: TVKCMObserver read FObserver write SetObserver;
     destructor Destroy; override;
   end;
 
@@ -43,13 +43,13 @@ implementation
 
 { TObserverViewModel }
 
-procedure TObserverViewModel.SetObservable(AValue: TVKGSObservable);
+procedure TObserverViewModel.SetObservable(AValue: TVKCMObservable);
 begin
   if FObservable=AValue then Exit;
   FObservable:=AValue;
 end;
 
-procedure TObserverViewModel.SetObserver(AValue: TVKGSObserver);
+procedure TObserverViewModel.SetObserver(AValue: TVKCMObserver);
 begin
   if FObserver=AValue then Exit;
   FObserver:=AValue;
@@ -72,8 +72,8 @@ end;
 
 constructor TObserverViewModel.Create;
 begin
-  Observable := TVKGSObservable.Create;
-  Observer := TVKGSObserver.Create;
+  Observable := TVKCMObservable.Create;
+  Observer := TVKCMObserver.Create;
 end;
 
 destructor TObserverViewModel.Destroy;

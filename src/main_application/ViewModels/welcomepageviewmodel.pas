@@ -61,7 +61,6 @@ begin
 end;
 
 function TWelcomePageViewModel.GetNews: string;
-var tmp:string;
 begin
   Result := (Model as TWelcomePageModel).GetNews;
 end;

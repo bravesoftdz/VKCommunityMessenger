@@ -5,7 +5,7 @@ unit VKDAO;
 interface
 
 uses
-  Classes, SysUtils, fpjson, jsonparser, fphttpclient, VKGSConfig,
+  Classes, SysUtils, fpjson, jsonparser, fphttpclient, vkcmconfig,
   Graphics, sqldb, entities, DB, urlencoder;
 
 type

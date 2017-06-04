@@ -1,4 +1,4 @@
-unit vkgschat;
+unit vkcmchat;
 
 {$mode objfpc}{$H+}
 
@@ -20,9 +20,9 @@ type
 
   TUIMessagesObjectList = specialize TFPGObjectList<TUIMessage>;
 
-  { TVKGSChat }
+  { TVKCMChat }
 
-  TVKGSChat = class(TCustomControl)
+  TVKCMChat = class(TCustomControl)
   private
     FBoxBorder: integer;
     FBoxColor: TColor;
@@ -71,72 +71,72 @@ begin
   Result := Out = otRecieved;
 end;
 
-{ TVKGSChat }
+{ TVKCMChat }
 
-procedure TVKGSChat.SetMessages(AValue: TUIMessagesObjectList);
+procedure TVKCMChat.SetMessages(AValue: TUIMessagesObjectList);
 begin
   if FMessages=AValue then Exit;
   FreeAndNil(FMessages);
   FMessages:=AValue;
 end;
 
-procedure TVKGSChat.SetDistanceBetweenMessages(AValue: integer);
+procedure TVKCMChat.SetDistanceBetweenMessages(AValue: integer);
 begin
   if FDistanceBetweenMessages = AValue then
     Exit;
   FDistanceBetweenMessages := AValue;
 end;
 
-procedure TVKGSChat.SetFrameColor(AValue: TColor);
+procedure TVKCMChat.SetFrameColor(AValue: TColor);
 begin
   if FFrameColor = AValue then
     Exit;
   FFrameColor := AValue;
 end;
 
-procedure TVKGSChat.SetBoxColor(AValue: TColor);
+procedure TVKCMChat.SetBoxColor(AValue: TColor);
 begin
   if FBoxColor = AValue then
     Exit;
   FBoxColor := AValue;
 end;
 
-procedure TVKGSChat.SetBoxBorder(AValue: integer);
+procedure TVKCMChat.SetBoxBorder(AValue: integer);
 begin
   if FBoxBorder = AValue then
     Exit;
   FBoxBorder := AValue;
 end;
 
-procedure TVKGSChat.SetOverlapping(AValue: integer);
+procedure TVKCMChat.SetOverlapping(AValue: integer);
 begin
   if FOverlapping = AValue then
     Exit;
   FOverlapping := AValue;
 end;
 
-procedure TVKGSChat.SetPaddingBottom(AValue: integer);
+procedure TVKCMChat.SetPaddingBottom(AValue: integer);
 begin
   if FPaddingBottom = AValue then
     Exit;
   FPaddingBottom := AValue;
 end;
 
-procedure TVKGSChat.SetPaddingLeft(AValue: integer);
+procedure TVKCMChat.SetPaddingLeft(AValue: integer);
 begin
   if FPaddingLeft = AValue then
     Exit;
   FPaddingLeft := AValue;
 end;
 
-procedure TVKGSChat.SetPaddingRight(AValue: integer);
+procedure TVKCMChat.SetPaddingRight(AValue: integer);
 begin
   if FPaddingRight = AValue then
     Exit;
   FPaddingRight := AValue;
 end;
 
-procedure TVKGSChat.Paint;
+procedure TVKCMChat.Paint;
 var
   LeftBorder, RightBorder, LeftCenter, RightCenter: integer;
   i: integer;
@@ -191,14 +191,14 @@ begin
 
 end;
 
-constructor TVKGSChat.Create(AOwner: TComponent);
+constructor TVKCMChat.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FMessages := TUIMessagesObjectList.Create(True);
   DoubleBuffered:=true;
 end;
 
-destructor TVKGSChat.Destroy;
+destructor TVKCMChat.Destroy;
 begin
   inherited;
   Messages.Free;

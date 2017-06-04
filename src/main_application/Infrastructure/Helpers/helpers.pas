@@ -9,9 +9,9 @@ uses
 
 type
 
-  { TVKGSComponentHelper }
+  { TVKCMComponentHelper }
 
-  TVKGSComponentHelper = class helper for TComponent
+  TVKCMComponentHelper = class helper for TComponent
   private
     function GetDataObject: TObject;
     procedure SetDataObject(AValue: TObject);
@@ -21,14 +21,14 @@ type
 
 implementation
 
-{ TVKGSComponentHelper }
+{ TVKCMComponentHelper }
 
-procedure TVKGSComponentHelper.SetDataObject(AValue: TObject);
+procedure TVKCMComponentHelper.SetDataObject(AValue: TObject);
 begin
   Tag:=PtrInt(AValue);
 end;
 
-function TVKGSComponentHelper.GetDataObject: TObject;
+function TVKCMComponentHelper.GetDataObject: TObject;
 begin
   Result := TObject(Tag);
 end;

@@ -1,4 +1,4 @@
-unit VKGSConfig;
+unit vkcmconfig;
 
 {$mode objfpc}{$H+}
 

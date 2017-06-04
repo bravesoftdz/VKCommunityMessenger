@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, AbstractViewModel, AbstractModel, ChatModel,
-  entities, Graphics, vkgschat, Dialogs;
+  entities, Graphics, vkcmchat, Dialogs;
 
 type
 

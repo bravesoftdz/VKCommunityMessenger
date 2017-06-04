@@ -5,7 +5,7 @@ unit longpoll;
 interface
 
 uses
-  Classes, SysUtils, vkgsobserver, fphttpclient, fpjson, vkdao, sqldb,
+  Classes, SysUtils, vkcmobserver, fphttpclient, fpjson, vkdao, sqldb,
   entities, fgl;
 
 type
@@ -32,7 +32,7 @@ type
 
   TLongPollWorker = class(TThread)
   private
-    Observable: TVKGSObservable;
+    Observable: TVKCMObservable;
     HTTPClient: TFPHTTPClient;
     CommunitiesKeys: TStringList;
     procedure InitializeServerList(var ServersList: TLongPollServersObjectList);
@@ -45,7 +45,7 @@ type
     procedure Execute; override;
   public
     constructor Create(CreateSuspended: boolean; Communities: TCommunityList);
-    procedure SubscribeForNotifications(Me: TVKGSObserver);
+    procedure SubscribeForNotifications(Me: TVKCMObserver);
     destructor Destroy; override;
   end;
 
@@ -169,7 +169,7 @@ var
   i: integer;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
-  Observable := TVKGSObservable.Create;
+  Observable := TVKCMObservable.Create;
   CommunitiesKeys := TStringList.Create;
   for i := 0 to Communities.Count - 1 do
     CommunitiesKeys.Add(Communities[i].AccessKey);
@@ -177,7 +177,7 @@ begin
   inherited Create(CreateSuspended);
 end;
 
-procedure TLongPollWorker.SubscribeForNotifications(Me: TVKGSObserver);
+procedure TLongPollWorker.SubscribeForNotifications(Me: TVKCMObserver);
 begin
   Me.Subscribe(Observable);
 end;

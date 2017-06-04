@@ -95,7 +95,7 @@
         <IsPartOfProject Value="True"/>
       </Unit9>
       <Unit10>
-        <Filename Value="Infrastructure\Observer\vkgsobserver.pas"/>
+        <Filename Value="Infrastructure\Observer\vkcmobserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit10>
       <Unit11>
@@ -107,9 +107,8 @@
         <UnitName Value="IdKeyDialog"/>
       </Unit11>
       <Unit12>
-        <Filename Value="Config\vkgsconfig.pas"/>
+        <Filename Value="Config\vkcmconfig.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="VKGSConfig"/>
       </Unit12>
       <Unit13>
         <Filename Value="Infrastructure\DAO\vkdao.pas"/>
@@ -129,7 +128,7 @@
         <IsPartOfProject Value="True"/>
       </Unit15>
       <Unit16>
-        <Filename Value="Infrastructure\VKGSChat\vkgschat.pas"/>
+        <Filename Value="Infrastructure\VKGSChat\vkcmchat.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit16>
       <Unit17>
