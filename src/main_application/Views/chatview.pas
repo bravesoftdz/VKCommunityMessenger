@@ -89,7 +89,6 @@ begin
   ChatMemo.Clear;
   ChatMemo.Repaint;
   ViewModel.SendMessage(Community, SelectedUser, MessageText);
-  UpdateGUI;
   TabControl.TabIndex := 0; {Our dialog will appear first}
 end;
 
