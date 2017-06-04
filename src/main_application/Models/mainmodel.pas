@@ -90,11 +90,14 @@ begin
 end;
 
 constructor TMainModel.Create;
+var DBName: string;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
 
   Connection := TSQLite3Connection.Create(nil);
-  Connection.DatabaseName := DATABASE_NAME;
+  //DBName := GetTempDir(false) + DATABASE_NAME;
+  //Connection.DatabaseName := DBName;
+  Connection.DatabaseName:=DATABASE_NAME;
   if not FileExists(DATABASE_NAME) then
     try
       DAO.Database.ExecuteDatabaseCreationScript(Connection);
