@@ -23,7 +23,7 @@ DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\..\LICENSE
 OutputDir=.
-OutputBaseFilename=vkcm_win32_old_setup
+OutputBaseFilename=vkcm_win64_setup
 Compression=lzma
 SolidCompression=yes
 
@@ -39,7 +39,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "..\..\src\main_application\out\VKCommunityMessenger.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\main_application\out\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\src\main_application\out\queries\*"; DestDir: "{app}\queries"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\..\src\main_application\out\libraries\sqlite3_32.dll"; DestDir: "{app}\libraries"; Flags: ignoreversion
+Source: "..\..\src\main_application\out\libraries\sqlite3_64.dll"; DestDir: "{app}\libraries"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
