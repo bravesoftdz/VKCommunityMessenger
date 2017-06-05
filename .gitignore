@@ -96,3 +96,6 @@ lib/
 
 #sqlite databases
 *.db
+
+#Personal data for deploy
+deploy/store/*
