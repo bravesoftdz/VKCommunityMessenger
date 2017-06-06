@@ -89,16 +89,6 @@ object ChatFrameView: TChatFrameView
           Flat = True
           OnClick = ExpandMenuImageClick
         end
-        object SettingsButton: TSpeedButton
-          Left = 12
-          Height = 60
-          Top = 424
-          Width = 60
-          Anchors = [akLeft, akBottom]
-          Color = clWhite
-          Flat = True
-          OnClick = SettingsButtonClick
-        end
       end
     end
   end

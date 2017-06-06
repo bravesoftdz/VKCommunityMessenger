@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkcmchat,
-  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkcmobserver;
+  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkcmobserver,
+  sendnewmessageview;
 
 type
 
@@ -15,7 +16,6 @@ type
   TChatFrameView = class(TFrame)
     SendButton: TSpeedButton;
     ExpandButton: TSpeedButton;
-    SettingsButton: TSpeedButton;
     UserAvatar: TImage;
     RightMenu: TPanel;
     Chat: TVKCMChat;
@@ -48,7 +48,6 @@ type
     procedure UpdateGUI;
     procedure InitializeFrame;
     procedure LoadMessages(Dialog: TDialog);
-    procedure OpenNewDialog;
     property RightMenuExpanded: boolean read FRightMenuExpanded
       write SetRightMenuExpanded;
     property Observer: TVKCMObserver read FObserver write SetObserver;
@@ -89,6 +88,7 @@ begin
   ChatMemo.Clear;
   ChatMemo.Repaint;
   ViewModel.SendMessage(Community, SelectedUser, MessageText);
+  UpdateGUI;
   TabControl.TabIndex := 0; {Our dialog will appear first}
 end;
 
@@ -106,20 +106,12 @@ procedure TChatFrameView.TabControlChange(Sender: TObject);
 var
   SelectedDialog: TDialog;
 begin
-  if TabControl.TabIndex = TabDialogs.Count then
-  begin
-    OpenNewDialog;
-    TabControl.TabIndex := 0;
-  end
-  else
-  begin
-    try
-      SelectedDialog := TabDialogs[TabControl.TabIndex];
-      LoadMessages(SelectedDialog);
-    except
-      ShowMessage('Ошибка приложения (несоответствие индексов вкладок и количества пользователей)');
-      UpdateGUI;
-    end;
+  try
+    SelectedDialog := TabDialogs[TabControl.TabIndex];
+    LoadMessages(SelectedDialog);
+  except
+    ShowMessage('Ошибка приложения (несоответствие индексов вкладок и количества пользователей)');
+    UpdateGUI;
   end;
 end;
 
@@ -205,8 +197,6 @@ begin
       NewTab := User.FirstName + ' ' + User.LastName;
       TabControl.Tabs.Add(NewTab);
     end;
-    {"Write new message" tab}
-    TabControl.Tabs.Add('Открыть новый диалог');
     NewTabIndex := TabControl.IndexOfTabWithCaption(TabName);
     if (NewTabIndex >= 0) and (NewTabIndex < TabControl.Tabs.Count - 1) then
       TabControl.TabIndex := NewTabIndex
@@ -227,7 +217,6 @@ begin
   ExpandPicture := ViewModel.GetExpandPicture;
   HidePicture := ViewModel.GetHidePicture;
   RightMenuExpanded := False;
-  SettingsButton.Glyph := ViewModel.GetSettingsPicture.Bitmap;
 end;
 
 procedure TChatFrameView.LoadMessages(Dialog: TDialog);
@@ -258,11 +247,6 @@ begin
     UserAvatar.Picture := User.Photo50
   else
     UserAvatar.Picture := ViewModel.GetNoAvatarImage;
-end;
-
-procedure TChatFrameView.OpenNewDialog;
-begin
-  ShowMessage('Not ready');
 end;
 
 end.
