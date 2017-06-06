@@ -26,6 +26,7 @@ OutputDir=.
 OutputBaseFilename=vkcm_win64_setup
 Compression=lzma
 SolidCompression=yes
+ArchitecturesInstallIn64BitMode=x64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

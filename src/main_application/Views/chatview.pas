@@ -6,8 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkcmchat,
-  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkcmobserver,
-  sendnewmessageview;
+  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkcmobserver;
 
 type
 
