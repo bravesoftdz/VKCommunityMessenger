@@ -1,0 +1,42 @@
+object InstrumentsFrame: TInstrumentsFrame
+  Left = 0
+  Height = 364
+  Top = 0
+  Width = 694
+  ClientHeight = 364
+  ClientWidth = 694
+  TabOrder = 0
+  DesignLeft = 394
+  DesignTop = 256
+  object CaptionLabel: TLabel
+    Left = 24
+    Height = 33
+    Top = 16
+    Width = 192
+    Caption = 'Инструменты'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -28
+    Font.Name = 'Arial'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object CreateChatbotButton: TBitBtn
+    Left = 24
+    Height = 54
+    Top = 72
+    Width = 304
+    Caption = 'Создать чатбота'
+    TabOrder = 0
+  end
+  object BitBtn1: TBitBtn
+    Left = 24
+    Height = 54
+    Top = 152
+    Width = 304
+    Caption = 'Посмотреть список чатботов'
+    TabOrder = 1
+  end
+end

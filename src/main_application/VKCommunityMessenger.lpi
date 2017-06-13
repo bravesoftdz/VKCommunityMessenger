@@ -42,7 +42,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="23">
+    <Units Count="24">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -157,6 +157,12 @@
         <Filename Value="ViewModels\sendnewmessageviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit22>
+      <Unit23>
+        <Filename Value="Views\instrumentsview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="InstrumentsFrame"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit23>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

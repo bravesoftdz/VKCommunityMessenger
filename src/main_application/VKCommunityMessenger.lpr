@@ -10,7 +10,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Controls, Graphics, MainViewModel, MainModel, AbstractViewModel, entities,
   welcomepageview, AbstractModel, welcomepageviewmodel, welcomepagemodel,
   vkcmobserver, IdKeyDialog, vkcmconfig, VKDAO, ChatView, sqlite3dyn, helpers,
-  vkcmchat, chatviewmodel, chatmodel, urlencoder, longpoll;
+  vkcmchat, chatviewmodel, chatmodel, urlencoder, longpoll, instrumentsview;
 
 {$R *.res}
 
