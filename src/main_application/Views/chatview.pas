@@ -6,13 +6,15 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, vkcmchat,
-  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkcmobserver;
+  Graphics, StdCtrls, Buttons, chatviewmodel, entities, Dialogs, vkcmobserver,
+  instrumentsview;
 
 type
 
   { TChatFrameView }
 
   TChatFrameView = class(TFrame)
+    SplitPanel: TPanel;
     SendButton: TSpeedButton;
     ExpandButton: TSpeedButton;
     UserAvatar: TImage;
@@ -24,7 +26,6 @@ type
     TabControl: TTabControl;
     procedure ExpandMenuImageClick(Sender: TObject);
     procedure SendButtonClick(Sender: TObject);
-    procedure SettingsButtonClick(Sender: TObject);
     procedure TabControlChange(Sender: TObject);
   private
     FObserver: TVKCMObserver;
@@ -91,11 +92,6 @@ begin
   TabControl.TabIndex := 0; {Our dialog will appear first}
 end;
 
-procedure TChatFrameView.SettingsButtonClick(Sender: TObject);
-begin
-  ShowMessage('We have no settings');
-end;
-
 procedure TChatFrameView.ExpandMenuImageClick(Sender: TObject);
 begin
   RightMenuExpanded := not RightMenuExpanded;
@@ -134,11 +130,14 @@ begin
   FRightMenuExpanded := AValue;
   if FRightMenuExpanded then
   begin
-    RightMenu.Width := ChatPanel.Width - 300;
+    RightMenu.Width := ChatPanel.Width div 2;
     ExpandButton.Glyph := HidePicture.Bitmap;
+    LInstrumentsView.Parent := RightMenu;
+    LInstrumentsView.Left:=82;
   end
   else
   begin
+    LInstrumentsView.Parent := nil;
     RightMenu.Width := 82;
     ExpandButton.Glyph := ExpandPicture.Bitmap;
   end;

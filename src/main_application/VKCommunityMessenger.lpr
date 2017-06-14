@@ -35,6 +35,7 @@ begin
   Application.CreateForm(TDialog, Dialog);
   LWelcomePageView := TWelcomePageFrameView.Create(LMainView);
   LChatView:=TChatFrameView.Create(LMainView);
+  LInstrumentsView := TInstrumentsFrame.Create(LMainView);
 
   {Bind mvvm}
   LMainView.CurrentFrame:=LWelcomePageView;

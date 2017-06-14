@@ -89,6 +89,14 @@ object ChatFrameView: TChatFrameView
           Flat = True
           OnClick = ExpandMenuImageClick
         end
+        object SplitPanel: TPanel
+          Left = 81
+          Height = 499
+          Top = 0
+          Width = 1
+          Anchors = [akTop, akLeft, akBottom]
+          TabOrder = 0
+        end
       end
     end
   end

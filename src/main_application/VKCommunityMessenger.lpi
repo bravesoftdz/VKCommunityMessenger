@@ -161,6 +161,7 @@
         <Filename Value="Views\instrumentsview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="InstrumentsFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit23>
     </Units>

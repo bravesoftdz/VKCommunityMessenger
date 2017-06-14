@@ -5,7 +5,8 @@ unit instrumentsview;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons, entities;
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons, entities,
+  Dialogs, ExtCtrls;
 
 type
 
@@ -15,6 +16,8 @@ type
     BitBtn1: TBitBtn;
     CreateChatbotButton: TBitBtn;
     CaptionLabel: TLabel;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure CreateChatbotButtonClick(Sender: TObject);
   private
     FCommunity: TCommunity;
     procedure SetCommunity(AValue: TCommunity);
@@ -24,7 +27,8 @@ type
     property Community: TCommunity read FCommunity write SetCommunity;
   end;
 
-  var LInstrumentsView: TInstrumentsFrame;
+var
+  LInstrumentsView: TInstrumentsFrame;
 
 implementation
 
@@ -32,10 +36,21 @@ implementation
 
 { TInstrumentsFrame }
 
+procedure TInstrumentsFrame.CreateChatbotButtonClick(Sender: TObject);
+begin
+  ShowMessage('Not ready yet');
+end;
+
+procedure TInstrumentsFrame.BitBtn1Click(Sender: TObject);
+begin
+  ShowMessage('Not ready yet');
+end;
+
 procedure TInstrumentsFrame.SetCommunity(AValue: TCommunity);
 begin
-  if FCommunity=AValue then Exit;
-  FCommunity:=AValue;
+  if FCommunity = AValue then
+    Exit;
+  FCommunity := AValue;
 end;
 
 procedure TInstrumentsFrame.InitializeFrame;
@@ -44,4 +59,3 @@ begin
 end;
 
 end.
-
