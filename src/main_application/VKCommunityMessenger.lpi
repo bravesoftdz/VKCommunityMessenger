@@ -177,6 +177,9 @@
       <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO;Infrastructure\Helpers;Infrastructure\VKGSChat;Infrastructure\uriencoder;Infrastructure;Infrastructure\Longpoll"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
     <Linking>
       <Options>
         <Win32>

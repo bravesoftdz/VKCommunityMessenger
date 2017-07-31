@@ -10,7 +10,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Controls, Graphics, MainViewModel, MainModel, AbstractViewModel, entities,
   welcomepageview, AbstractModel, welcomepageviewmodel, welcomepagemodel,
   vkcmobserver, IdKeyDialog, vkcmconfig, VKDAO, ChatView, sqlite3dyn, helpers,
-  vkcmchat, chatviewmodel, chatmodel, urlencoder, longpoll, instrumentsview;
+  vkcmchat, chatviewmodel, chatmodel, urlencoder, longpoll, instrumentsview,
+  openssl, windows;
 
 {$R *.res}
 
@@ -19,6 +20,8 @@ begin
 
   {Setup enivroement variables}
    SQLiteDefaultLibrary:=SQLITE_LIBRARY_NAME;
+   DLLSSLName:=OPENSSLLIB1;
+   DLLUtilName := OPENSSLLIB2;
 
   {Create models and viewmodels}
   LMainViewModel := TMainViewModel.Create;

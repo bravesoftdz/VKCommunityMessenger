@@ -20,6 +20,10 @@ resourcestring
   SQL_INSERT_COMMUNITY_QUERY = 'queries/insert.sql';
   SQL_SELECT_WHOLE_DATABASE_SELECT_QUERY = 'SELECT * FROM communitiesview';
   NEWS_WEBPAGE = 'http://vkcmnews.azurewebsites.net/news.txt';
+  {$IFDEF WINDOWS}
+  OPENSSLLIB1 = 'libraries\\ssleay32.dll';
+  OPENSSLLIB2 = 'libraries\\libeay32.dll';
+  {$ENDIF}
 
 function APPLICATION_APPDATA_PATH: string;
 function DATABASE_PATH: string;

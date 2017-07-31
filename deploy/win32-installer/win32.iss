@@ -40,6 +40,8 @@ Source: "..\..\src\main_application\out\VKCommunityMessenger.exe"; DestDir: "{ap
 Source: "..\..\src\main_application\out\img\*"; DestDir: "{app}\img"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\src\main_application\out\queries\*"; DestDir: "{app}\queries"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\src\main_application\out\libraries\sqlite3_32.dll"; DestDir: "{app}\libraries"; Flags: ignoreversion
+Source: "..\..\src\main_application\out\libraries\libeay32.dll"; DestDir: "{app}\libraries"; Flags: ignoreversion
+Source: "..\..\src\main_application\out\libraries\ssleay32.dll"; DestDir: "{app}\libraries"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
