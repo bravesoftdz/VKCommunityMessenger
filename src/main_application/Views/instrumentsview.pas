@@ -13,10 +13,16 @@ type
   { TInstrumentsFrame }
 
   TInstrumentsFrame = class(TFrame)
-    BitBtn1: TBitBtn;
+    SaveAnswerButton: TButton;
+    CommandsLabel: TLabel;
+    Label1: TLabel;
+    ListBox1: TListBox;
+    AnswerMemo: TMemo;
+    ShowChatbotsButton: TBitBtn;
     CreateChatbotButton: TBitBtn;
     CaptionLabel: TLabel;
-    procedure BitBtn1Click(Sender: TObject);
+    procedure SaveAnswerButtonClick(Sender: TObject);
+    procedure ShowChatbotsButtonClick(Sender: TObject);
     procedure CreateChatbotButtonClick(Sender: TObject);
   private
     FCommunity: TCommunity;
@@ -41,7 +47,12 @@ begin
   ShowMessage('Not ready yet');
 end;
 
-procedure TInstrumentsFrame.BitBtn1Click(Sender: TObject);
+procedure TInstrumentsFrame.ShowChatbotsButtonClick(Sender: TObject);
+begin
+  ShowMessage('Not ready yet');
+end;
+
+procedure TInstrumentsFrame.SaveAnswerButtonClick(Sender: TObject);
 begin
   ShowMessage('Not ready yet');
 end;

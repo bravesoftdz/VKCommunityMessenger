@@ -1,10 +1,10 @@
 object InstrumentsFrame: TInstrumentsFrame
   Left = 0
-  Height = 364
+  Height = 553
   Top = 0
-  Width = 695
-  ClientHeight = 364
-  ClientWidth = 695
+  Width = 869
+  ClientHeight = 553
+  ClientWidth = 869
   TabOrder = 0
   DesignLeft = 393
   DesignTop = 256
@@ -25,20 +25,75 @@ object InstrumentsFrame: TInstrumentsFrame
   end
   object CreateChatbotButton: TBitBtn
     Left = 24
-    Height = 54
-    Top = 88
-    Width = 304
+    Height = 30
+    Top = 48
+    Width = 192
     Caption = 'Создать чатбота'
     OnClick = CreateChatbotButtonClick
     TabOrder = 0
   end
-  object BitBtn1: TBitBtn
+  object ShowChatbotsButton: TBitBtn
     Left = 24
-    Height = 54
-    Top = 152
-    Width = 304
-    Caption = 'Посмотреть список чатботов'
-    OnClick = BitBtn1Click
+    Height = 30
+    Top = 88
+    Width = 192
+    Caption = 'Открыть чатбота'
+    OnClick = ShowChatbotsButtonClick
     TabOrder = 1
+  end
+  object ListBox1: TListBox
+    Left = 256
+    Height = 444
+    Top = 48
+    Width = 232
+    Anchors = [akTop, akLeft, akBottom]
+    ItemHeight = 0
+    TabOrder = 2
+  end
+  object CommandsLabel: TLabel
+    Left = 256
+    Height = 30
+    Top = 8
+    Width = 93
+    Caption = 'Команды:'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object AnswerMemo: TMemo
+    Left = 504
+    Height = 444
+    Top = 48
+    Width = 352
+    Anchors = [akTop, akLeft, akBottom]
+    TabOrder = 3
+  end
+  object Label1: TLabel
+    Left = 504
+    Height = 30
+    Top = 8
+    Width = 295
+    Caption = 'Ответ на выбранную команду:'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -21
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object SaveAnswerButton: TButton
+    Left = 653
+    Height = 25
+    Top = 502
+    Width = 203
+    Anchors = [akLeft, akBottom]
+    Caption = 'Сохранить ответ'
+    OnClick = SaveAnswerButtonClick
+    TabOrder = 4
   end
 end

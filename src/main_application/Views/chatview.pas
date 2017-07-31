@@ -126,19 +126,21 @@ begin
 end;
 
 procedure TChatFrameView.SetRightMenuExpanded(AValue: boolean);
+const RightPanelHiddenWidth = 82;
 begin
   FRightMenuExpanded := AValue;
   if FRightMenuExpanded then
   begin
-    RightMenu.Width := ChatPanel.Width div 2;
+    RightMenu.Width := LInstrumentsView.Width + RightPanelHiddenWidth;
     ExpandButton.Glyph := HidePicture.Bitmap;
     LInstrumentsView.Parent := RightMenu;
-    LInstrumentsView.Left:=82;
+    LInstrumentsView.Left:=RightPanelHiddenWidth;
+    LInstrumentsView.Height := 3*(RightMenu.Height div 4);
   end
   else
   begin
     LInstrumentsView.Parent := nil;
-    RightMenu.Width := 82;
+    RightMenu.Width := RightPanelHiddenWidth;
     ExpandButton.Glyph := ExpandPicture.Bitmap;
   end;
 end;
