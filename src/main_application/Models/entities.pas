@@ -11,11 +11,38 @@ type
 
   TCommunityType = (ctGroup, ctPage, ctEvent);
 
+  { TChatBotCommand }
+
+  TChatBotCommand = class
+  private
+    FCommand: string;
+    FResponse: string;
+    procedure SetCommand(AValue: string);
+    procedure SetResponse(AValue: string);
+  public
+    property Command: string read FCommand write SetCommand;
+    property Response: string read FResponse write SetResponse;
+  end;
+
+  TChatBotCommandsObjectList = specialize TFPGObjectList<TChatBotCommand>;
+
+  TChatBot = class
+  private
+    FCommands: TChatBotCommandsObjectList;
+    procedure SetCommands(AValue: TChatBotCommandsObjectList);
+  public
+    property Commands: TChatBotCommandsObjectList read FCommands write SetCommands;
+    constructor Create;
+    procedure AddCommand(Command: string; Response: string);
+    destructor Destroy; override;
+  end;
+
   { TCommunity }
 
   TCommunity = class
   private
     FAccessKey: string;
+    FChatbot: TChatBot;
     FCommunityType: TCommunityType;
     FDeactivated: boolean;
     FHasPhoto: boolean;
@@ -25,6 +52,7 @@ type
     FPhoto: TPicture;
     FScreenName: string;
     procedure SetAccessKey(AValue: string);
+    procedure SetChatbot(AValue: TChatBot);
     procedure SetCommunityType(AValue: TCommunityType);
     procedure SetDeactivated(AValue: boolean);
     procedure SetHasPhoto(AValue: boolean);
@@ -43,7 +71,10 @@ type
     property HasPhoto: boolean read FHasPhoto write SetHasPhoto;
     property Photo: TPicture read FPhoto write SetPhoto;
     property AccessKey: string read FAccessKey write SetAccessKey;
+    property Chatbot: TChatBot read FChatbot write SetChatbot;
+    constructor Create;
     function Copy: TCommunity;
+    destructor Destroy; override;
   end;
 
   TCommunityList = specialize TFPGList<TCommunity>;
@@ -157,6 +188,52 @@ begin
     ctGroup: Result := 'group';
     ctPage: Result := 'page';
   end;
+end;
+
+{ TChatBot }
+
+procedure TChatBot.SetCommands(AValue: TChatBotCommandsObjectList);
+begin
+  if FCommands = AValue then
+    Exit;
+  FCommands := AValue;
+end;
+
+constructor TChatBot.Create;
+begin
+  FCommands := TChatBotCommandsObjectList.Create(True);
+end;
+
+procedure TChatBot.AddCommand(Command: string; Response: string);
+var
+  NewCommand: TChatBotCommand;
+begin
+  NewCommand := TChatBotCommand.Create;
+  NewCommand.Command := Command;
+  NewCommand.Response := Response;
+  FCommands.Add(NewCommand);
+end;
+
+destructor TChatBot.Destroy;
+begin
+  FreeAndNil(FCommands);
+  inherited Destroy;
+end;
+
+{ TChatBotCommand }
+
+procedure TChatBotCommand.SetCommand(AValue: string);
+begin
+  if FCommand = AValue then
+    Exit;
+  FCommand := AValue;
+end;
+
+procedure TChatBotCommand.SetResponse(AValue: string);
+begin
+  if FResponse = AValue then
+    Exit;
+  FResponse := AValue;
 end;
 
 { TMessage }
@@ -318,6 +395,11 @@ begin
   FScreenName := AValue;
 end;
 
+constructor TCommunity.Create;
+begin
+  FChatbot := TChatBot.Create;
+end;
+
 function TCommunity.Copy: TCommunity;
 begin
   Result := TCommunity.Create;
@@ -329,10 +411,16 @@ begin
   Result.IsClosed := Self.IsClosed;
   Result.Name := Self.Name;
   if Result.HasPhoto then
-    begin
+  begin
     Result.Photo := TPicture.Create;
     Result.Photo.Assign(Self.Photo);
-    end;
+  end;
+end;
+
+destructor TCommunity.Destroy;
+begin
+  FreeAndNil(FChatbot);
+  inherited Destroy;
 end;
 
 procedure TCommunity.SetId(AValue: string);
@@ -368,6 +456,13 @@ begin
   if FAccessKey = AValue then
     Exit;
   FAccessKey := AValue;
+end;
+
+procedure TCommunity.SetChatbot(AValue: TChatBot);
+begin
+  if FChatbot = AValue then
+    Exit;
+  FChatbot := AValue;
 end;
 
 procedure TCommunity.SetIsClosed(AValue: boolean);

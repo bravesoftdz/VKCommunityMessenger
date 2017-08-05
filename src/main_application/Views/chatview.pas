@@ -136,6 +136,8 @@ begin
     LInstrumentsView.Parent := RightMenu;
     LInstrumentsView.Left:=RightPanelHiddenWidth;
     LInstrumentsView.Height := 3*(RightMenu.Height div 4);
+    LInstrumentsView.Community := Community;
+    LInstrumentsView.InitializeFrame;
   end
   else
   begin

@@ -16,20 +16,21 @@ type
     SaveAnswerButton: TButton;
     CommandsLabel: TLabel;
     Label1: TLabel;
-    ListBox1: TListBox;
+    CommandListBox: TListBox;
     AnswerMemo: TMemo;
-    ShowChatbotsButton: TBitBtn;
-    CreateChatbotButton: TBitBtn;
+    DeleteCommandButton: TBitBtn;
+    AddCommandButton: TBitBtn;
     CaptionLabel: TLabel;
     procedure SaveAnswerButtonClick(Sender: TObject);
-    procedure ShowChatbotsButtonClick(Sender: TObject);
-    procedure CreateChatbotButtonClick(Sender: TObject);
+    procedure DeleteCommandButtonClick(Sender: TObject);
+    procedure AddCommandButtonClick(Sender: TObject);
   private
     FCommunity: TCommunity;
     procedure SetCommunity(AValue: TCommunity);
     { private declarations }
   public
     procedure InitializeFrame;
+    procedure UpdateGUI;
     property Community: TCommunity read FCommunity write SetCommunity;
   end;
 
@@ -42,12 +43,13 @@ implementation
 
 { TInstrumentsFrame }
 
-procedure TInstrumentsFrame.CreateChatbotButtonClick(Sender: TObject);
+procedure TInstrumentsFrame.AddCommandButtonClick(Sender: TObject);
 begin
-  ShowMessage('Not ready yet');
+  Community.Chatbot.AddCommand('//newcommand//','');
+  UpdateGUI;
 end;
 
-procedure TInstrumentsFrame.ShowChatbotsButtonClick(Sender: TObject);
+procedure TInstrumentsFrame.DeleteCommandButtonClick(Sender: TObject);
 begin
   ShowMessage('Not ready yet');
 end;
@@ -66,7 +68,17 @@ end;
 
 procedure TInstrumentsFrame.InitializeFrame;
 begin
+  UpdateGUI;
+end;
 
+procedure TInstrumentsFrame.UpdateGUI;
+var i: integer;
+begin
+  CommandListBox.Clear;
+  for i:=0 to Community.Chatbot.Commands.Count-1 do
+  begin
+    CommandListBox.AddItem(Community.Chatbot.Commands[i].Command,Community.Chatbot.Commands[i]);
+  end;
 end;
 
 end.
