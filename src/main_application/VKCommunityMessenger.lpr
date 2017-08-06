@@ -11,7 +11,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   welcomepageview, AbstractModel, welcomepageviewmodel, welcomepagemodel,
   vkcmobserver, IdKeyDialog, vkcmconfig, VKDAO, ChatView, sqlite3dyn, helpers,
   vkcmchat, chatviewmodel, chatmodel, urlencoder, longpoll, instrumentsview,
-  openssl, windows;
+  openssl, windows, chatbotsviewmodel, chatbotsubsystem;
 
 {$R *.res}
 

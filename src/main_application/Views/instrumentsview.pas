@@ -45,7 +45,7 @@ implementation
 
 procedure TInstrumentsFrame.AddCommandButtonClick(Sender: TObject);
 begin
-  Community.Chatbot.AddCommand('//newcommand//','');
+  Community.Chatbot.AddCommand('//newcommand//', '');
   UpdateGUI;
 end;
 
@@ -72,13 +72,28 @@ begin
 end;
 
 procedure TInstrumentsFrame.UpdateGUI;
-var i: integer;
+var
+  i: integer;
+  SelectedIndex: integer;
 begin
+  if CommandListBox.Count = 0 then
+    SelectedIndex := -1
+  else
+    SelectedIndex := 0;
+  for i := 0 to CommandListBox.Count - 1 do
+    if CommandListBox.Selected[i] then
+    begin
+      SelectedIndex := i;
+      break;
+    end;
   CommandListBox.Clear;
-  for i:=0 to Community.Chatbot.Commands.Count-1 do
+  for i := 0 to Community.Chatbot.Commands.Count - 1 do
   begin
-    CommandListBox.AddItem(Community.Chatbot.Commands[i].Command,Community.Chatbot.Commands[i]);
+    CommandListBox.AddItem(Community.Chatbot.Commands[i].Command,
+      Community.Chatbot.Commands[i]);
   end;
+  if SelectedIndex <> -1 then
+    CommandListBox.Selected[SelectedIndex] := True;
 end;
 
 end.
