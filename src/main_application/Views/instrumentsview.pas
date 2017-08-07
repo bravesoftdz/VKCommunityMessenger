@@ -50,13 +50,32 @@ begin
 end;
 
 procedure TInstrumentsFrame.DeleteCommandButtonClick(Sender: TObject);
+var
+  i: integer;
+  CommandsToRemove: TChatBotCommandsObjectList;
 begin
-  ShowMessage('Not ready yet');
+  CommandsToRemove := TChatBotCommandsObjectList.Create(False);
+  try
+    for i := 0 to CommandListBox.Count - 1 do
+    begin
+      if CommandListBox.Selected[i] then
+      begin
+        CommandsToRemove.Add(CommandListBox.Items.Objects[i] as TChatBotCommand);
+      end;
+    end;
+    for i := 0 to CommandsToRemove.Count - 1 do
+    begin
+      Community.Chatbot.Commands.Remove(CommandsToRemove[i]);
+    end;
+  finally
+    FreeAndNil(CommandsToRemove);
+  end;
+  UpdateGUI;
 end;
 
 procedure TInstrumentsFrame.SaveAnswerButtonClick(Sender: TObject);
 begin
-  ShowMessage('Not ready yet');
+
 end;
 
 procedure TInstrumentsFrame.SetCommunity(AValue: TCommunity);
@@ -92,7 +111,8 @@ begin
     CommandListBox.AddItem(Community.Chatbot.Commands[i].Command,
       Community.Chatbot.Commands[i]);
   end;
-  if SelectedIndex <> -1 then
+  //Sometimes after deletion SelectedIndex can be bigger as Count
+  if (SelectedIndex <> -1) and (SelectedIndex<CommandListBox.Count) then
     CommandListBox.Selected[SelectedIndex] := True;
 end;
 
