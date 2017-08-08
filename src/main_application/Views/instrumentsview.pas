@@ -21,6 +21,8 @@ type
     DeleteCommandButton: TBitBtn;
     AddCommandButton: TBitBtn;
     CaptionLabel: TLabel;
+    procedure CommandListBoxDblClick(Sender: TObject);
+    procedure CommandListBoxSelectionChange(Sender: TObject; User: boolean);
     procedure SaveAnswerButtonClick(Sender: TObject);
     procedure DeleteCommandButtonClick(Sender: TObject);
     procedure AddCommandButtonClick(Sender: TObject);
@@ -74,8 +76,52 @@ begin
 end;
 
 procedure TInstrumentsFrame.SaveAnswerButtonClick(Sender: TObject);
+var
+  i: integer;
+  SelectedCommand: TChatBotCommand;
 begin
+  SelectedCommand := (CommandListBox.Items.Objects[CommandListBox.ItemIndex] as
+    TChatBotCommand);
+  SelectedCommand.Response := AnswerMemo.Text;
+  UpdateGUI;
+end;
 
+procedure TInstrumentsFrame.CommandListBoxSelectionChange(Sender: TObject;
+  User: boolean);
+var
+  i: integer;
+  SelectedCommand: TChatBotCommand;
+begin
+  SelectedCommand := (CommandListBox.Items.Objects[CommandListBox.ItemIndex] as
+    TChatBotCommand);
+  AnswerMemo.Text := SelectedCommand.Response;
+end;
+
+procedure TInstrumentsFrame.CommandListBoxDblClick(Sender: TObject);
+var
+  Rect: TRect;
+  ListBox: TListbox;
+  Edit: TEdit;
+begin
+  ListBox := (Sender as TListbox);
+  if (ListBox.ItemIndex >= 0) and (ListBox.ItemIndex < ListBox.Count) then
+  begin
+    Edit := TEdit.Create(self);
+    Rect := ListBox.ItemRect(ListBox.ItemIndex);
+    Rect.TopLeft := ListBox.ClientToScreen(Rect.TopLeft);
+    Rect.BottomRight := ListBox.ClientToScreen(Rect.bottomright);
+    Rect.TopLeft := ScreenToClient(Rect.TopLeft);
+    Rect.BottomRight := ScreenToClient(Rect.BottomRight);
+    Edit.Text := ListBox.Items[ListBox.ItemIndex];
+    Edit.SetBounds(Rect.left, Rect.top - 2,
+      ListBox.ClientWidth,
+      Rect.bottom - Rect.top + 4);
+    //Edit.OnExit := EditDone;
+    //Edit.OnMouseDown := EditMouseDown;
+    Edit.Parent := Self;
+    SetCapturecontrol(Edit);
+    Edit.SetFocus;
+  end;
 end;
 
 procedure TInstrumentsFrame.SetCommunity(AValue: TCommunity);
@@ -112,7 +158,7 @@ begin
       Community.Chatbot.Commands[i]);
   end;
   //Sometimes after deletion SelectedIndex can be bigger as Count
-  if (SelectedIndex <> -1) and (SelectedIndex<CommandListBox.Count) then
+  if (SelectedIndex <> -1) and (SelectedIndex < CommandListBox.Count) then
     CommandListBox.Selected[SelectedIndex] := True;
 end;
 

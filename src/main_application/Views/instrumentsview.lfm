@@ -48,6 +48,8 @@ object InstrumentsFrame: TInstrumentsFrame
     Width = 232
     Anchors = [akTop, akLeft, akBottom]
     ItemHeight = 0
+    OnDblClick = CommandListBoxDblClick
+    OnSelectionChange = CommandListBoxSelectionChange
     TabOrder = 2
   end
   object CommandsLabel: TLabel
