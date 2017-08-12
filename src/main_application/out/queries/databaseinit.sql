@@ -9,7 +9,8 @@ CREATE TABLE communities (
     Deactivated BOOLEAN, 
     HasPhoto BOOLEAN, 
     Photo BLOB, 
-    AccessKey VARCHAR
+    AccessKey VARCHAR,
+    SerializedChatBot VARCHAR
 );
 --**
 
@@ -21,7 +22,7 @@ CREATE TRIGGER communitiesview_insert INSTEAD OF INSERT ON communitiesview FOR E
 BEGIN  
   INSERT INTO communities
     VALUES (New.Id, New.Name, New.ScreenName, 
-    New.CommunityType, New.IsClosed, New.Deactivated, New.HasPhoto, New.Photo, New.AccessKey);
+    New.CommunityType, New.IsClosed, New.Deactivated, New.HasPhoto, New.Photo, New.AccessKey, New.SerializedChatBot);
 END
 
 --**

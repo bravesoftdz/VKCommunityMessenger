@@ -66,7 +66,8 @@ type
     Messages: TMessagesDAOType;
     Users: TUsersDAOType;
     class function LoadPhoto(Client: TFPHTTPClient; URL: string): TPicture;
-    class function LongPollServerRequest(Client: TFPHTTPClient; Server: string; SecretKey: string; ts: string; wait: integer): TJSONObject;
+    class function LongPollServerRequest(Client: TFPHTTPClient; Server: string;
+      SecretKey: string; ts: string; wait: integer): TJSONObject;
   end;
 
 implementation
@@ -177,6 +178,7 @@ begin
   else
     Query.Params.ParamByName('PHOTO').Clear;
   Query.Params.ParamByName('ACCESSKEY').AsString := Community.AccessKey;
+  Query.Params.ParamByName('SERIALIZEDCHATBOT').AsString := Community.Chatbot.ToString;
 
   Query.ExecSQL;
   Transaction.Commit;
@@ -239,8 +241,8 @@ begin
   Result.LoadFromStream(Stream);
 end;
 
-class function DAO.LongPollServerRequest(Client: TFPHTTPClient; Server: string;
-  SecretKey: string; ts: string; wait: integer): TJSONObject;
+class function DAO.LongPollServerRequest(Client: TFPHTTPClient;
+  Server: string; SecretKey: string; ts: string; wait: integer): TJSONObject;
 begin
 
 end;

@@ -34,6 +34,8 @@ type
     property Commands: TChatBotCommandsObjectList read FCommands write SetCommands;
     constructor Create;
     procedure AddCommand(Command: string; Response: string);
+    function ToString: string;
+    procedure FillFromString(AStr: string);
     destructor Destroy; override;
   end;
 
@@ -212,6 +214,17 @@ begin
   NewCommand.Command := Command;
   NewCommand.Response := Response;
   FCommands.Add(NewCommand);
+end;
+
+function TChatBot.ToString: string;
+begin
+  //TODO
+  Result := 'CHATBOT';
+end;
+
+procedure TChatBot.FillFromString(AStr: string);
+begin
+  //TODO
 end;
 
 destructor TChatBot.Destroy;

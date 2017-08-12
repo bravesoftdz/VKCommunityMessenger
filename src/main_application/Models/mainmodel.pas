@@ -106,15 +106,15 @@ begin
   Observer := TVKCMObserver.Create;
   Observer.Notify := @OnNotified;
 
-  Observable:=TVKCMObservable.Create;
+  Observable := TVKCMObservable.Create;
 
   LongpollWorker := TLongPollWorker.Create(True, GetCommunities);
   LongpollWorker.SubscribeForNotifications(Observer);
   LongpollWorker.Start;
 end;
 
-function TMainModel.GetExtendedCommunityInformation(CommunityId, AccessKey: string):
-TCommunity;
+function TMainModel.GetExtendedCommunityInformation(CommunityId,
+  AccessKey: string): TCommunity;
 var
   JSONResponseDocument: TJSONObject;
 begin
@@ -170,6 +170,8 @@ begin
     Community.IsClosed := CommunitiesDataset.FieldByName('IsClosed').AsBoolean;
     Community.Name := CommunitiesDataset.FieldByName('Name').AsString;
     Community.ScreenName := CommunitiesDataset.FieldByName('ScreenName').AsString;
+    Community.Chatbot.FillFromString(CommunitiesDataset.FieldByName(
+      'SerializedChatBot').AsString);
     Result.Add(Community);
     CommunitiesDataset.Next;
   end;

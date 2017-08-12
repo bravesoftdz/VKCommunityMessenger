@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, Buttons, entities,
-  Dialogs, ExtCtrls;
+  Dialogs, ExtCtrls, Types, instrumentsviewmodel;
 
 type
 
@@ -26,14 +26,24 @@ type
     procedure SaveAnswerButtonClick(Sender: TObject);
     procedure DeleteCommandButtonClick(Sender: TObject);
     procedure AddCommandButtonClick(Sender: TObject);
+    procedure EditDone(Sender: TObject);
+    procedure EditMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: integer);
+    procedure EditKeyPress(Sender: TObject; var Key: char);
   private
+    FViewModel: TInstrumentsViewModel;
+    procedure SetViewModel(AValue: TInstrumentsViewModel);
+  private
+    FInPlaceEditor: TEdit;
     FCommunity: TCommunity;
+    procedure SetInPlaceEditor(AValue: TEdit);
     procedure SetCommunity(AValue: TCommunity);
-    { private declarations }
+    property InPlaceEditor: TEdit read FInPlaceEditor write SetInPlaceEditor;
   public
     procedure InitializeFrame;
     procedure UpdateGUI;
     property Community: TCommunity read FCommunity write SetCommunity;
+    property ViewModel: TInstrumentsViewModel read FViewModel write SetViewModel;
   end;
 
 var
@@ -49,6 +59,47 @@ procedure TInstrumentsFrame.AddCommandButtonClick(Sender: TObject);
 begin
   Community.Chatbot.AddCommand('//newcommand//', '');
   UpdateGUI;
+end;
+
+procedure TInstrumentsFrame.EditDone(Sender: TObject);
+var
+  EditSender: TEdit;
+begin
+  if (Sender is TEdit) then
+    EditSender := Sender as TEdit
+  else
+    exit;
+  (CommandListBox.Items.Objects[CommandListBox.ItemIndex] as TChatBotCommand).Command :=
+    EditSender.Text;
+  EditSender.Visible := False;
+  UpdateGUI;
+end;
+
+procedure TInstrumentsFrame.EditMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: integer);
+begin
+  if not PtInRect((Sender as TControl).ClientRect, Point(X, y)) then
+    EditDone(Sender);
+end;
+
+procedure TInstrumentsFrame.EditKeyPress(Sender: TObject; var Key: char);
+begin
+  if (Key = #13) then
+    EditDone(Sender);
+end;
+
+procedure TInstrumentsFrame.SetViewModel(AValue: TInstrumentsViewModel);
+begin
+  if FViewModel = AValue then
+    Exit;
+  FViewModel := AValue;
+end;
+
+procedure TInstrumentsFrame.SetInPlaceEditor(AValue: TEdit);
+begin
+  if FInPlaceEditor = AValue then
+    Exit;
+  FInPlaceEditor := AValue;
 end;
 
 procedure TInstrumentsFrame.DeleteCommandButtonClick(Sender: TObject);
@@ -77,9 +128,11 @@ end;
 
 procedure TInstrumentsFrame.SaveAnswerButtonClick(Sender: TObject);
 var
-  i: integer;
   SelectedCommand: TChatBotCommand;
 begin
+  if not ((CommandListBox.ItemIndex >= 0) and
+    (CommandListBox.ItemIndex < CommandListBox.Count)) then
+    exit;
   SelectedCommand := (CommandListBox.Items.Objects[CommandListBox.ItemIndex] as
     TChatBotCommand);
   SelectedCommand.Response := AnswerMemo.Text;
@@ -89,7 +142,6 @@ end;
 procedure TInstrumentsFrame.CommandListBoxSelectionChange(Sender: TObject;
   User: boolean);
 var
-  i: integer;
   SelectedCommand: TChatBotCommand;
 begin
   SelectedCommand := (CommandListBox.Items.Objects[CommandListBox.ItemIndex] as
@@ -106,7 +158,7 @@ begin
   ListBox := (Sender as TListbox);
   if (ListBox.ItemIndex >= 0) and (ListBox.ItemIndex < ListBox.Count) then
   begin
-    Edit := TEdit.Create(self);
+    Edit := InPlaceEditor;
     Rect := ListBox.ItemRect(ListBox.ItemIndex);
     Rect.TopLeft := ListBox.ClientToScreen(Rect.TopLeft);
     Rect.BottomRight := ListBox.ClientToScreen(Rect.bottomright);
@@ -116,9 +168,7 @@ begin
     Edit.SetBounds(Rect.left, Rect.top - 2,
       ListBox.ClientWidth,
       Rect.bottom - Rect.top + 4);
-    //Edit.OnExit := EditDone;
-    //Edit.OnMouseDown := EditMouseDown;
-    Edit.Parent := Self;
+    Edit.Visible := True;
     SetCapturecontrol(Edit);
     Edit.SetFocus;
   end;
@@ -133,6 +183,15 @@ end;
 
 procedure TInstrumentsFrame.InitializeFrame;
 begin
+  if not Assigned(InPlaceEditor) then
+  begin
+    InPlaceEditor := TEdit.Create(Self);
+    InPlaceEditor.Visible := False;
+    InPlaceEditor.OnExit := @EditDone;
+    InPlaceEditor.OnMouseDown := @EditMouseDown;
+    InPlaceEditor.OnKeyPress := @EditKeyPress;
+    InPlaceEditor.Parent := Self;
+  end;
   UpdateGUI;
 end;
 
@@ -160,6 +219,8 @@ begin
   //Sometimes after deletion SelectedIndex can be bigger as Count
   if (SelectedIndex <> -1) and (SelectedIndex < CommandListBox.Count) then
     CommandListBox.Selected[SelectedIndex] := True;
+  if Assigned(Community) then
+    ViewModel.UpdateCommunityForChatBotSubSystem(Community);
 end;
 
 end.
