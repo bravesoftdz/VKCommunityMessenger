@@ -5,7 +5,7 @@ unit instrumentsviewmodel;
 interface
 
 uses
-  Classes, SysUtils, AbstractViewModel, AbstractModel, entities;
+  Classes, SysUtils, AbstractViewModel, AbstractModel, entities, MainModel;
 
 type
 
@@ -42,7 +42,7 @@ end;
 procedure TInstrumentsViewModel.UpdateCommunityForChatBotSubSystem(
   Community: TCommunity);
 begin
-
+  (FModel as TMainModel).SaveCommunityInfo(Community);
 end;
 
 end.
