@@ -5,7 +5,7 @@ unit chatbotsubsystem;
 interface
 
 uses
-  Classes, SysUtils, vkcmobserver, longpoll, MainModel, ChatModel, entities;
+  Classes, SysUtils, vkcmobserver, MainModel, ChatModel, entities;
 
 type
 
@@ -87,8 +87,9 @@ begin
       begin
         Community := CommunityList[i];
         Dialogs := ChatModel.GetLastDialogs(Community);
-        for j := 0 to Dialogs.List do
+        for j := 0 to Dialogs.Count - 1 do
         begin
+          Dialog := Dialogs[j];
           if Dialog.Messages[0].Out = otRecieved then
             for k := 0 to Community.Chatbot.Commands.Count - 1 do
             begin
@@ -103,7 +104,7 @@ begin
                 NewMessage.FromId := Community.Id;
                 NewMessage.Id := Dialog.Person.Id;
                 NewMessage.Out := otSent;
-                ChatModel.SendMessage(Community, NewMessage);
+                ChatModel.SendMessage(Community, NewMessage)
               end;
             end;
         end;
@@ -131,11 +132,17 @@ begin
   FWorker.MainModel := AMainModel;
   FWorker.ChatModel := AChatModel;
   FWorker.FreeOnTerminate := True;
+  FWorker.Changed := False;
+  FWorker.Start;
+  FObserver := TVKCMObserver.Create;
+  FObserver.Notify := @OnNotification;
 end;
 
 destructor TChatBotSubSystem.Destroy;
 begin
   FWorker.Terminate;
+  FWorker.WaitFor;
+  FreeAndNil(FObserver);
   inherited Destroy;
 end;
 

@@ -42,7 +42,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="24">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -148,34 +148,20 @@
         <IsPartOfProject Value="True"/>
       </Unit20>
       <Unit21>
-        <Filename Value="Views\sendnewmessageview.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="SendNewMessgaesView"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="ViewModels\sendnewmessageviewmodel.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit22>
-      <Unit23>
         <Filename Value="Views\instrumentsview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="InstrumentsFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="ViewModels\chatbotsviewmodel.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit24>
-      <Unit25>
+      </Unit21>
+      <Unit22>
         <Filename Value="Infrastructure\chatbotsubsystem\chatbotsubsystem.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit25>
-      <Unit26>
+      </Unit22>
+      <Unit23>
         <Filename Value="ViewModels\instrumentsviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit26>
+      </Unit23>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

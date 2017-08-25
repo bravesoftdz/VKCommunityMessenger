@@ -101,7 +101,7 @@ var
 begin
   URL := 'https://' + Server.Server + '?act=a_check&key=' + Server.Key +
     '&ts=' + Server.TS + '&wait=5&mode=2&version=1';
-  Response := HTTPClient.Get(URL);
+  Response := DAO.ExecuteGetRequest(HTTPClient,URL);
   JSONResponse := GetJSON(Response) as TJSONObject;
   Updates := JSONResponse['updates'] as TJSONArray;
   if Updates.Count > 0 then

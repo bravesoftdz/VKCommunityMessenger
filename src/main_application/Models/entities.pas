@@ -217,14 +217,37 @@ begin
 end;
 
 function TChatBot.ToString: string;
+var
+  i: integer;
 begin
-  //TODO
-  Result := 'CHATBOT';
+  Result := '';
+  for i := 0 to Commands.Count - 1 do
+  begin
+    Result := Result + '|' + Commands[i].Command + '>' + Commands[i].Response;
+  end;
 end;
 
 procedure TChatBot.FillFromString(AStr: string);
+var
+  StringArray: TStringArray;
+  CommandString: string;
+  CommandStringArray: TStringArray;
+  NewCommand: TChatBotCommand;
+  i: integer;
 begin
-  //TODO
+  StringArray := AStr.Split(['|']);
+  for i := 0 to Length(StringArray) - 1 do
+  begin
+    CommandString := StringArray[i];
+    CommandStringArray := CommandString.Split(['>']);
+    if Length(CommandStringArray) = 2 then
+    begin
+      NewCommand := TChatBotCommand.Create;
+      NewCommand.Command := CommandStringArray[0];
+      NewCommand.Response := CommandStringArray[1];
+      Commands.Add(NewCommand);
+    end;
+  end;
 end;
 
 destructor TChatBot.Destroy;
@@ -428,6 +451,8 @@ begin
     Result.Photo := TPicture.Create;
     Result.Photo.Assign(Self.Photo);
   end;
+  Result.Chatbot := TChatBot.Create;
+  Result.Chatbot.FillFromString(Chatbot.ToString);
 end;
 
 destructor TCommunity.Destroy;

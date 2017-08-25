@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, AbstractModel, Graphics, fphttpclient, entities,
-  VKDAO, fpjson, dateutils;
+  VKDAO, fpjson, dateutils, syncobjs;
 
 type
 
@@ -141,7 +141,8 @@ end;
 
 procedure TChatModel.SendMessage(Community: TCommunity; Message: TMessage);
 begin
-  if Message.Message = '' then exit;
+  if Message.Message = '' then
+    exit;
   DAO.Messages.Send(HTTPClient, Community.AccessKey, Message.UserId, Message.Message);
 end;
 

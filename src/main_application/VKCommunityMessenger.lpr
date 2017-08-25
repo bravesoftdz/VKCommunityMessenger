@@ -72,6 +72,11 @@ begin
   LChatViewModel.Model := LChatModel;
   LChatView.ViewModel := LChatViewModel;
   LInstrumentsView.ViewModel := LInstrumentsViewModel;
+  LInstrumentsViewModel.Model := LMainModel;
+
+  {Create chatbotsubsystem}
+  LChatBotSubSystem := TChatBotSubSystem.Create(LMainModel,LChatModel);
+  LChatBotSubSystem.Observer.Subscribe(LMainModel.Observable);
 
   LWelcomePageView.InitializeFrame;
   LChatView.InitializeFrame;
