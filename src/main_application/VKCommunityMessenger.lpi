@@ -175,7 +175,15 @@
       <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO;Infrastructure\Helpers;Infrastructure\VKGSChat;Infrastructure\uriencoder;Infrastructure;Infrastructure\Longpoll;Infrastructure\chatbotsubsystem"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <Optimizations>
+        <OptimizationLevel Value="0"/>
+      </Optimizations>
+    </CodeGeneration>
     <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf2"/>
+      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>

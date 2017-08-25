@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, jsonparser, fphttpclient, vkcmconfig,
-  Graphics, sqldb, entities, DB, urlencoder, syncobjs;
+  Graphics, sqldb, entities, DB, urlencoder;
 
 type
 
@@ -71,9 +71,6 @@ type
 
 implementation
 
-var
-  HTTPCS: TCriticalSection;
-
 { TUsersDAO }
 
 class function TUsersDAO.StringifyUserIds(Ids: TStringList): string;
@@ -93,12 +90,7 @@ var
 begin
   URL := VK_API_BASE_URL + 'users.get?' + '&v=' + USED_API_VERSION +
     '&fields=city,photo_50,photo_200' + '&user_ids=' + StringifyUserIds(UserIds);
-  HTTPCS.Enter;
-  try
-    Response := Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+  Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
 
@@ -114,12 +106,8 @@ begin
     AccessToken + '&v=' + USED_API_VERSION + '&count=' + IntToStr(Count) +
     '&offset=' + IntToStr(Offset) + '&preview_length=1';
 
-  HTTPCS.Enter;
-  try
-    Response := Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+
+  Response := Client.Get(URL);
 
   Result := (GetJSON(Response) as TJSONObject);
 end;
@@ -132,12 +120,7 @@ begin
   URL := VK_API_BASE_URL + 'messages.getHistory?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserId +
     '&count=' + IntToStr(Count);
-  HTTPCS.Enter;
-  try
-    Response := Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+  Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
 
@@ -149,12 +132,7 @@ begin
   URL := VK_API_BASE_URL + 'messages.send?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserID +
     '&message=' + EncodeURL(Message);
-  HTTPCS.Enter;
-  try
-    Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+  Client.Get(URL);
 end;
 
 class function TMessagesDAO.GetLongPollServer(Client: TFPHTTPClient;
@@ -165,12 +143,7 @@ var
 begin
   URL := VK_API_BASE_URL + 'messages.getLongPollServer?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION;
-  HTTPCS.Enter;
-  try
-    Response := Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+  Response := Client.Get(URL);
   Result := GetJSON(Response) as TJSONObject;
 end;
 
@@ -264,12 +237,7 @@ var
   Stream: TMemoryStream;
 begin
   Stream := TMemoryStream.Create;
-  HTTPCS.Enter;
-  try
-    Client.SimpleGet(URL, Stream);
-  finally
-    HTTPCS.Leave;
-  end;
+  Client.SimpleGet(URL, Stream);
   Stream.Position := 0;
 
   Result := TPicture.Create;
@@ -278,12 +246,7 @@ end;
 
 class function DAO.ExecuteGetRequest(Client: TFPHTTPClient; URL: string): string;
 begin
-  HTTPCS.Enter;
-  try
-    Result := Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+  Result := Client.Get(URL);
 end;
 
 { TGroupsVKDAO }
@@ -296,21 +259,9 @@ begin
   URL := VK_API_BASE_URL + 'groups.getById?' + '&access_token=' +
     AccessKey + '&v=' + USED_API_VERSION + '&group_id=' + CommunityId +
     '&fields=has_photo';
-  HTTPCS.Enter;
-  try
-    Response := Client.Get(URL);
-  finally
-    HTTPCS.Leave;
-  end;
+  Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
 
-initialization
-
-  HTTPCS := TCriticalSection.Create;
-
-finalization
-
-  FreeAndNil(HTTPCS);
 
 end.

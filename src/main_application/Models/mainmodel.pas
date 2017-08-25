@@ -34,7 +34,6 @@ type
 
   TMainModel = class(TObserverModel, IMainModel, IModel)
   private
-    HTTPClient: TFPHTTPClient;
     Connection: TSQLite3Connection;
     LongpollWorker: TLongPollWorker;
     procedure ParseGroupGetByIdResponse(const JSONResponseDocument: TJSONObject;
@@ -63,7 +62,9 @@ procedure TMainModel.ParseGroupGetByIdResponse(const JSONResponseDocument: TJSON
 var
   JSONCommunityObject: TJSONObject;
   ResponseArray: TJSONArray;
+  HTTPClient: TFPHTTPClient;
 begin
+  HTTPClient := TFPHTTPClient.Create(nil);
   ResponseArray := (JSONResponseDocument['response'] as TJSONArray);
   JSONCommunityObject := (ResponseArray[0] as TJSONObject);
   {Serialize}
@@ -82,6 +83,7 @@ begin
   if Community.HasPhoto then
     Community.Photo := DAO.LoadPhoto(HTTPClient,
       JSONCommunityObject['photo_50'].AsString);
+  FreeAndNil(HTTPClient);
 end;
 
 procedure TMainModel.OnNotified;
@@ -91,8 +93,6 @@ end;
 
 constructor TMainModel.Create;
 begin
-  HTTPClient := TFPHTTPClient.Create(nil);
-
   Connection := TSQLite3Connection.Create(nil);
   Connection.DatabaseName := DATABASE_PATH;
   if not FileExists(DATABASE_PATH) then
@@ -117,7 +117,9 @@ function TMainModel.GetExtendedCommunityInformation(CommunityId,
   AccessKey: string): TCommunity;
 var
   JSONResponseDocument: TJSONObject;
+  HTTPClient: TFPHTTPClient;
 begin
+  HTTPClient := TFPHTTPClient.Create(nil);
   Result := TCommunity.Create;
   try
     JSONResponseDocument := DAO.Groups.GetById(HTTPClient, AccessKey, CommunityId);
@@ -127,6 +129,7 @@ begin
   except
     raise;
   end;
+  FreeAndNil(HTTPClient);
 end;
 
 procedure TMainModel.SaveCommunityInfo(Community: TCommunity);
@@ -201,7 +204,6 @@ end;
 destructor TMainModel.Destroy;
 begin
   Connection.Close();
-  FreeAndNil(HTTPClient);
   FreeAndNil(Connection);
   LongpollWorker.Terminate;
   LongpollWorker.WaitFor;

@@ -33,7 +33,6 @@ type
   TLongPollWorker = class(TThread)
   private
     Observable: TVKCMObservable;
-    HTTPClient: TFPHTTPClient;
     CommunitiesKeys: TStringList;
     procedure InitializeServerList(var ServersList: TLongPollServersObjectList);
     {Function returns first ts}
@@ -79,8 +78,14 @@ end;
 function TLongPollWorker.MakeFirstCall(AccessKey: string): TLongPollServer;
 var
   JSONResponse, Response: TJSONObject;
+  var HTTPClient: TFPHTTPClient;
 begin
+  HTTPClient := TFPHTTPClient.Create(nil);
+  try
   JSONResponse := DAO.Messages.GetLongPollServer(HTTPClient, AccessKey);
+  finally
+    FreeAndNil(HTTPClient);
+  end;
   Response := (JSONResponse['response'] as TJSONObject);
 
   Result := TLongPollServer.Create;
@@ -98,10 +103,16 @@ var
   Updates: TJSONArray;
   Update: TJSONArray;
   i: integer;
+  HTTPClient: TFPHTTPClient;
 begin
   URL := 'https://' + Server.Server + '?act=a_check&key=' + Server.Key +
     '&ts=' + Server.TS + '&wait=5&mode=2&version=1';
-  Response := DAO.ExecuteGetRequest(HTTPClient,URL);
+  HTTPClient := TFPHTTPClient.Create(nil);
+  try
+    Response := DAO.ExecuteGetRequest(HTTPClient, URL);
+  finally
+    FreeAndNil(HTTPClient);
+  end;
   JSONResponse := GetJSON(Response) as TJSONObject;
   Updates := JSONResponse['updates'] as TJSONArray;
   if Updates.Count > 0 then
@@ -168,7 +179,6 @@ constructor TLongPollWorker.Create(CreateSuspended: boolean;
 var
   i: integer;
 begin
-  HTTPClient := TFPHTTPClient.Create(nil);
   Observable := TVKCMObservable.Create;
   CommunitiesKeys := TStringList.Create;
   for i := 0 to Communities.Count - 1 do
@@ -184,7 +194,6 @@ end;
 
 destructor TLongPollWorker.Destroy;
 begin
-  FreeAndNil(HTTPClient);
   inherited Destroy;
 end;
 

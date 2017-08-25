@@ -78,6 +78,7 @@ var
   Command: TChatBotCommand;
   i, j, k: integer;
   NewMessage: TMessage;
+  RecievedMessage: string;
 begin
   while not Terminated do
     if Changed then
@@ -90,11 +91,13 @@ begin
         for j := 0 to Dialogs.Count - 1 do
         begin
           Dialog := Dialogs[j];
-          if Dialog.Messages[0].Out = otRecieved then
+          if Dialog.Messages[Dialog.Messages.Count - 1].Out = otRecieved then
+          begin
+            RecievedMessage := Dialog.Messages[Dialog.Messages.Count - 1].Message;
             for k := 0 to Community.Chatbot.Commands.Count - 1 do
             begin
               Command := Community.Chatbot.Commands[k];
-              if SameText(Dialog.Messages[0].Message, Command.Command) then
+              if SameText(RecievedMessage, Command.Command) then
               begin
                 NewMessage := TMessage.Create;
                 NewMessage.Message := Command.Response;
@@ -102,11 +105,12 @@ begin
                 NewMessage.Deleted := False;
                 NewMessage.Emoji := False;
                 NewMessage.FromId := Community.Id;
-                NewMessage.Id := Dialog.Person.Id;
+                NewMessage.UserId := Dialog.Person.Id;
                 NewMessage.Out := otSent;
-                ChatModel.SendMessage(Community, NewMessage)
+                ChatModel.SendMessage(Community, NewMessage);
               end;
             end;
+          end;
         end;
       end;
     end;

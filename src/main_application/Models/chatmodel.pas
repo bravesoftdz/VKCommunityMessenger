@@ -24,7 +24,6 @@ type
 
   TChatModel = class(TInterfacedObject, IChatModel, IModel)
   private
-    HTTPClient: TFPHTTPClient;
     procedure LoadMessagesIntoDialog(Dialog: TDialog; AccesKey: string);
   public
     constructor Create;
@@ -50,8 +49,14 @@ var
   i: integer;
   Message: TJSONObject;
   NewMessage: TMessage;
+  HTTPClient: TFPHTTPClient;
 begin
-  JSONResponse := DAO.Messages.GetHistory(HTTPClient, AccesKey, Dialog.Person.Id, 50);
+  HTTPClient := TFPHTTPClient.Create(nil);
+  try
+    JSONResponse := DAO.Messages.GetHistory(HTTPClient, AccesKey, Dialog.Person.Id, 50);
+  finally
+    FreeAndNil(HTTPClient);
+  end;
   Response := (JSONResponse['response'] as TJSONObject);
   Items := (Response['items'] as TJSONArray);
   for i := Items.Count - 1 downto 0 do
@@ -80,7 +85,7 @@ end;
 
 constructor TChatModel.Create;
 begin
-  HTTPClient := TFPHTTPClient.Create(nil);
+
 end;
 
 function TChatModel.GetSendPicture: TPicture;
@@ -108,10 +113,17 @@ var
   UserIds: TStringList;
   CurrentUser, City: TJSONObject;
   NewUser: TUser;
+  HTTPClient: TFPHTTPClient;
 begin
   UserIds := TStringList.Create;
   Result := TDialogsList.Create;
-  JSONDialogsResponse := DAO.Messages.GetDialogs(HTTPClient, Community.AccessKey, 10, 0);
+  HTTPClient := TFPHTTPClient.Create(nil);
+  try
+    JSONDialogsResponse := DAO.Messages.GetDialogs(HTTPClient,
+      Community.AccessKey, 10, 0);
+  finally
+    FreeAndNil(HTTPClient);
+  end;
   DialogsResponse := (JSONDialogsResponse['response'] as TJSONObject);
   Items := (DialogsResponse['items'] as TJSONArray);
   for i := 0 to Items.Count - 1 do
@@ -120,7 +132,12 @@ begin
     UserId := Message['user_id'].AsString;
     UserIds.Add(UserId);
   end;
-  JSONUserResponse := DAO.Users.Get(HTTPClient, UserIds);
+  HTTPClient := TFPHTTPClient.Create(nil);
+  try
+    JSONUserResponse := DAO.Users.Get(HTTPClient, UserIds);
+  finally
+    FreeAndNil(HTTPClient);
+  end;
   UserResponse := (JSONUserResponse['response'] as TJSONArray);
   for i := 0 to UserResponse.Count - 1 do
   begin
@@ -129,8 +146,18 @@ begin
     NewUser.Id := CurrentUser['id'].AsString;
     NewUser.FirstName := CurrentUser['first_name'].AsString;
     NewUser.LastName := CurrentUser['last_name'].AsString;
-    NewUser.Photo50 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_50'].AsString);
-    NewUser.Photo200 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_200'].AsString);
+    HTTPClient := TFPHTTPClient.Create(nil);
+    try
+      NewUser.Photo50 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_50'].AsString);
+    finally
+      FreeAndNil(HTTPClient);
+    end;
+    HTTPClient := TFPHTTPClient.Create(nil);
+    try
+      NewUser.Photo200 := DAO.LoadPhoto(HTTPClient, CurrentUser['photo_200'].AsString);
+    finally
+      FreeAndNil(HTTPClient);
+    end;
     NewDialog := TDialog.Create;
     NewDialog.Person := NewUser;
     LoadMessagesIntoDialog(NewDialog, Community.AccessKey);
@@ -140,15 +167,21 @@ begin
 end;
 
 procedure TChatModel.SendMessage(Community: TCommunity; Message: TMessage);
+var
+  HTTPClient: TFPHTTPClient;
 begin
   if Message.Message = '' then
     exit;
-  DAO.Messages.Send(HTTPClient, Community.AccessKey, Message.UserId, Message.Message);
+  HTTPClient := TFPHTTPClient.Create(nil);
+  try
+    DAO.Messages.Send(HTTPClient, Community.AccessKey, Message.UserId, Message.Message);
+  finally
+    FreeAndNil(HTTPClient);
+  end;
 end;
 
 destructor TChatModel.Destroy;
 begin
-  FreeAndNil(HTTPClient);
   inherited Destroy;
 end;
 
