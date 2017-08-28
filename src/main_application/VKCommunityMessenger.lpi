@@ -42,7 +42,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="24">
+    <Units Count="25">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -162,6 +162,10 @@
         <Filename Value="ViewModels\instrumentsviewmodel.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit23>
+      <Unit24>
+        <Filename Value="Infrastructure\logger\vkcmlogger.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit24>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -172,7 +176,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO;Infrastructure\Helpers;Infrastructure\VKGSChat;Infrastructure\uriencoder;Infrastructure;Infrastructure\Longpoll;Infrastructure\chatbotsubsystem"/>
+      <OtherUnitFiles Value="Vievs;ViewModels;Views;Models;Infrastructure\Observer;Config;Infrastructure\DAO;Infrastructure\Helpers;Infrastructure\VKGSChat;Infrastructure\uriencoder;Infrastructure;Infrastructure\Longpoll;Infrastructure\chatbotsubsystem;Infrastructure\logger"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>

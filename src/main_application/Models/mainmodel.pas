@@ -141,7 +141,9 @@ begin
   end;
   LongpollWorker.FreeOnTerminate := True;
   LongpollWorker.Terminate;
-  LongpollWorker := TLongPollWorker.Create(False, GetCommunities);
+  LongpollWorker := TLongPollWorker.Create(True, GetCommunities);
+  LongpollWorker.SubscribeForNotifications(Observer);
+  LongpollWorker.Start;
 end;
 
 function TMainModel.GetCommunities: TCommunityList;
@@ -152,34 +154,38 @@ var
   i: integer;
 begin
   Result := TCommunityList.Create;
-  CommunitiesDataset := DAO.Database.LoadDatabaseDataset(Connection, QueryTransaction);
-  CommunitiesDataset.Open;
-  CommunitiesDataset.First;
-  for i := 0 to CommunitiesDataset.RecordCount - 1 do
-  begin
-    Community := TCommunity.Create;
-    Community.HasPhoto := CommunitiesDataset.FieldByName('HasPhoto').AsBoolean;
-    if Community.HasPhoto then
+  try
+    CommunitiesDataset := DAO.Database.LoadDatabaseDataset(Connection, QueryTransaction);
+    CommunitiesDataset.Open;
+    CommunitiesDataset.First;
+    for i := 0 to CommunitiesDataset.RecordCount - 1 do
     begin
-      Community.Photo := TPicture.Create;
-      Community.Photo.LoadFromStream(CommunitiesDataset.CreateBlobStream(
-        CommunitiesDataset.FieldByName('Photo'), bmRead));
+      Community := TCommunity.Create;
+      Community.HasPhoto := CommunitiesDataset.FieldByName('HasPhoto').AsBoolean;
+      if Community.HasPhoto then
+      begin
+        Community.Photo := TPicture.Create;
+        Community.Photo.LoadFromStream(CommunitiesDataset.CreateBlobStream(
+          CommunitiesDataset.FieldByName('Photo'), bmRead));
+      end;
+      Community.AccessKey := CommunitiesDataset.FieldByName('AccessKey').AsString;
+      Community.CommunityType :=
+        StringToCommunityType(CommunitiesDataset.FieldByName('CommunityType').AsString);
+      Community.Deactivated := CommunitiesDataset.FieldByName('Deactivated').AsBoolean;
+      Community.Id := CommunitiesDataset.FieldByName('Id').AsString;
+      Community.IsClosed := CommunitiesDataset.FieldByName('IsClosed').AsBoolean;
+      Community.Name := CommunitiesDataset.FieldByName('Name').AsString;
+      Community.ScreenName := CommunitiesDataset.FieldByName('ScreenName').AsString;
+      Community.Chatbot.FillFromString(CommunitiesDataset.FieldByName(
+        'SerializedChatBot').AsString);
+      Result.Add(Community);
+      CommunitiesDataset.Next;
     end;
-    Community.AccessKey := CommunitiesDataset.FieldByName('AccessKey').AsString;
-    Community.CommunityType :=
-      StringToCommunityType(CommunitiesDataset.FieldByName('CommunityType').AsString);
-    Community.Deactivated := CommunitiesDataset.FieldByName('Deactivated').AsBoolean;
-    Community.Id := CommunitiesDataset.FieldByName('Id').AsString;
-    Community.IsClosed := CommunitiesDataset.FieldByName('IsClosed').AsBoolean;
-    Community.Name := CommunitiesDataset.FieldByName('Name').AsString;
-    Community.ScreenName := CommunitiesDataset.FieldByName('ScreenName').AsString;
-    Community.Chatbot.FillFromString(CommunitiesDataset.FieldByName(
-      'SerializedChatBot').AsString);
-    Result.Add(Community);
-    CommunitiesDataset.Next;
+    FreeAndNil(CommunitiesDataset);
+    FreeAndNil(QueryTransaction);
+  finally
+    DatabaseCS.Leave;
   end;
-  FreeAndNil(CommunitiesDataset);
-  FreeAndNil(QueryTransaction);
 end;
 
 

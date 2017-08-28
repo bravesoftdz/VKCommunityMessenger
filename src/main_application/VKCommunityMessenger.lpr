@@ -33,7 +33,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   openssl,
   Windows,
   chatbotsubsystem,
-  instrumentsviewmodel;
+  instrumentsviewmodel, vkcmlogger;
 
 {$R *.res}
 

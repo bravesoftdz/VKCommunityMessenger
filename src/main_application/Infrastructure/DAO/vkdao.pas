@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, jsonparser, fphttpclient, vkcmconfig,
-  Graphics, sqldb, entities, DB, urlencoder;
+  Graphics, sqldb, entities, DB, urlencoder, vkcmlogger, syncobjs;
 
 type
 
@@ -69,6 +69,9 @@ type
     class function ExecuteGetRequest(Client: TFPHTTPClient; URL: string): string;
   end;
 
+var
+  DatabaseCS: TCriticalSection;
+
 implementation
 
 { TUsersDAO }
@@ -90,6 +93,7 @@ var
 begin
   URL := VK_API_BASE_URL + 'users.get?' + '&v=' + USED_API_VERSION +
     '&fields=city,photo_50,photo_200' + '&user_ids=' + StringifyUserIds(UserIds);
+  OutDebug(URL);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
@@ -105,7 +109,7 @@ begin
   URL := VK_API_BASE_URL + 'messages.getDialogs?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&count=' + IntToStr(Count) +
     '&offset=' + IntToStr(Offset) + '&preview_length=1';
-
+  OutDebug(URL);
 
   Response := Client.Get(URL);
 
@@ -120,6 +124,7 @@ begin
   URL := VK_API_BASE_URL + 'messages.getHistory?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserId +
     '&count=' + IntToStr(Count);
+  OutDebug(URL);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
@@ -132,6 +137,7 @@ begin
   URL := VK_API_BASE_URL + 'messages.send?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserID +
     '&message=' + EncodeURL(Message);
+  OutDebug(URL);
   Client.Get(URL);
 end;
 
@@ -143,6 +149,7 @@ var
 begin
   URL := VK_API_BASE_URL + 'messages.getLongPollServer?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION;
+  OutDebug(URL);
   Response := Client.Get(URL);
   Result := GetJSON(Response) as TJSONObject;
 end;
@@ -158,36 +165,41 @@ var
 begin
   Transaction := TSQLTransaction.Create(nil);
   Query := TSQLQuery.Create(nil);
-  Database.Transaction := Transaction;
-  Query.Database := Database;
+  DatabaseCS.Enter;
+  try
+    Database.Transaction := Transaction;
+    Query.Database := Database;
 
-  Query.SQL.LoadFromFile(SQL_INSERT_COMMUNITY_QUERY);
+    Query.SQL.LoadFromFile(SQL_INSERT_COMMUNITY_QUERY);
 
-  Query.Params.ParamByName('ID').AsString := Community.Id;
-  Query.Params.ParamByName('NAME').AsString := Community.Name;
-  Query.Params.ParamByName('SCREENNAME').AsString := Community.ScreenName;
-  Query.Params.ParamByName('COMMUNITYTYPE').AsString :=
-    CommunintyTypeToString(Community.CommunityType);
-  Query.Params.ParamByName('ISCLOSED').AsBoolean := Community.IsClosed;
-  Query.Params.ParamByName('DEACTIVATED').AsBoolean := Community.Deactivated;
-  Query.Params.ParamByName('HASPHOTO').AsBoolean := Community.HasPhoto;
-  if Community.HasPhoto then
-  begin
-    MemoryStream := TMemoryStream.Create;
-    Community.Photo.SaveToStream(MemoryStream);
-    Query.Params.ParamByName('PHOTO').LoadFromStream(MemoryStream, ftBlob);
-    FreeAndNil(MemoryStream);
-  end
-  else
-    Query.Params.ParamByName('PHOTO').Clear;
-  Query.Params.ParamByName('ACCESSKEY').AsString := Community.AccessKey;
-  Query.Params.ParamByName('SERIALIZEDCHATBOT').AsString := Community.Chatbot.ToString;
+    Query.Params.ParamByName('ID').AsString := Community.Id;
+    Query.Params.ParamByName('NAME').AsString := Community.Name;
+    Query.Params.ParamByName('SCREENNAME').AsString := Community.ScreenName;
+    Query.Params.ParamByName('COMMUNITYTYPE').AsString :=
+      CommunintyTypeToString(Community.CommunityType);
+    Query.Params.ParamByName('ISCLOSED').AsBoolean := Community.IsClosed;
+    Query.Params.ParamByName('DEACTIVATED').AsBoolean := Community.Deactivated;
+    Query.Params.ParamByName('HASPHOTO').AsBoolean := Community.HasPhoto;
+    if Community.HasPhoto then
+    begin
+      MemoryStream := TMemoryStream.Create;
+      Community.Photo.SaveToStream(MemoryStream);
+      Query.Params.ParamByName('PHOTO').LoadFromStream(MemoryStream, ftBlob);
+      FreeAndNil(MemoryStream);
+    end
+    else
+      Query.Params.ParamByName('PHOTO').Clear;
+    Query.Params.ParamByName('ACCESSKEY').AsString := Community.AccessKey;
+    Query.Params.ParamByName('SERIALIZEDCHATBOT').AsString := Community.Chatbot.ToString;
 
-  Query.ExecSQL;
-  Transaction.Commit;
+    Query.ExecSQL;
+    Transaction.Commit;
+  finally
+    FreeAndNil(Query);
+    FreeAndNil(Transaction);
+    DatabaseCS.Leave;
+  end;
 
-  FreeAndNil(Query);
-  FreeAndNil(Transaction);
 end;
 
 class procedure TDatabaseDAO.ExecuteDatabaseCreationScript(Database: TSQLConnection);
@@ -198,18 +210,22 @@ var
 begin
   Transaction := TSQLTransaction.Create(nil);
   Script := TSQLScript.Create(nil);
-  Database.Transaction := Transaction;
-  Script.Transaction := Transaction;
+  DatabaseCS.Enter;
+  try
+    Database.Transaction := Transaction;
+    Script.Transaction := Transaction;
 
-  Script.Script.LoadFromFile(DATABASE_CREATION_SCRIPT);
+    Script.Script.LoadFromFile(DATABASE_CREATION_SCRIPT);
 
-  Transaction.Active := True;
-  Script.Terminator := '--**';
-  Script.Execute;
-  Transaction.Commit;
-  Transaction.Active := False;
-
-  FreeAndNil(Transaction);
+    Transaction.Active := True;
+    Script.Terminator := '--**';
+    Script.Execute;
+    Transaction.Commit;
+    Transaction.Active := False;
+  finally
+    FreeAndNil(Transaction);
+    DatabaseCS.Leave;
+  end;
 end;
 
 class function TDatabaseDAO.LoadDatabaseDataset(Database: TSQLConnection;
@@ -237,6 +253,7 @@ var
   Stream: TMemoryStream;
 begin
   Stream := TMemoryStream.Create;
+  OutDebug(URL);
   Client.SimpleGet(URL, Stream);
   Stream.Position := 0;
 
@@ -246,6 +263,7 @@ end;
 
 class function DAO.ExecuteGetRequest(Client: TFPHTTPClient; URL: string): string;
 begin
+  OutDebug(URL);
   Result := Client.Get(URL);
 end;
 
@@ -259,9 +277,17 @@ begin
   URL := VK_API_BASE_URL + 'groups.getById?' + '&access_token=' +
     AccessKey + '&v=' + USED_API_VERSION + '&group_id=' + CommunityId +
     '&fields=has_photo';
+  OutDebug(URL);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
 
+initialization
+
+  DatabaseCS := TCriticalSection.Create;
+
+finalization
+
+  FreeAndNil(DatabaseCS);
 
 end.

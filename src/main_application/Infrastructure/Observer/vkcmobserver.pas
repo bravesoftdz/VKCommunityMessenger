@@ -65,8 +65,9 @@ end;
 
 procedure TVKCMObservable.SetObservers(AValue: TVKCMObserversList);
 begin
-  if FObservers=AValue then Exit;
-  FObservers:=AValue;
+  if FObservers = AValue then
+    Exit;
+  FObservers := AValue;
 end;
 
 constructor TVKCMObservable.Create;

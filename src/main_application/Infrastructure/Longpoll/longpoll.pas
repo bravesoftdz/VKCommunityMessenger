@@ -78,11 +78,12 @@ end;
 function TLongPollWorker.MakeFirstCall(AccessKey: string): TLongPollServer;
 var
   JSONResponse, Response: TJSONObject;
-  var HTTPClient: TFPHTTPClient;
+var
+  HTTPClient: TFPHTTPClient;
 begin
   HTTPClient := TFPHTTPClient.Create(nil);
   try
-  JSONResponse := DAO.Messages.GetLongPollServer(HTTPClient, AccessKey);
+    JSONResponse := DAO.Messages.GetLongPollServer(HTTPClient, AccessKey);
   finally
     FreeAndNil(HTTPClient);
   end;
@@ -165,7 +166,7 @@ begin
       CurrentServer := ServersList[i];
 
       if ProcessServer(CurrentServer) then
-        Queue(@NotifyObserversThreadMethod);
+        Synchronize(@NotifyObserversThreadMethod);
 
       if terminated then
         break;
