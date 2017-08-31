@@ -113,6 +113,7 @@ begin
           end;
         end;
       end;
+      Changed := false;
     end;
 end;
 

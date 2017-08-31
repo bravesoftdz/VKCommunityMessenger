@@ -5,13 +5,15 @@ unit vkcmlogger;
 interface
 
 uses
-  Classes, SysUtils, syncobjs;
+  Classes, SysUtils, syncobjs, ssockets;
 
 procedure OutDebug(ADebugStr: string);
 
 implementation
 
 var CS: TCriticalSection;
+
+{$DEFINE DEBUG}
 
 procedure OutDebug(ADebugStr: string);
 var StrList: TStringList;
