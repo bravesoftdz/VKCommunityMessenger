@@ -5,7 +5,7 @@ unit vkcmlogger;
 interface
 
 uses
-  Classes, SysUtils, syncobjs, ssockets;
+  Classes, SysUtils, syncobjs;
 
 procedure OutDebug(ADebugStr: string);
 

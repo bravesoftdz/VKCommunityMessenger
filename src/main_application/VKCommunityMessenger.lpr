@@ -33,7 +33,8 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   openssl,
   Windows,
   chatbotsubsystem,
-  instrumentsviewmodel, vkcmlogger;
+  instrumentsviewmodel,
+  vkcmlogger;
 
 {$R *.res}
 
@@ -75,7 +76,7 @@ begin
   LInstrumentsViewModel.Model := LMainModel;
 
   {Create chatbotsubsystem}
-  LChatBotSubSystem := TChatBotSubSystem.Create(LMainModel,LChatModel);
+  LChatBotSubSystem := TChatBotSubSystem.Create(LMainModel, LChatModel);
   LChatBotSubSystem.Observer.Subscribe(LMainModel.Observable);
 
   LWelcomePageView.InitializeFrame;
