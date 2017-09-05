@@ -13,8 +13,6 @@ implementation
 
 var CS: TCriticalSection;
 
-{$DEFINE DEBUG}
-
 procedure OutDebug(ADebugStr: string);
 var StrList: TStringList;
 begin

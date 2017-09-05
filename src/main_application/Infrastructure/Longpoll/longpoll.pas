@@ -161,6 +161,7 @@ begin
 
   while not Terminated do
   begin
+    try
     for i := 0 to ServersList.Count - 1 do
     begin
       CurrentServer := ServersList[i];
@@ -170,6 +171,8 @@ begin
 
       if terminated then
         break;
+    end;
+    except
     end;
   end;
   FreeAndNil(ServersList);
