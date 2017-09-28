@@ -8,6 +8,8 @@ App for group messaging in VK social network
 
 ## Information
 
-See our [projecs for the first release](https://github.com/Zawuza/VKCommunityMessenger/projects/1)!
+Download our [current release](https://github.com/Zawuza/VKCommunityMessenger/releases/tag/v0.2dev)!
 
-Our app uses [linea iconset](http://linea.io)
+See our [projecs for the next release](https://github.com/Zawuza/VKCommunityMessenger/projects/3)!
+
+Our app uses [linea iconset](http://linea.io) that is licensed under CCBY license
