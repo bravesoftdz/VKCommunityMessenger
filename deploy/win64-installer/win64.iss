@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "VKCommunityMessenger"
-#define MyAppVersion "0.1dev (Marine Band)"
+#define MyAppVersion "0.2dev (Crossover)"
 #define MyAppPublisher "Andrei Aleksandrov"
 #define MyAppURL "https://github.com/Zawuza/VKCommunityMessenger"
 #define MyAppExeName "VKCommunityMessenger.exe"
