@@ -99,3 +99,6 @@ lib/
 
 #Personal data for deploy
 deploy/store/*
+
+#backups of Visual Paradigm projects
+*.vpp.*
