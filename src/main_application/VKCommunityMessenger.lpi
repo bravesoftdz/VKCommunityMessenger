@@ -42,7 +42,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="25">
+    <Units Count="27">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -166,6 +166,16 @@
         <Filename Value="Infrastructure\logger\vkcmlogger.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit24>
+      <Unit25>
+        <Filename Value="Models\modelapi.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ModelAPI"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="Models\modeldatamodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ModelDataModel"/>
+      </Unit26>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
