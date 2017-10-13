@@ -42,7 +42,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="28">
       <Unit0>
         <Filename Value="VKCommunityMessenger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -176,6 +176,10 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ModelDataModel"/>
       </Unit26>
+      <Unit27>
+        <Filename Value="Models\modelbroker.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

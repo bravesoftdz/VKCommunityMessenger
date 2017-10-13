@@ -29,7 +29,7 @@ type
     property Response: string read GetResponse;
   end;
 
-  TChatBotCommandsList = specialize TFPGList<IChatBotCommand>;
+  TChatBotCommandsList = specialize TFPGInterfacedObjectList<IChatBotCommand>;
 
   { IChatBot
     is a container of multiple commands }
@@ -56,7 +56,7 @@ type
     property Picture200: TPicture read GetPicture200;
   end;
 
-  TUserList = specialize TFPGList<IUser>;
+  TUserList = specialize TFPGInterfacedObjectList<IUser>;
 
   {Enum that defines whether somethig (message) is read or not}
   TReadState = (rsRead, rsUnread);
@@ -95,7 +95,7 @@ type
     property Emoji: boolean read GetEmoji;
   end;
 
-  TMessageList = specialize TFPGList<IMessage>;
+  TMessageList = specialize TFPGInterfacedObjectList<IMessage>;
 
   { IDialog
     is a representation of dialog in the model }
@@ -109,7 +109,7 @@ type
     property Messages: TMessageList read GetMessages;
   end;
 
-  TDialogsList = specialize TFPGList<IDIalog>;
+  TDialogsList = specialize TFPGInterfacedObjectList<IDIalog>;
 
   { ICommunity
     is a representation of community in the model }
@@ -146,12 +146,19 @@ type
     property Chatbot: IChatBot read GetChatbot;
   end;
 
-  TCommunitiesList = specialize TFPGList<ICommunity>;
+  TCommunitiesList = specialize TFPGInterfacedObjectList<ICommunity>;
+
+  IObserver = interface;
 
   { IBroker
     is an observable with a difference that broker has own control flow (own thread, for example) }
-  IBroker = class
-
+  IBroker = interface
+    { Subscribes observer to broker }
+    procedure Subscribe (AObserver: IObserver);
+    { Unsubscribes observer from broker }
+    procedure Unsubscribe (AObserver: IObserver);
+    { Notifies all observers }
+    procedure NotifyAllObservers;
   end;
 
   TVKCMNotifyEvent = procedure of object;
@@ -160,16 +167,17 @@ type
     is an abstract observer (see Observer pattern)}
   IObserver = interface
     function GetNotify: TVKCMNotifyEvent;
+    procedure SetNotify(AValue: TVKCMNotifyEvent);
     {Event that executes by notification}
-    property Notify: TVKCMNotifyEvent read GetNotify;
+    property Notify: TVKCMNotifyEvent read GetNotify write SetNotify;
     {Subscribes to broker}
     procedure Subscribe(ABroker: IBroker);
     {Unsubscribes from broker}
     procedure Unsubscribe(ABroker: IBroker);
     {Sends message to broker. This forces broker to notify every subscriber}
-    procedure MessageToBroker;
+    procedure MessageToBrokers;
     {Unsubscribe from all brokers}
-    procedure UnsubscribeAll;
+    procedure UnsubscribeFromAll;
   end;
 
 
@@ -183,6 +191,12 @@ type
     is a service that provides storage for communities, messages and
     dialogs}
   IStorageService = interface
+
+  end;
+
+  { IMessageSender
+    is a service for sending messages }
+  IMessageSender = interface
 
   end;
 

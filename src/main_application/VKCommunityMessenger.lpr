@@ -34,7 +34,7 @@ uses {$IFDEF UNIX} {$IFDEF UseCThreads}
   Windows,
   chatbotsubsystem,
   instrumentsviewmodel,
-  vkcmlogger, ModelAPI, ModelDataModel;
+  vkcmlogger, ModelAPI, ModelDataModel, ModelBroker;
 
 {$R *.res}
 
