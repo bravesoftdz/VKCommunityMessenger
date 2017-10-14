@@ -118,12 +118,14 @@ type
     function GetChatbot: IChatBot;
     function GetCommunityType: TCommunityType;
     function GetDeactivated: boolean;
+    function GetDialogs: TDialogsList;
     function GetHasPhoto: boolean;
     function GetId: string;
     function GetIsClosed: boolean;
     function GetName: string;
     function GetPhoto: TPicture;
     function GetScreenName: string;
+    procedure SetDialogs(AValue: TDialogsList);
     {Name of community}
     property Name: string read GetName;
     {Unique id of community}
@@ -144,6 +146,8 @@ type
     property AccessKey: string read GetAccessKey;
     {Chatbot of community}
     property Chatbot: IChatBot read GetChatbot;
+    {Dialogs of community}
+    property Dialogs: TDialogsList read GetDialogs write SetDialogs;
   end;
 
   TCommunitiesList = specialize TFPGInterfacedObjectList<ICommunity>;
@@ -154,9 +158,9 @@ type
     is an observable with a difference that broker has own control flow (own thread, for example) }
   IBroker = interface
     { Subscribes observer to broker }
-    procedure Subscribe (AObserver: IObserver);
+    procedure Subscribe(AObserver: IObserver);
     { Unsubscribes observer from broker }
-    procedure Unsubscribe (AObserver: IObserver);
+    procedure Unsubscribe(AObserver: IObserver);
     { Notifies all observers }
     procedure NotifyAllObservers;
   end;
@@ -191,13 +195,26 @@ type
     is a service that provides storage for communities, messages and
     dialogs}
   IStorageService = interface
-
+    {Function returns list of last 10 dialogs
+     @param(CommunityId is a string, unique id of community)}
+    function GetLastDialogsForCommunity(CommunityId: string): TDialogsList;
+    {This function updates information about community (properties and chatbot structure, not dialogs)
+     @param(Community is a community that will replace old community)}
+    procedure UpdateCommunityInformation(Community: ICommunity);
+    {This function returns list of all communities that are stored in this application/database}
+    function GetCommunities: TCommunitiesList;
+    {This function adds new community and saves in the storage}
+    procedure AddNewCommunity(CommunityID, AccessKey: string);
   end;
 
   { IMessageSender
     is a service for sending messages }
   IMessageSender = interface
-
+    {Send message to a user from community
+     @param(CommunityID is an id of community that should send the message)
+     @param(Message is a text of message)
+     @param(PersonID is a id of reciever)}
+    procedure SendMessage(CommunityID, Message, PersonID: string);
   end;
 
 {Converts string to TCommunityType

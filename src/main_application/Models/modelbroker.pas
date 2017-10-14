@@ -68,7 +68,20 @@ type
     destructor Destroy; override;
   end;
 
+{Instance of global broker for model}
+function ModelBroker: IBroker;
+
 implementation
+
+var
+  gBroker: IBroker;
+
+function ModelBroker: IBroker;
+begin
+  if not Assigned(gBroker) then
+    gBroker := TModelBroker.Create;
+  Result := gBroker;
+end;
 
 { TModelObserver }
 
@@ -176,6 +189,9 @@ procedure TModelBroker.Subscribe(AObserver: IObserver);
 begin
   FCS.Enter;
   try
+    if FSubscribedObservers.IndexOf(AObserver) <> -1 then
+      raise Exception.Create(
+        'Trying to subscribe an observer that is currently subscribed');
     FSubscribedObservers.Add(AObserver);
   finally
     FCS.Leave;

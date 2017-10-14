@@ -3,7 +3,8 @@ program vkcmtests;
 {$mode objfpc}{$H+}
 
 uses
-  Interfaces, Forms, GuiTestRunner, fpcunittestrunner, ModelBrokerTests;
+  Interfaces, Forms, GuiTestRunner, fpcunittestrunner, ModelBrokerTests,
+  ModelAPI, ModelStorage, StorageTests;
 
 {$R *.res}
 

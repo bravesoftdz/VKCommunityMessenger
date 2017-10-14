@@ -39,7 +39,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="4">
       <Unit0>
         <Filename Value="vkcmtests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -49,6 +49,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="ModelBrokerTests"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="..\main_application\Models\modelstorage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ModelStorage"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="storagetests.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="StorageTests"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -57,6 +67,7 @@
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="..\main_application\Models"/>
+      <UnitOutputDirectory Value="D:\Prog\VKCommunityMessenger\src\main_tests\out"/>
     </SearchPaths>
   </CompilerOptions>
   <Debugging>

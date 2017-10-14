@@ -8,7 +8,7 @@ unit ModelAPI;
 interface
 
 uses
-  Classes, SysUtils, ModelDataModel;
+  Classes, SysUtils, ModelDataModel, ModelBroker;
 
 type
 
@@ -46,7 +46,9 @@ type
   TModelAPIDefaultImplementation = class(TInterfacedObject, IModelAPI)
   private
     FMessageStorage: IStorageService;
-    FObserver: IObserver;
+    FSender: IMessageSender;
+    {A link to global broker}
+    FGlobalBroker: IBroker;
   public
     {Constructor
      @param(MessageService is a storage of messages)
@@ -74,7 +76,7 @@ var
 function ModelAPI: IModelAPI;
 begin
   if not Assigned(gModelAPI) then
-    gModelAPI := TModelAPIDefaultImplementation.Create;
+    gModelAPI := TModelAPIDefaultImplementation.Create(nil, ModelBroker.ModelBroker);
   Result := gModelAPI;
 end;
 
@@ -84,48 +86,46 @@ constructor TModelAPIDefaultImplementation.Create(MessageStorage: IStorageServic
   Broker: IBroker);
 begin
   FMessageStorage := MessageStorage;
-  FObserver := //concrete;
-    FObserver.Subrscribe(Broker);
+  FGlobalBroker := Broker;
 end;
 
-function TModelAPIDefaultImplementation.GetLastDialogsFor(CommunityId:
-  string): TDialogsList;
+function TModelAPIDefaultImplementation.GetLastDialogsFor(CommunityId: string):
+TDialogsList;
 begin
-
+  Result := FMessageStorage.GetLastDialogsForCommunity(CommunityId);
 end;
 
 procedure TModelAPIDefaultImplementation.SendMessage(CommunityId: string;
   MessageText: string; PersonId: string);
 begin
-
+  FSender.SendMessage(CommunityId, MessageText, PersonId);
 end;
 
 procedure TModelAPIDefaultImplementation.UpdateCommunityInfo(Community: ICommunity);
-
 begin
-
+  FMessageStorage.UpdateCommunityInformation(Community);
 end;
 
 procedure TModelAPIDefaultImplementation.Subscribe(Me: IObserver);
 begin
-
+  Me.Subscribe(FGlobalBroker);
 end;
 
 function TModelAPIDefaultImplementation.GetCommunities: TCommunitiesList;
 begin
-
+  Result := FMessageStorage.GetCommunities;
 end;
 
 procedure TModelAPIDefaultImplementation.AddNewCommunity(CommunityId: string;
   AccessKey: string);
 begin
-
+  FMessageStorage.AddNewCommunity(CommunityId, AccessKey);
 end;
 
 destructor TModelAPIDefaultImplementation.Destroy;
 begin
   FMessageStorage := nil;
-  FObserver.UnsubscribeAll;
+  FGlobalBroker := nil;
   inherited Destroy;
 end;
 
