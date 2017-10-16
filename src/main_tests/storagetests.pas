@@ -12,11 +12,11 @@ type
   { TMockDAO }
 
   TMockDAO = class(TInterfacedObject, IDAOAdapter)
-    procedure UpsertCommunity(Community: ICommunity);
+    function ExtendCommunityInformation(CommunityId: string; AccessKey: string
+      ): ICommunity;
     function ReadCommunitiesList: TCommunitiesList;
     procedure SaveCommunitiesList(List: TCommunitiesList);
-    function ExtendCommunityInformation(CommunityId: string;
-      AccessKey: string): ICommunity;
+    procedure UpsertCommunity(Community: ICommunity);
   end;
 
   { TStorageTests }
