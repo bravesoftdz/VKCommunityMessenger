@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpjson, jsonparser, fphttpclient, vkcmconfig,
-  Graphics, sqldb, entities, DB, urlencoder, vkcmlogger, syncobjs;
+  Graphics, sqldb, entities, DB, urlencoder, syncobjs;
 
 type
 
@@ -93,7 +93,6 @@ var
 begin
   URL := VK_API_BASE_URL + 'users.get?' + '&v=' + USED_API_VERSION +
     '&fields=city,photo_50,photo_200' + '&user_ids=' + StringifyUserIds(UserIds);
-  OutDebug(URL);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
@@ -109,7 +108,6 @@ begin
   URL := VK_API_BASE_URL + 'messages.getDialogs?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&count=' + IntToStr(Count) +
     '&offset=' + IntToStr(Offset) + '&preview_length=1';
-  OutDebug(URL);
 
   Response := Client.Get(URL);
 
@@ -124,7 +122,6 @@ begin
   URL := VK_API_BASE_URL + 'messages.getHistory?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserId +
     '&count=' + IntToStr(Count);
-  OutDebug(URL);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;
@@ -137,7 +134,6 @@ begin
   URL := VK_API_BASE_URL + 'messages.send?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION + '&user_id=' + UserID +
     '&message=' + EncodeURL(Message);
-  OutDebug(URL);
   Client.Get(URL);
 end;
 
@@ -149,7 +145,6 @@ var
 begin
   URL := VK_API_BASE_URL + 'messages.getLongPollServer?' + '&access_token=' +
     AccessToken + '&v=' + USED_API_VERSION;
-  OutDebug(URL);
   Response := Client.Get(URL);
   Result := GetJSON(Response) as TJSONObject;
 end;
@@ -253,7 +248,6 @@ var
   Stream: TMemoryStream;
 begin
   Stream := TMemoryStream.Create;
-  OutDebug(URL);
   Client.SimpleGet(URL, Stream);
   Stream.Position := 0;
 
@@ -263,7 +257,6 @@ end;
 
 class function DAO.ExecuteGetRequest(Client: TFPHTTPClient; URL: string): string;
 begin
-  OutDebug(URL);
   Result := Client.Get(URL);
 end;
 
@@ -277,7 +270,6 @@ begin
   URL := VK_API_BASE_URL + 'groups.getById?' + '&access_token=' +
     AccessKey + '&v=' + USED_API_VERSION + '&group_id=' + CommunityId +
     '&fields=has_photo';
-  OutDebug(URL);
   Response := Client.Get(URL);
   Result := (GetJSON(Response) as TJSONObject);
 end;

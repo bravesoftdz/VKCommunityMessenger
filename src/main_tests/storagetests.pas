@@ -9,8 +9,14 @@ uses
 
 type
 
-  TMockDAO = class(TInterfacedObject, IDAOAdapter)
+  { TMockDAO }
 
+  TMockDAO = class(TInterfacedObject, IDAOAdapter)
+    procedure UpsertCommunity(Community: ICommunity);
+    function ReadCommunitiesList: TCommunitiesList;
+    procedure SaveCommunitiesList(List: TCommunitiesList);
+    function ExtendCommunityInformation(CommunityId: string;
+      AccessKey: string): ICommunity;
   end;
 
   { TStorageTests }
@@ -29,6 +35,29 @@ var
   DAO: TMockDAO;
 
 implementation
+
+{ TMockDAO }
+
+procedure TMockDAO.UpsertCommunity(Community: ICommunity);
+begin
+
+end;
+
+function TMockDAO.ReadCommunitiesList: TCommunitiesList;
+begin
+
+end;
+
+procedure TMockDAO.SaveCommunitiesList(List: TCommunitiesList);
+begin
+
+end;
+
+function TMockDAO.ExtendCommunityInformation(CommunityId: string;
+  AccessKey: string): ICommunity;
+begin
+
+end;
 
 { TStorageTests }
 
