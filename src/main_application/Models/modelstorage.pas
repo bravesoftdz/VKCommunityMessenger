@@ -9,6 +9,28 @@ uses
 
 type
 
+  { TLongPollServer }
+
+  TLongPollServer = class
+  private
+    FId: string;
+    FTS: string;
+    FKey: string;
+    FServer: string;
+    procedure SetId(AValue: string);
+    procedure SetTS(AValue: string);
+    procedure SetKey(AValue: string);
+    procedure SetServer(AValue: string);
+  public
+    property Key: string read FKey write SetKey;
+    property Server: string read FServer write SetServer;
+    property TS: string read FTS write SetTS;
+    property Id: string read FId write SetId;
+  end;
+
+  TLongPollServersObjectList = specialize TFPGObjectList<TLongpollServer>;
+
+
   { IDAOAdapter }
 
   IDAOAdapter = interface
@@ -17,6 +39,8 @@ type
     procedure SaveCommunitiesList(List: TCommunitiesList);
     function ExtendCommunityInformation(CommunityId: string;
       AccessKey: string): ICommunity;
+    function NeedsUpdate(Server: TLongPollServer): boolean;
+    function FirstCallLongpoll(AccessKey: string): TLongPollServer;
   end;
 
   { TDAOAdapter }
@@ -46,6 +70,8 @@ type
     FObserver: IObserver;
     procedure SetDAO(AValue: IDAOAdapter);
     procedure SetStorage(AValue: TModelStorageService);
+    procedure ProcessServer(Server: TLongPollServer);
+    procedure UpdateDialogsFor(Server: TLongPollServer);
   protected
     procedure Execute;
   public
@@ -75,6 +101,30 @@ type
   end;
 
 implementation
+
+{ TLongPollServer }
+
+procedure TLongPollServer.SetId(AValue: string);
+begin
+  if FId = AValue then
+    Exit;
+  FId := AValue;
+end;
+
+procedure TLongPollServer.SetTS(AValue: string);
+begin
+  FTS := AValue;
+end;
+
+procedure TLongPollServer.SetKey(AValue: string);
+begin
+  FKey := AValue;
+end;
+
+procedure TLongPollServer.SetServer(AValue: string);
+begin
+  FServer := AValue;
+end;
 
 { TDAOAdapter }
 
@@ -128,6 +178,19 @@ begin
   FStorage := AValue;
 end;
 
+procedure TLongpollThread.ProcessServer(Server: TLongPollServer);
+begin
+  if FDAO.NeedsUpdate(Server) then
+  begin
+    UpdateDialogsFor(Server);
+  end;
+end;
+
+procedure TLongpollThread.UpdateDialogsFor(Server: TLongPollServer);
+begin
+
+end;
+
 procedure TLongpollThread.SetDAO(AValue: IDAOAdapter);
 begin
   if FDAO = AValue then
@@ -136,13 +199,37 @@ begin
 end;
 
 procedure TLongpollThread.Execute;
+var
+  i: integer;
+  CurrentServer: TLongPollServer;
+  Communities: TCommunitiesList;
+  LServersList: TLongPollServersObjectList;
 begin
   if (not Assigned(FStorage)) or (not Assigned(FDAO)) then
     raise Exception.Create('Not all properties of longpoll are filled');
 
+  Communities := FStorage.GetCommunities;
 
+  LServersList := TLongPollServersObjectList.Create(True);
+  for i := 0 to Communities.Count - 1 do
+  begin
+    LServersList.Add(FDAO.FirstCallLongpoll(Communities[i].AccessKey));
+  end;
 
-
+  while not Terminated do
+  begin
+    try
+      for i := 0 to LServersList.Count - 1 do
+      begin
+        CurrentServer := LServersList[i];
+        ProcessServer(CurrentServer);
+        if terminated then
+          break;
+      end;
+    except
+    end;
+  end;
+  FreeAndNil(LServersList);
 
 end;
 
@@ -178,8 +265,8 @@ begin
   FCommunityStorage := DAOAdapter.ReadCommunitiesList;
 end;
 
-function TModelStorageService.GetLastDialogsForCommunity(CommunityId: string):
-TDialogsList;
+function TModelStorageService.GetLastDialogsForCommunity(CommunityId:
+  string): TDialogsList;
 var
   Community: ICommunity;
 begin

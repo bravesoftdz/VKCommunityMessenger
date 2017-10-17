@@ -12,8 +12,11 @@ type
   { TMockDAO }
 
   TMockDAO = class(TInterfacedObject, IDAOAdapter)
+  public
     function ExtendCommunityInformation(CommunityId: string; AccessKey: string
       ): ICommunity;
+    function FirstCallLongpoll(AccessKey: string): TLongPollServer;
+    function NeedsUpdate(Server: TLongPollServer): boolean;
     function ReadCommunitiesList: TCommunitiesList;
     procedure SaveCommunitiesList(List: TCommunitiesList);
     procedure UpsertCommunity(Community: ICommunity);
@@ -23,6 +26,7 @@ type
 
   TStorageTests = class(TTestCase)
   private
+    FDAO: TMockDAO;
     FStorage: IStorageService;
   protected
     procedure Setup; override;
@@ -30,9 +34,6 @@ type
   published
 
   end;
-
-var
-  DAO: TMockDAO;
 
 implementation
 
@@ -55,6 +56,16 @@ end;
 
 function TMockDAO.ExtendCommunityInformation(CommunityId: string;
   AccessKey: string): ICommunity;
+begin
+
+end;
+
+function TMockDAO.FirstCallLongpoll(AccessKey: string): TLongPollServer;
+begin
+
+end;
+
+function TMockDAO.NeedsUpdate(Server: TLongPollServer): boolean;
 begin
 
 end;
