@@ -5,7 +5,7 @@ unit ModelStorage;
 interface
 
 uses
-  Classes, SysUtils, ModelDataModel, sqldb, DB, sqlite3conn, vkcmconfig, vkdao, syncobjs;
+  Classes, SysUtils, ModelDataModel, sqldb, DB, sqlite3conn, vkcmconfig, vkdao, syncobjs, fgl;
 
 type
 
@@ -13,15 +13,18 @@ type
 
   TLongPollServer = class
   private
+    FCommunityId: string;
     FId: string;
     FTS: string;
     FKey: string;
     FServer: string;
+    procedure SetCommunityId(AValue: string);
     procedure SetId(AValue: string);
     procedure SetTS(AValue: string);
     procedure SetKey(AValue: string);
     procedure SetServer(AValue: string);
   public
+    property CommunityId: string read FCommunityId write SetCommunityId;
     property Key: string read FKey write SetKey;
     property Server: string read FServer write SetServer;
     property TS: string read FTS write SetTS;
@@ -40,7 +43,8 @@ type
     function ExtendCommunityInformation(CommunityId: string;
       AccessKey: string): ICommunity;
     function NeedsUpdate(Server: TLongPollServer): boolean;
-    function FirstCallLongpoll(AccessKey: string): TLongPollServer;
+    function FirstCallLongpoll(CommunityId, AccessKey: string): TLongPollServer;
+    function LoadDialogsForCommunity(Community: ICommunity): TDialogsList;
   end;
 
   { TDAOAdapter }
@@ -55,6 +59,9 @@ type
     procedure SaveCommunitiesList(List: TCommunitiesList);
     function ExtendCommunityInformation(CommunityId: string;
       AccessKey: string): ICommunity;
+    function NeedsUpdate(Server: TLongPollServer): boolean;
+    function FirstCallLongpoll(CommunityId, AccessKey: string): TLongPollServer;
+    function LoadDialogsForCommunity(Community: ICommunity): TDialogsList;
     destructor Destroy; override;
   end;
 
@@ -89,11 +96,12 @@ type
     {Critical section for access to storage}
     FCS: TCriticalSection;
     FCommunityStorage: TCommunitiesList;
-    function GetCommunityById(Id: string): ICommunity;
+    FLongPoll: TLongpollThread;
     function GetIndexOfCommunity(Id: string): integer;
   public
     constructor Create(DAOAdapter: IDAOAdapter);
     function GetLastDialogsForCommunity(CommunityId: string): TDialogsList;
+    function GetCommunityById(Id: string): ICommunity;
     procedure UpdateCommunityInformation(Community: ICommunity);
     function GetCommunities: TCommunitiesList;
     procedure AddNewCommunity(CommunityID, AccessKey: string);
@@ -109,6 +117,13 @@ begin
   if FId = AValue then
     Exit;
   FId := AValue;
+end;
+
+procedure TLongPollServer.SetCommunityId(AValue: string);
+begin
+  if FCommunityId = AValue then
+    Exit;
+  FCommunityId := AValue;
 end;
 
 procedure TLongPollServer.SetTS(AValue: string);
@@ -162,6 +177,23 @@ begin
 
 end;
 
+function TDAOAdapter.NeedsUpdate(Server: TLongPollServer): boolean;
+begin
+
+end;
+
+function TDAOAdapter.FirstCallLongpoll(CommunityId, AccessKey: string
+  ): TLongPollServer;
+begin
+
+end;
+
+function TDAOAdapter.LoadDialogsForCommunity(Community: ICommunity
+  ): TDialogsList;
+begin
+
+end;
+
 destructor TDAOAdapter.Destroy;
 begin
   FConnection.Close;
@@ -184,11 +216,24 @@ begin
   begin
     UpdateDialogsFor(Server);
   end;
+  FObserver.MessageToBrokers;
 end;
 
 procedure TLongpollThread.UpdateDialogsFor(Server: TLongPollServer);
+var
+  Community: ICommunity;
+  Dialogs: TDialogsList;
+  Index: integer;
 begin
-
+  Community := FStorage.GetCommunityById(Server.Id);
+  Dialogs := FDAO.LoadDialogsForCommunity(Community);
+  FStorage.FCS.Enter;
+  try
+    Index := FStorage.GetIndexOfCommunity(Community.Id);
+    FStorage.FCommunityStorage[Index].Dialogs := Dialogs;
+  finally
+    FStorage.FCS.Leave;
+  end;
 end;
 
 procedure TLongpollThread.SetDAO(AValue: IDAOAdapter);
@@ -213,7 +258,7 @@ begin
   LServersList := TLongPollServersObjectList.Create(True);
   for i := 0 to Communities.Count - 1 do
   begin
-    LServersList.Add(FDAO.FirstCallLongpoll(Communities[i].AccessKey));
+    LServersList.Add(FDAO.FirstCallLongpoll(Communities[i].Id,Communities[i].AccessKey));
   end;
 
   while not Terminated do
@@ -258,11 +303,19 @@ begin
 end;
 
 constructor TModelStorageService.Create(DAOAdapter: IDAOAdapter);
+var
+  i: integer;
 begin
   FDAOAdapter := DAOAdapter;
   FCS :=
     TCriticalSection.Create;
   FCommunityStorage := DAOAdapter.ReadCommunitiesList;
+  for i := 0 to FCommunityStorage.Count - 1 do
+    FCommunityStorage[i].Dialogs :=
+      FDAOAdapter.LoadDialogsForCommunity(FCommunityStorage[i]);
+  FLongPoll := TLongpollThread.Create(True);
+  FLongPoll.FStorage := Self;
+  FLongPoll.FDAO := FDAOAdapter;
 end;
 
 function TModelStorageService.GetLastDialogsForCommunity(CommunityId:

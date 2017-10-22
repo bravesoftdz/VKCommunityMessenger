@@ -203,8 +203,14 @@ type
     procedure UpdateCommunityInformation(Community: ICommunity);
     {This function returns list of all communities that are stored in this application/database}
     function GetCommunities: TCommunitiesList;
-    {This function adds new community and saves in the storage}
+    {This function adds new community, loads full information from internet and saves it in the storage
+     @param(CommunityId is an ID of community that should be added)
+     @param(AccessKey is a key of community)}
     procedure AddNewCommunity(CommunityID, AccessKey: string);
+    {This function returns community by id
+     @param(Id of community)
+     @return(Community with specified ID)}
+    function GetCommunityById(Id: string): ICommunity;
   end;
 
   { IMessageSender
