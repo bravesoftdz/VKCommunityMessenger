@@ -10,7 +10,6 @@ uses
 type
 
   { TLongPollServer }
-
   TLongPollServer = class
   private
     FCommunityId: string;
@@ -35,7 +34,6 @@ type
 
 
   { IDAOAdapter }
-
   IDAOAdapter = interface
     procedure UpsertCommunity(Community: ICommunity);
     function ReadCommunitiesList: TCommunitiesList;
@@ -47,8 +45,8 @@ type
     function LoadDialogsForCommunity(Community: ICommunity): TDialogsList;
   end;
 
-  { TDAOAdapter }
-
+  { TDAOAdapter
+    is a "production" implementation of IDAOAdapter}
   TDAOAdapter = class(TInterfacedObject, IDAOAdapter)
   private
     FConnection: TSQLite3Connection;

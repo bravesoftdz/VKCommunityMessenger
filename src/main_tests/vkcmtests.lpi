@@ -67,7 +67,7 @@
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="..\main_application\Models"/>
-      <UnitOutputDirectory Value=".\out"/>
+      <UnitOutputDirectory Value="out"/>
     </SearchPaths>
   </CompilerOptions>
   <Debugging>
