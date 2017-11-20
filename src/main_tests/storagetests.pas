@@ -5,7 +5,8 @@ unit StorageTests;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, ModelDataModel, ModelStorage;
+  Classes, SysUtils, fpcunit, testutils, testregistry, ModelDataModel, ModelStorage,
+  ModelEntitiesImplementation;
 
 type
 
@@ -15,7 +16,11 @@ type
   Configure* method that you can use to change behavior of this mock}
   TMockDAO = class(TInterfacedObject, IDAOAdapter)
   private
-
+    FResultExtendCommunityInformation: ICommunity;
+    FResultFirstCallLongPoll: TLongPollServer;
+    FResultNeedsUpdate: boolean;
+    FResultReadCommunitiesList: TCommunitiesList;
+    FResultLoadDialogsForCommunity: TDialogsList;
   public
     {Creates mock with default return values}
     constructor Create;
@@ -29,7 +34,7 @@ type
     procedure ConfigureExtendCommunityInformation(AResult: ICommunity);
     {Implementation of IDAOAdapter method. Can be configured in
      ConfigureFirstCallLongPoll method}
-    function FirstCallLongpoll(AccessKey: string): TLongPollServer;
+    function FirstCallLongpoll(CommunityId, AccessKey: string): TLongPollServer;
     {Configures TMockDAO.FirstCallLongpoll method
     @param(AResult is a result that should be returned by calling
     FirstCallLongPoll)}
@@ -50,12 +55,6 @@ type
     procedure SaveCommunitiesList(List: TCommunitiesList);
     {Implementation of IDAOAdapter interface}
     procedure UpsertCommunity(Community: ICommunity);
-    {Implementation of IDAOAdapter interface. Can be configured in a method.
-     Can be configured in method ConfigureFirstCallLongPoll}
-    function FirstCallLongpoll(CommunityId, AccessKey: string): TLongPollServer;
-    {Configures behavior of FirstCallLongpoll
-     @param(AResult is a result of FirstCallLongPoll)}
-    procedure ConfigureFirstCallLongPoll(AResult: TLongPollServer);
     {Implementation of IDAOAdapter interface. Can be configured in a method
      ConfigureLoadDialogsForCommunity()}
     function LoadDialogsForCommunity(Community: ICommunity): TDialogsList;
@@ -68,20 +67,51 @@ type
 
   TStorageTests = class(TTestCase)
   private
-    FDAO: IDAOAdapter;
-    {FDAO as TMockDAO}
-    function FDAO_M: TMockDAO;
   protected
-    procedure Setup; override;
-    procedure TearDown; override;
   published
-
+    {Test tries to create full datamodel and saves it in storage}
+    procedure CreationTest;
   end;
 
 var
   DAO: TMockDAO;
 
 implementation
+
+{ TStorageTests }
+
+procedure TStorageTests.CreationTest;
+var
+  DAO: IDAOAdapter;
+  Storage: IStorageService;
+  Communities: TCommunitiesList;
+  ChatBot: IChatBot;
+  Commands: TChatBotCommandsList;
+  Dialogs: TDialogsList;
+  MessagesList: TMessageList;
+  User: IUser;
+begin
+  DAO := TMockDAO.Create;
+  {Create chatbot}
+  Commands := TChatBotCommandsList.Create;
+  Commands.Add(TChatBotCommand.Create('hi!', 'hi!'));
+  ChatBot := TChatBot.Create(Commands);
+  {Create user}
+  User := TUser.Create('Andrei','zawwww','Aleksandrov',nil,nil);
+  {Create dialogs}
+  Dialogs := TDialogsList.Create;
+  MessagesList := TMessageList.Create;
+  MessagesList.Add(TMessage.Create(Now(), False, False, 'someID',
+    'anotherID', 'Hallo!', otRecieved, rsUnread, 'Hallo!'));
+  Dialogs.Add(TDialog.Create(User,MessagesList));
+  {Create community}
+  Communities := TCommunitiesList.Create;
+  Communities.Add(TCommunity.Create('ac', ChatBot, ctGroup, False,
+    Dialogs, False, 'lol', False, 'MyGroup', 'mgroup', nil));
+  (DAO as TMockDAO).ConfigureReadCommunitiesList(Communities);
+  Storage := TModelStorageService.Create(DAO);
+  //TODO: Test that all entities were delivered
+end;
 
 { TMockDAO }
 
@@ -92,65 +122,67 @@ end;
 
 function TMockDAO.FirstCallLongpoll(CommunityId, AccessKey: string): TLongPollServer;
 begin
-
+  Result := FResultFirstCallLongPoll;
 end;
 
 function TMockDAO.LoadDialogsForCommunity(Community: ICommunity): TDialogsList;
 begin
+  Result := FResultLoadDialogsForCommunity;
+end;
 
+procedure TMockDAO.ConfigureLoadDialogsForCommunity(AResult: TDialogsList);
+begin
+  FResultLoadDialogsForCommunity := AResult;
 end;
 
 function TMockDAO.ReadCommunitiesList: TCommunitiesList;
 begin
+  Result := FResultReadCommunitiesList;
+end;
 
+procedure TMockDAO.ConfigureReadCommunitiesList(AResult: TCommunitiesList);
+begin
+  FResultReadCommunitiesList := AResult;
 end;
 
 procedure TMockDAO.SaveCommunitiesList(List: TCommunitiesList);
 begin
-
+  //nothing
 end;
 
 constructor TMockDAO.Create;
 begin
   ConfigureExtendCommunityInformation(nil);
+  ConfigureFirstCallLongpoll(nil);
+  ConfigureLoadDialogsForCommunity(nil);
+  ConfigureNeedsUpdate(False);
+  ConfigureReadCommunitiesList(nil);
 end;
 
 function TMockDAO.ExtendCommunityInformation(CommunityId: string;
   AccessKey: string): ICommunity;
 begin
-
+  Result := FResultExtendCommunityInformation;
 end;
 
 procedure TMockDAO.ConfigureExtendCommunityInformation(AResult: ICommunity);
 begin
-
+  FResultExtendCommunityInformation := AResult;
 end;
 
-function TMockDAO.FirstCallLongpoll(AccessKey: string): TLongPollServer;
+procedure TMockDAO.ConfigureFirstCallLongpoll(AResult: TLongPollServer);
 begin
-
+  FResultFirstCallLongPoll := AResult;
 end;
 
 function TMockDAO.NeedsUpdate(Server: TLongPollServer): boolean;
 begin
-
+  Result := FResultNeedsUpdate;
 end;
 
-{ TStorageTests }
-
-function TStorageTests.FDAO_M: TMockDAO;
+procedure TMockDAO.ConfigureNeedsUpdate(AResult: boolean);
 begin
-  Result := (FDAO as TMockDAO);
-end;
-
-procedure TStorageTests.Setup;
-begin
-  FDAO := TMockDAO.Create;
-end;
-
-procedure TStorageTests.TearDown;
-begin
-  FDAO := nil;
+  FResultNeedsUpdate := AResult;
 end;
 
 initialization

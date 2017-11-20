@@ -76,7 +76,6 @@ type
     function GetOut: TOutType;
     function GetReadState: TReadState;
     function GetTitle: string;
-    function GetUserId: string;
     {Id of message}
     property Id: string read GetId;
     {Text of message}
@@ -146,7 +145,9 @@ type
     property AccessKey: string read GetAccessKey;
     {Chatbot of community}
     property Chatbot: IChatBot read GetChatbot;
-    {Dialogs of community}
+    {Dialogs of community.
+     Dialogs has a setter, because it should be possible to update
+     dialogs without updating community}
     property Dialogs: TDialogsList read GetDialogs write SetDialogs;
   end;
 

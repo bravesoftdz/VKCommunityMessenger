@@ -4,7 +4,7 @@ program vkcmtests;
 
 uses
   Interfaces, Forms, GuiTestRunner, fpcunittestrunner, ModelBrokerTests,
-  ModelAPI, ModelStorage, StorageTests;
+  ModelAPI, ModelStorage, StorageTests, modelentitiesimplementation;
 
 {$R *.res}
 

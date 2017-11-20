@@ -39,7 +39,7 @@
         <PackageName Value="FCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="vkcmtests.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -59,6 +59,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="StorageTests"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="..\main_application\Models\modelentitiesimplementation.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ModelEntitiesImplementation"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
