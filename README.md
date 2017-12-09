@@ -1,5 +1,7 @@
 # VKCommunityMessenger
 
+## Development of the project stopped and will not be continued
+
 ![Logo](https://raw.githubusercontent.com/Zawuza/VKCommunityMessenger/master/logo.jpg)
 
 App for group messaging in VK social network
